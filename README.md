@@ -1,1 +1,1 @@
-# Video games rental service
+# Video game rental service
