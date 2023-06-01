@@ -28,16 +28,30 @@ namespace GameRental.Data.Repositories
 
             var games = await _gamesCollection.Find(_ => true).ToListAsync();
 
-            _logger.LogInformation("Retrieved {Count} games from database", games.Count);
+            _logger.LogInformation("Retrieved {Count} game(s) from database", games.Count);
 
             return games;
         }
 
-        public async Task<Game?> GetAsync(string id) =>
-            await _gamesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        public async Task<Game?> GetAsync(string id)
+        {
+            _logger.LogInformation("Querying games collection in database");
 
-        public async Task CreateAsync(Game newGame) =>
+            var game = await _gamesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+
+            _logger.LogInformation("Retrieved game with id: {Id} from database", game.Id);
+
+            return game;
+        }
+
+        public async Task CreateAsync(Game newGame)
+        {
+            _logger.LogInformation("Creating new game document in games collection");
+
             await _gamesCollection.InsertOneAsync(newGame);
+
+            _logger.LogInformation("Created new game document with id: {Id}", newGame.Id);
+        }
 
         public async Task UpdateAsync(string id, Game updatedGame) =>
             await _gamesCollection.ReplaceOneAsync(x => x.Id == id, updatedGame);
