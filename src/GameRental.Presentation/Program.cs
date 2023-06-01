@@ -41,20 +41,38 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
             new Game
             {
                 Title = "The Legend of Zelda: Tears of the Kingdom",
-                Genre = new List<string> { "Action-adventure" },
-                Platform = "Nintendo Switch"
+                Genre = new List<string> { "Action", "Adventure" },
+                Platform = "Nintendo Switch",
+                Explore = new List<string> { "Featured", "New release" },
+                ReleaseDate = new DateTime(2023, 11, 15),
+                Developer = new List<string> { "Nintendo" },
+                Publisher = "Nintendo",
+                Description = "The Legend of Zelda: Tears of the Kingdom is an action-adventure game developed and published by Nintendo for the Nintendo Switch.",
+                ESRBRating = "E10+"
             },
             new Game
             {
                 Title = "God of War: Ragnarok",
-                Genre = new List<string> { "Action-adventure", "Hack and slash" },
-                Platform = "PlayStation 5"
+                Genre = new List<string> { "Action", "Adventure" },
+                Platform = "PlayStation 5",
+                Explore = new List<string> { "Featured", "New release" },
+                ReleaseDate = new DateTime(2022, 6, 30),
+                Developer = new List<string> { "Santa Monica Studio" },
+                Publisher = "Sony Interactive Entertainment",
+                Description = "God of War: Ragnarok is an action-adventure game developed by Santa Monica Studio and published by Sony Interactive Entertainment for the PlayStation 5.",
+                ESRBRating = "M"
             },
             new Game
             {
                 Title = "Dishonored 2",
-                Genre = new List<string> { "Action-adventure", "Stealth" },
-                Platform = "Xbox One"
+                Genre = new List<string> { "Action", "Adventure", "Stealth" },
+                Platform = "Xbox One",
+                Explore = new List<string> { "Featured" },
+                ReleaseDate = new DateTime(2016, 11, 11),
+                Developer = new List<string> { "Arkane Studios" },
+                Publisher = "Bethesda Softworks",
+                Description = "Dishonored 2 is an action-adventure stealth video game developed by Arkane Studios and published by Bethesda Softworks.",
+                ESRBRating = "M"
             }
         };
 

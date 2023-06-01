@@ -51,6 +51,11 @@ export class FetchData extends Component {
             <th>Title</th>
             <th>Genre</th>
             <th>Platform</th>
+            <th>Explore</th>
+            <th>Release Date</th>
+            <th>Developer</th>
+            <th>Publisher</th>
+            <th>ESRB Rating</th>
           </tr>
         </thead>
         <tbody>
@@ -59,6 +64,11 @@ export class FetchData extends Component {
               <td>{game.title}</td>
               <td>{game.genre.join(', ')}</td>
               <td>{game.platform}</td>
+              <td>{game.explore.join(', ')}</td>
+              <td>{game.releaseDate}</td>
+              <td>{game.developer}</td>
+              <td>{game.publisher}</td>
+              <td>{game.esrbRating}</td>
             </tr>
           )}
         </tbody>
