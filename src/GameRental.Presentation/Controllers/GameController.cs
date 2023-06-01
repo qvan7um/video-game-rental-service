@@ -28,4 +28,16 @@ public class GameController : ControllerBase
 
         return games;
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] Game newGame)
+    {
+        _logger.LogInformation("Received POST request to /game endpoint");
+
+        await _gameService.Create(newGame);
+
+        _logger.LogInformation("Created new game with title: {Title}", newGame.Title);
+
+        return CreatedAtAction(nameof(Get), new { id = newGame.Id }, newGame);
+    }
 }
