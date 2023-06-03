@@ -26,16 +26,25 @@ namespace GameRental.Logic.Services
             return games;
         }
 
-        public async Task<Game?> Get(string id) =>
-            await _gameRepository.GetAsync(id);
+        public async Task<Game?> Get(string id)
+        {
+            _logger.LogInformation("Retrieving game with id: {Id} from database", id);
+
+            var game = await _gameRepository.GetAsync(id);
+
+            _logger.LogInformation("Retrieved game with id: {Id} from database", id);
+
+            return game;
+        }
 
         public async Task Create(Game newGame)
         {
-            _logger.LogInformation("Creating new game with title: {Title}", newGame.Title);
-
             await _gameRepository.CreateAsync(newGame);
+        }
 
-            _logger.LogInformation("Created new game with title: {Title}", newGame.Title);
+        public async Task Update(string id, Game updatedGame)
+        {
+            await _gameRepository.UpdateAsync(id, updatedGame);
         }
     }
 }
