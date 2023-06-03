@@ -19,6 +19,9 @@ body {
     display: inline-block;
 }
 
+i{
+    background: #505050;
+}
 
 .dropdown .dropdown-btn {
     padding: 10px;
@@ -39,33 +42,6 @@ body {
 .dropdown-btn {
     border-radius: 5px;
 }
-i{
-    background: #505050;
-    position: relative;
-}
-.chip-btn {
-    position: absolute;
-    border-radius: 20px;
-    border-color: #0085ff;
-    background-color: #125592;
-    color: #fff;
-    padding: 0px 10px;
-}
-
-.chip-btn:hover {
-    position: absolute;
-    border-radius: 20px;
-    border-color: #0085ff;
-    background-color: #125592;
-    color: #fff;
-}
-
-.chip-btn > i {
-    padding-left: 4px;
-}
-.chip {
-    padding: 10px;
-}
 
 .dropdown .dropdown-contents {
     position: absolute;
@@ -79,13 +55,7 @@ i{
     width: 100%;
 }
 
-.sub-dropdown-contents{
-    position: sticky;
-    background-color: #646464;
-}
-
-
-.dropdown .dropdown-contents .dropdown-item{
+.dropdown .dropdown-contents .dropdown-item {
     padding: 10px;
     cursor: pointer;
     transition: all 0.2s;
@@ -94,7 +64,6 @@ i{
 .dropdown .dropdown-contents .dropdown-item:hover {
     background: #484848;
 }
-
 
 
 
