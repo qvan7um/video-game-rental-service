@@ -53,10 +53,14 @@ namespace GameRental.Data.Repositories
             _logger.LogInformation("Created new game document with id: {Id}", newGame.Id);
         }
 
-        public async Task UpdateAsync(string id, Game updatedGame) =>
+        public async Task UpdateAsync(string id, Game updatedGame)
+        {
             await _gamesCollection.ReplaceOneAsync(x => x.Id == id, updatedGame);
+        }
 
-        public async Task RemoveAsync(string id) =>
+        public async Task RemoveAsync(string id)
+        {
             await _gamesCollection.DeleteOneAsync(x => x.Id == id);
+        }
     }
 }
