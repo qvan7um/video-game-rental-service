@@ -4,6 +4,33 @@
   word-break: break-all;
 }
 
+Navbar, a {
+  background: #000;
+}
+
+.container {
+  padding: 0px;
+}
+
+.nav {
+  background: black;
+  margin-bottom: none;
+}
+
+.flex-sm-row-reverse {
+  background: #000;
+}
+
+.navbar-logo {
+  color: #fff;
+  background: #000;
+  margin: 0px;
+}
+
+.navbar-logo:hover {
+  color: #fff;
+}
+
 html {
   font-size: 14px;
 }
@@ -16,3 +43,6 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+
+
