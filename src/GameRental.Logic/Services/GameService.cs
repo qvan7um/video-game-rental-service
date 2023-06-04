@@ -46,5 +46,9 @@ namespace GameRental.Logic.Services
         {
             await _gameRepository.UpdateAsync(id, updatedGame);
         }
+    
+        public async Task Delete(string id){
+            await _gameRepository.RemoveAsync(id);
+        }
     }
 }
