@@ -22,7 +22,7 @@ public class GameController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery]SieveModel sieveModel)
+    public async Task<IActionResult> Get([FromQuery] SieveModel sieveModel)
     {
         _logger.LogInformation("Received GET request to /game endpoint");
 
@@ -32,6 +32,24 @@ public class GameController : ControllerBase
         _logger.LogInformation("Retrieved {Count} games from database", games.Count);
 
         return Ok(result.ToList()) ;
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(string id)
+    {
+        _logger.LogInformation("Received GET request to /game/{Id} endpoint", id);
+
+        var game = await _gameService.Get(id);
+
+        if (game == null)
+        {
+            _logger.LogInformation("Game with id: {Id} not found", id);
+            return NotFound();
+        }
+
+        _logger.LogInformation("Retrieved game with id: {Id} from database", id);
+
+        return Ok(game);
     }
 
     [HttpPost]
@@ -44,5 +62,17 @@ public class GameController : ControllerBase
         _logger.LogInformation("Created new game with title: {Title}", newGame.Title);
 
         return CreatedAtAction(nameof(Get), new { id = newGame.Id }, newGame);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(string id, [FromBody] Game updatedGame)
+    {
+        _logger.LogInformation("Received PUT request to /game/{Id} endpoint", id);
+
+        await _gameService.Update(id, updatedGame);
+
+        _logger.LogInformation("Updated game with id: {Id}", id);
+
+        return NoContent();
     }
 }
