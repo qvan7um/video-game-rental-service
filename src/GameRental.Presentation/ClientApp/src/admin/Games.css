@@ -1,0 +1,214 @@
+* {
+  background: #292929;
+}
+
+.manage-container {
+  margin: 10px 30px 0px 30px;
+}
+
+.search-bar > button {
+    width: 5%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    height: 3rem;
+    border: none;
+    background-color: #505050;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    padding-bottom: 4px;
+}
+
+.search-bar > input {
+    width: 95%;
+    height: 3rem;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border: none;
+    background-color: #505050;
+    color: #a9a9a9;
+    font-size: 16px;
+    
+}
+
+.tb-wrapper {
+  /* position: relative; */
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.tb {
+    color: #000;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.tb-body {
+    background-color: #504e4e;
+    color: #fff ;
+    align-items: center;
+}
+
+.tb-body > tr {
+  height: 64px;
+  border-bottom: #888888 1px solid;
+}
+
+.tb-body > tr:hover {
+  border: #0085ff 2px solid;
+  border-radius: 10px;
+}
+
+tr:last-child {
+  border: none;
+}
+
+.tb-head > tr > th {
+  padding: 10px 20px;
+  color: #fff;
+}
+
+.tb-body > tr > td  {
+  color: #fff ;
+  padding: 20px;
+  background-color: #505050;
+}
+
+.games-container {
+    background-color: #504e4e !important;
+}
+
+tr:first-child td:first-child { border-top-left-radius: 10px; }
+tr:first-child td:last-child { border-top-right-radius: 10px; }
+
+tr:last-child td:first-child { border-bottom-left-radius: 10px; }
+tr:last-child td:last-child { border-bottom-right-radius: 10px; }
+
+.range-dropdown > div.dropdown{
+    float: right;
+}
+
+.button {
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-area {
+  margin-top: 20px;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.btn-add {
+  background-color: #0085ff;
+  color: #fff;
+}
+
+.btn-add:hover {
+  background-color: #014c92;
+}
+
+.btn-edit , .btn-delete, .btn-detail {
+  float: right;
+  margin-left: 10px;
+}
+
+.btn-detail {
+  background-color: #04D600;
+  color: #fff;
+}
+
+.btn-detail:hover {
+  background-color: #039800;
+  color: #fff;
+}
+
+.btn-edit {
+  background-color: #ff9900;
+  color: #fff;
+}
+
+.btn-edit:hover {
+  background-color: #b96f00;
+  color: #fff;
+}
+
+.btn-delete {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #9c0000;
+  color: #fff;
+}
+
+.dropbtn {
+  background-color: #545454;
+  color: white;
+  padding: 12px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 128px;
+  vertical-align: middle;
+  text-align: left;
+  height: 40px;
+}
+
+.filter-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.filter-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+.filter-dropdown:hover .dropbtn {
+  background-color: #606060;
+}
+
+.filter-content {
+  display: flex;
+  background-color: #125592;
+  border-color: #0085ff;
+  color: #fff;
+  border-radius: 15px;
+  justify-content: center;
+}
+
+.fa-times {
+  font-size: 12px;
+  background-color: rgba(0,0,0,0);
+  align-items: center;
+}
