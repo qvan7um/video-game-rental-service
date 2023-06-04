@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Games.css'
 import '../App.css'
 import Dropdown from '../components/Dropdown';
-
+import DropdownSoft from '../components/DropdownSoft';
 
 
 export class Games extends Component {
@@ -24,6 +24,7 @@ export class Games extends Component {
   
   static renderGamesTable(games) {
     return (
+      <div className='tb-wrapper'>
       <table className="tb" aria-labelledby="tableLabel">
         <thead className='tb-head'>
           <tr>
@@ -37,6 +38,7 @@ export class Games extends Component {
             <th>ESRB Rating</th>
           </tr>
         </thead>
+        
         <tbody className='tb-body'>
           {games.map(game =>
             <tr key={game.id}>
@@ -52,6 +54,7 @@ export class Games extends Component {
           )}
         </tbody>
       </table>
+        </div>
     );
   }
 
@@ -67,8 +70,10 @@ export class Games extends Component {
           <button type='submit'><i className='fa fa-search'></i></button>
           <input type='text' placeholder='Tìm kiếm'/>
         </form>
-        <Dropdown Type={'filter'} Title={'Lọc'} content={['Platform' ,'Genre', 'Publisher']}/>
-        <Dropdown Type={'range'} Title={'Sắp xếp'} content={['Mới nhất', 'Từ A - Z', 'Từ Z -A']}/>
+        <Dropdown Type={'filter'} Title={'Lọc'} content={[['Platform' ,'PS5', 'PS4','NintendoS'],
+                                                          ['Genre', 'Action','RGP','Adventure'],
+                                                          ['Publisher','CapCom','Ubisort','Nintendo']]}/>
+        <DropdownSoft Type={'range'} Title={'Sắp xếp'} content={['Mới nhất', 'Từ A - Z', 'Từ Z -A']}/>
         {/* <Chip
           label="Clickable Deletable"
           onClick={handleClick}

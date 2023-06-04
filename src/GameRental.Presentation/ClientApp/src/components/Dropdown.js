@@ -79,7 +79,7 @@ function Dropdown({Type, Title, content = [][100]}) {
         </div>}
         {isActiveChip &&
         <div className='chip' onClick={e => setIsAtiveChip(!isActiveChip)}>
-            <button className='btn chip-btn'>{buttonText}<i className='fa fa-times'/></button>
+            <button className='chip-btn'>{buttonText}<i className='fa fa-times'/></button>
         </div>}
     </div>
   )
