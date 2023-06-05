@@ -60,5 +60,14 @@ namespace GameRental.Data.Repositories
         {
             await _gamesCollection.DeleteOneAsync(x => x.Id == id);
         }
+
+        public async Task<List<Game>> SearchAsync(string? searchTerm){
+            var games = await GetAsync();
+            if (searchTerm == null || searchTerm.Trim() == ""){
+                return games;
+            }
+            var res = await _gamesCollection.Find(x => x.Title.ToLower().Contains(searchTerm.Trim().ToLower())).ToListAsync();
+            return res;
+        }
     }
 }

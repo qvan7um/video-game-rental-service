@@ -5,11 +5,14 @@ using GameRental.Logic.Services;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Sieve.Models;
 using Sieve.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<SieveOptions>(builder.Configuration.GetSection("Sieve"));
+
 builder.Services.Configure<GameRentalDatabaseSettings>(
     builder.Configuration.GetSection("GameRentalDatabase")
 );
