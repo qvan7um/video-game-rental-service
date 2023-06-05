@@ -14,16 +14,31 @@ builder.Services.Configure<GameRentalDatabaseSettings>(
     builder.Configuration.GetSection("GameRentalDatabase")
 );
 
-builder.Services.AddScoped<ISieveProcessor, SieveProcessor>();
+// Dependency injections (singleton)
+builder.Services.AddSingleton<IMongoClient>(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<GameRentalDatabaseSettings>>();
+    return new MongoClient(settings.Value.ConnectionString);
+});
 
 builder.Services.AddSingleton<GameRepository>();
-builder.Services.AddSingleton<GameService>();
 
 // Dependency injections (scoped)
+builder.Services.AddScoped<ISieveProcessor, SieveProcessor>();
+
+builder.Services.AddScoped<GameService>();
+
+// builder.Services.AddScoped<IMongoCollection<Game>>(sp =>
+// {
+//     var settings = sp.GetRequiredService<IOptions<GameRentalDatabaseSettings>>();
+//     var client = new MongoClient(settings.Value.ConnectionString);
+//     var database = client.GetDatabase(settings.Value.DatabaseName);
+//     return database.GetCollection<Game>(settings.Value.GamesCollectionName);
+// });
 builder.Services.AddScoped<IMongoCollection<Game>>(sp =>
 {
     var settings = sp.GetRequiredService<IOptions<GameRentalDatabaseSettings>>();
-    var client = new MongoClient(settings.Value.ConnectionString);
+    var client = sp.GetRequiredService<IMongoClient>();
     var database = client.GetDatabase(settings.Value.DatabaseName);
     return database.GetCollection<Game>(settings.Value.GamesCollectionName);
 });
