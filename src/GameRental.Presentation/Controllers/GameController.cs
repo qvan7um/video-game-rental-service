@@ -22,9 +22,21 @@ public class GameController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] ParameterModel sieveModel)
+    public async Task<List<Game>> Get()
     {
         _logger.LogInformation("Received GET request to /game endpoint");
+
+        var games = await _gameService.Get();
+
+        _logger.LogInformation("Retrieved {Count} games from database", games.Count);
+
+        return games;
+    }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> Get([FromQuery] ParameterModel sieveModel)
+    {
+        _logger.LogInformation("Received GET request to /game/search endpoint");
 
         var games = await _gameService.Search(sieveModel.searchTerm);
         var result = _sieveProcessor.Apply(sieveModel, games.AsQueryable());
