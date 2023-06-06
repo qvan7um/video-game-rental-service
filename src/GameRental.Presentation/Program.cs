@@ -25,11 +25,13 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 });
 
 builder.Services.AddSingleton<GameRepository>();
+builder.Services.AddSingleton<ContractRepository>();
 
 // Dependency injections (scoped)
 builder.Services.AddScoped<ISieveProcessor, SieveProcessor>();
 
 builder.Services.AddScoped<GameService>();
+builder.Services.AddScoped<ContractService>();
 
 // builder.Services.AddScoped<IMongoCollection<Game>>(sp =>
 // {
@@ -46,6 +48,14 @@ builder.Services.AddScoped<IMongoCollection<Game>>(sp =>
     return database.GetCollection<Game>(settings.Value.GamesCollectionName);
 });
 
+builder.Services.AddScoped<IMongoCollection<Contract>>(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<GameRentalDatabaseSettings>>();
+    var client = sp.GetRequiredService<IMongoClient>();
+    var database = client.GetDatabase(settings.Value.DatabaseName);
+    return database.GetCollection<Contract>(settings.Value.ContractsCollectionName);
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -54,6 +64,7 @@ var app = builder.Build();
 using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
     var gamesCollection = scope.ServiceProvider.GetRequiredService<IMongoCollection<Game>>();
+    var contractsCollection = scope.ServiceProvider.GetRequiredService<IMongoCollection<Contract>>();
 
     if (gamesCollection.CountDocuments(new BsonDocument()) == 0)
     {
@@ -98,6 +109,49 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
         };
 
         gamesCollection.InsertMany(gamesToInsert);
+    }
+
+    if (contractsCollection.CountDocuments(new BsonDocument()) == 0)
+    {
+        var contractsToInsert = new List<Contract>
+        {
+            new Contract
+            {
+                GameId = "6478cb73f6679017cbe9f16a",
+                Status = "Active",
+                CustomerInfo = new Customer
+                {
+                    Name = "John Doe",
+                    PhoneNumber = "555-1234"
+                },
+                StartDate = new DateOnly(2022, 1, 1),
+                EndDate = new DateOnly(2022, 1, 7),
+                PaymentMethod = "Credit Card",
+                ShipmentMethod = "UPS",
+                ShippingFee = 5.99m,
+                LateFee = 0m,
+                TotalCost = 10.99m
+            },
+            new Contract
+            {
+                GameId = "6478cb73f6679017cbe9f16b",
+                Status = "Completed",
+                CustomerInfo = new Customer
+                {
+                    Name = "Jane Smith",
+                    PhoneNumber = "555-5678"
+                },
+                StartDate = new DateOnly(2022, 2, 1),
+                EndDate = new DateOnly(2022, 2, 7),
+                PaymentMethod = "PayPal",
+                ShipmentMethod = "FedEx",
+                ShippingFee = 4.99m,
+                LateFee = 2.99m,
+                TotalCost = 12.99m
+            }
+        };
+
+        contractsCollection.InsertMany(contractsToInsert);
     }
 }
 

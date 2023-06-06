@@ -1,5 +1,6 @@
 import { Counter } from "./components/Counter";
 import { Games } from "./admin/Games";
+import { FetchContracts } from "./admin/FetchContracts";
 import { Home } from "./components/Home";
 
 const AppRoutes = [
@@ -14,6 +15,10 @@ const AppRoutes = [
   {
     path: '/games',
     element: <Games />
+  },
+  {
+    path: '/contracts',
+    element: <FetchContracts />
   }
 ];
 
