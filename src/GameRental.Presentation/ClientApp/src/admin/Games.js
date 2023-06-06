@@ -4,24 +4,18 @@ import '../App.css'
 import Dropdown from '../components/Dropdown';
 import DropdownSoft from '../components/DropdownSoft';
 
-
 export class Games extends Component {
   static displayName = Games.name;
 
-  
   constructor(props) {
     super(props);
     this.state = { games: [], loading: true };
   }
 
-  
   componentDidMount() {
     this.populateGameData();
   }
 
-  
-
-  
   static renderGamesTable(games) {
     return (
       <div className='tb-wrapper'>
@@ -58,7 +52,6 @@ export class Games extends Component {
     );
   }
 
-  
   render(games) {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
@@ -92,7 +85,6 @@ export class Games extends Component {
     );
   }
 
-  
   async populateGameData() {
     try {
         const response = await fetch('/game');

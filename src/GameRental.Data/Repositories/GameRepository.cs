@@ -11,10 +11,8 @@ namespace GameRental.Data.Repositories
         private readonly IMongoCollection<Game> _gamesCollection;
         private readonly ILogger<GameRepository> _logger;
 
-        public GameRepository(IOptions<GameRentalDatabaseSettings> settings, ILogger<GameRepository> logger)
+        public GameRepository(IMongoClient mongoClient, IOptions<GameRentalDatabaseSettings> settings, ILogger<GameRepository> logger)
         {
-            var mongoClient = new MongoClient(settings.Value.ConnectionString);
-
             var mongoDatabase = mongoClient.GetDatabase(settings.Value.DatabaseName);
 
             _gamesCollection = mongoDatabase.GetCollection<Game>(settings.Value.GamesCollectionName);
