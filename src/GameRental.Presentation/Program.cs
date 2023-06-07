@@ -115,7 +115,9 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 CustomerInfo = new Customer
                 {
                     Name = "John Doe",
-                    PhoneNumber = "555-1234"
+                    PhoneNumber = "555-1234",
+                    Email = "john@example.com",
+                    Address = "3947 Buckridge Flats, Apt. 675, 48869-1432, Lake Alvera, Louisiana, United States"
                 },
                 StartDate = new DateOnly(2022, 1, 1),
                 EndDate = new DateOnly(2022, 1, 7),
@@ -132,7 +134,9 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 CustomerInfo = new Customer
                 {
                     Name = "Jane Smith",
-                    PhoneNumber = "555-5678"
+                    PhoneNumber = "555-5678",
+                    Email = "jane@example.com",
+                    Address = "3947 Buckridge Flats, Apt. 675, 48869-1432, Lake Alvera, Louisiana, United States"
                 },
                 StartDate = new DateOnly(2022, 2, 1),
                 EndDate = new DateOnly(2022, 2, 7),
