@@ -98,6 +98,8 @@ public class GameController : ControllerBase
             if (gameToDelete == null)
             {
                 _logger.LogInformation("Game with id: {Id} not found", id);
+
+                return NotFound();
             }
             else await _gameService.Delete(id);
         }
