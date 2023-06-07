@@ -30,5 +30,43 @@ namespace GameRental.Data.Repositories
 
             return contracts;
         }
+
+        public async Task<Contract> GetAsync(string id)
+        {
+            _logger.LogInformation("Querying contract with id: {Id}", id);
+
+            var contract = await _contractsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+
+            _logger.LogInformation("Retrieved contract with id: {Id}", contract.Id);
+
+            return contract;
+        }
+
+        public async Task CreateAsync(Contract newContract)
+        {
+            _logger.LogInformation("Creating new contract");
+
+            await _contractsCollection.InsertOneAsync(newContract);
+
+            _logger.LogInformation("Created new contract with id: {Id}", newContract.Id);
+        }
+
+        public async Task UpdateAsync(string id, Contract updatedContract)
+        {
+            _logger.LogInformation("Updating contract with id: {Id}", id);
+
+            await _contractsCollection.ReplaceOneAsync(x => x.Id == id, updatedContract);
+
+            _logger.LogInformation("Updated contract with id: {Id}", updatedContract.Id);
+        }
+
+        public async Task RemoveAsync(string id)
+        {
+            _logger.LogInformation("Removing contract with id: {Id}", id);
+
+            await _contractsCollection.DeleteOneAsync(x => x.Id == id);
+
+            _logger.LogInformation("Removed contract with id: {Id}", id);
+        }
     }
 }

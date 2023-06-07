@@ -89,12 +89,17 @@ public class GameController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id){
-        try{
+    public async Task<IActionResult> Delete(string id)
+    {
+        try
+        {
             var gameToDelete = await _gameService.Get(id);
 
-            if (gameToDelete == null){
+            if (gameToDelete == null)
+            {
                 _logger.LogInformation("Game with id: {Id} not found", id);
+
+                return NotFound();
             }
             else await _gameService.Delete(id);
         }
@@ -103,6 +108,7 @@ public class GameController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError,
                 "Error deleting data");
         }
+
         return NoContent();
     }
 }
