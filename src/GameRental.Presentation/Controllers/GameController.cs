@@ -22,9 +22,21 @@ public class GameController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] ParameterModel sieveModel)
+    public async Task<List<Game>> Get()
     {
         _logger.LogInformation("Received GET request to /game endpoint");
+
+        var games = await _gameService.Get();
+
+        _logger.LogInformation("Retrieved {Count} games from database", games.Count);
+
+        return games;
+    }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> Get([FromQuery] ParameterModel sieveModel)
+    {
+        _logger.LogInformation("Received GET request to /game/search endpoint");
 
         var games = await _gameService.Search(sieveModel.searchTerm);
         var result = _sieveProcessor.Apply(sieveModel, games.AsQueryable());
@@ -77,12 +89,17 @@ public class GameController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id){
-        try{
+    public async Task<IActionResult> Delete(string id)
+    {
+        try
+        {
             var gameToDelete = await _gameService.Get(id);
 
-            if (gameToDelete == null){
+            if (gameToDelete == null)
+            {
                 _logger.LogInformation("Game with id: {Id} not found", id);
+
+                return NotFound();
             }
             else await _gameService.Delete(id);
         }
@@ -91,6 +108,7 @@ public class GameController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError,
                 "Error deleting data");
         }
+
         return NoContent();
     }
 }

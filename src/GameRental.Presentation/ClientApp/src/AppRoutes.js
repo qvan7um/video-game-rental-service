@@ -1,5 +1,6 @@
 import { Counter } from "./components/Counter";
 import { Games } from "./admin/Games";
+import { FetchContracts } from "./admin/FetchContracts";
 import { Home } from "./components/Home";
 import { Explore } from "./user/Explore";
 
@@ -19,6 +20,10 @@ const AppRoutes = [
   {
     path: '/explore',
     element: <Explore  />
+  },
+  { 
+    path: '/contracts',
+    element: <FetchContracts />
   }
 ];
 
