@@ -11,10 +11,8 @@ namespace GameRental.Data.Repositories
         private readonly IMongoCollection<Game> _gamesCollection;
         private readonly ILogger<GameRepository> _logger;
 
-        public GameRepository(IOptions<GameRentalDatabaseSettings> settings, ILogger<GameRepository> logger)
+        public GameRepository(IMongoClient mongoClient, IOptions<GameRentalDatabaseSettings> settings, ILogger<GameRepository> logger)
         {
-            var mongoClient = new MongoClient(settings.Value.ConnectionString);
-
             var mongoDatabase = mongoClient.GetDatabase(settings.Value.DatabaseName);
 
             _gamesCollection = mongoDatabase.GetCollection<Game>(settings.Value.GamesCollectionName);
@@ -55,21 +53,34 @@ namespace GameRental.Data.Repositories
 
         public async Task UpdateAsync(string id, Game updatedGame)
         {
+            _logger.LogInformation("Updating game with id: {Id}", id);
+
             await _gamesCollection.ReplaceOneAsync(x => x.Id == id, updatedGame);
+
+            _logger.LogInformation("Updated game with id: {Id}", updatedGame.Id);
         }
 
         public async Task RemoveAsync(string id)
         {
+            _logger.LogInformation("Removing game with id: {Id}", id);
+
             await _gamesCollection.DeleteOneAsync(x => x.Id == id);
+
+            _logger.LogInformation("Removed game with id: {Id}", id);
         }
 
-        public async Task<List<Game>> SearchAsync(string? searchTerm){
+        public async Task<List<Game>> SearchAsync(string? searchTerm)
+        {
             var games = await GetAsync();
-            if (searchTerm == null || searchTerm.Trim() == ""){
+
+            if (searchTerm == null || searchTerm.Trim() == "")
+            {
                 return games;
             }
-            var res = await _gamesCollection.Find(x => x.Title.ToLower().Contains(searchTerm.Trim().ToLower())).ToListAsync();
-            return res;
+
+            var results = await _gamesCollection.Find(x => x.Title.ToLower().Contains(searchTerm.Trim().ToLower())).ToListAsync();
+
+            return results;
         }
     }
 }
