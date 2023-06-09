@@ -43,7 +43,7 @@ public class GameController : ControllerBase
 
         _logger.LogInformation("Retrieved {Count} games from database", games.Count);
 
-        return Ok(result.ToList()) ;
+        return Ok(result.ToList());
     }
 
     [HttpGet("{id}")]
