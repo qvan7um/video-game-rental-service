@@ -43,7 +43,8 @@ export class Games extends Component {
           {games.map(game =>
             <tr key={game.id}>
               <td>{game.title}</td>
-              <td>{game.genre.join(', ')}</td>
+              {/* <td>{game.genre.join(', ')}</td> */}
+              <td>{game.genre ? game.genre.join(', ') : ''}</td>
               <td>{game.platform}</td>
               <td>{game.explore.join(', ')}</td>
               <td>{game.releaseDate}</td>
