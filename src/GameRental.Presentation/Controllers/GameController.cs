@@ -22,7 +22,7 @@ public class GameController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<Game>> Get()
+    public async Task<IActionResult> Get()
     {
         _logger.LogInformation("Received GET request to /game endpoint");
 
@@ -30,7 +30,7 @@ public class GameController : ControllerBase
 
         _logger.LogInformation("Retrieved {Count} games from database", games.Count);
 
-        return games;
+        return Ok(games);
     }
 
     [HttpGet("search")]
