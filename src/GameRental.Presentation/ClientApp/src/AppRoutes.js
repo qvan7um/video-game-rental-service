@@ -23,12 +23,12 @@ const AppRoutes = [
     element: <SearchPage />
   },
   {
-    path: '/rent',
-    element: <RentGame />
-  },
-  {
     path: '/contracts',
     element: <FetchContracts />
+  },
+  {
+    path: '/rent',
+    element: <RentGame />
   }
 ];
 
