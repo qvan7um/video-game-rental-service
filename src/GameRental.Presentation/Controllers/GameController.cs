@@ -22,71 +22,117 @@ public class GameController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<Game>> Get()
+    public async Task<IActionResult> Get()
     {
-        _logger.LogInformation("Received GET request to /game endpoint");
+        try
+        {
+            _logger.LogInformation("Received GET request to /game endpoint");
 
-        var games = await _gameService.Get();
+            var games = await _gameService.Get();
 
-        _logger.LogInformation("Retrieved {Count} games from database", games.Count);
+            _logger.LogInformation("Retrieved {Count} games from database", games.Count);
 
-        return games;
+            return Ok(games);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occured while processing GET request to /game endpoint");
+            // ...
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
     }
 
     [HttpGet("search")]
     public async Task<IActionResult> Get([FromQuery] ParameterModel sieveModel)
     {
-        _logger.LogInformation("Received GET request to /game/search endpoint");
+        try
+        {
+            _logger.LogInformation("Received GET request to /game/search endpoint");
 
-        var games = await _gameService.Search(sieveModel.searchTerm);
+            var games = await _gameService.Search(sieveModel.searchTerm);
 
-        var result = _sieveProcessor.Apply(sieveModel, games.AsQueryable());
+            var result = _sieveProcessor.Apply(sieveModel, games.AsQueryable());
 
-        _logger.LogInformation("Retrieved {Count} games from database", games.Count);
+            _logger.LogInformation("Retrieved {Count} games from database", games.Count);
 
-        return Ok(result.ToList());
+            return Ok(result.ToList());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occured while processing GET request to /game/search endpoint");
+            // ...
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
-        _logger.LogInformation("Received GET request to /game/{Id} endpoint", id);
-
-        var game = await _gameService.Get(id);
-
-        if (game == null)
+        try
         {
-            _logger.LogInformation("Game with id: {Id} not found", id);
-            return NotFound();
+            _logger.LogInformation("Received GET request to /game/{Id} endpoint", id);
+
+            var game = await _gameService.Get(id);
+
+            if (game == null)
+            {
+                _logger.LogInformation("Game with id: {Id} not found", id);
+
+                return NotFound();
+            }
+
+            _logger.LogInformation("Retrieved game with id: {Id} from database", id);
+
+            return Ok(game);
         }
-
-        _logger.LogInformation("Retrieved game with id: {Id} from database", id);
-
-        return Ok(game);
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occured while processing GET request to /game/{Id} endpoint", id);
+            // ...
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Game newGame)
     {
-        _logger.LogInformation("Received POST request to /game endpoint");
+        try
+        {
+            _logger.LogInformation("Received POST request to /game endpoint");
 
-        await _gameService.Create(newGame);
+            await _gameService.Create(newGame);
 
-        _logger.LogInformation("Created new game with title: {Title}", newGame.Title);
+            _logger.LogInformation("Created new game with title: {Title}", newGame.Title);
 
-        return CreatedAtAction(nameof(Get), new { id = newGame.Id }, newGame);
+            return CreatedAtAction(nameof(Get), new { id = newGame.Id }, newGame);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occured while processing POST request to /game endpoint");
+            // ...
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(string id, [FromBody] Game updatedGame)
     {
-        _logger.LogInformation("Received PUT request to /game/{Id} endpoint", id);
+        try
+        {
+            _logger.LogInformation("Received PUT request to /game/{Id} endpoint", id);
 
-        await _gameService.Update(id, updatedGame);
+            await _gameService.Update(id, updatedGame);
 
-        _logger.LogInformation("Updated game with id: {Id}", id);
+            _logger.LogInformation("Updated game with id: {Id}", id);
 
-        return NoContent();
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occured while processing PUT request to /game/{Id} endpoint", id);
+            // ...
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
     }
 
     [HttpDelete("{id}")]
@@ -94,6 +140,8 @@ public class GameController : ControllerBase
     {
         try
         {
+            _logger.LogInformation("Received DELETE request to /game/{Id}", id);
+
             var gameToDelete = await _gameService.Get(id);
 
             if (gameToDelete == null)
@@ -102,14 +150,18 @@ public class GameController : ControllerBase
 
                 return NotFound();
             }
-            else await _gameService.Delete(id);
-        }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error deleting data");
-        }
 
-        return NoContent();
+            await _gameService.Delete(id);
+
+            _logger.LogInformation("Deleted game with id: {Id}", id);
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occured while processing DELETE request to /game/{Id} endpoint", id);
+            // ...
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
     }
 }
