@@ -1,9 +1,11 @@
-* {
+/* * {
   background: #292929;
-}
+} */
 
 .manage-container {
-  margin: 10px 30px 0px 30px;
+  padding: 10px 30px 0px 30px;
+  background: #292929;
+  min-height: 700px;
 }
 
 .search-bar > button {
