@@ -4,6 +4,10 @@
     margin-bottom: 32px;
 }
 
+.cards__container {
+    padding-left: 70px;
+}
+
 img {
     background: none;
     max-width: 150px;

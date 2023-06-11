@@ -1,0 +1,52 @@
+
+.panellist-wrap {grid-area: menu;}
+.list-wrap {grid-area: main;}
+
+.panellist-wrap {
+    display: grid;
+    grid-template-areas: 
+    'menu main main main main main'
+    'menu main main main main main'
+    'menu main main main main main';
+    gap: 10px;
+}
+
+.search-page-container {
+    display: flex;
+    flex-direction: column;
+    background: #252525;
+}
+
+.panellist-wrap, .panel-wrap, .list-wrap {
+    overflow-y: auto;
+}
+
+.panellist-wrap {
+    display: flex;
+    flex: 1;
+}
+
+.panel-wrap {
+    color: #FFF;
+    max-width: 300px;
+    min-width: 200px;
+}
+
+.list-wrap {
+    color: #FFF;
+    justify-content: space-between;
+}
+
+.filter-description {
+    padding-top: 20px;
+    max-width: 300px;
+}
+
+.cards-wrap {
+    padding-top: 100px;
+    display: flex;
+}
+
+.range-wrap {
+    float: right;
+}

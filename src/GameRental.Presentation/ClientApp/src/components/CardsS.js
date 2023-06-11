@@ -1,5 +1,5 @@
 import React from 'react'
-import CardItem from './CardItemS'
+import CardItemS from './CardItemS'
 import './CardsS.css'
 
 function Cards(games) {
@@ -8,39 +8,39 @@ function Cards(games) {
         <div className='cards__container'>
 
                 <ul className='cards__items'>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
                 </ul>
                 <ul className='cards__items'>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
                 </ul>
                 <ul className='cards__items'>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
                 </ul>
                 <ul className='cards__items'>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
                 </ul>
                 <ul className='cards__items'>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
+                    <CardItemS/>
                 </ul>
             
         </div>
