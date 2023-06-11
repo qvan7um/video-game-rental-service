@@ -5,7 +5,7 @@ function DropdownSoft({Type, Title, content = []}) {
     const [isActive, setIsAtive] = useState(false);
     const [isActiveSub, setIsAtiveSub] = useState(false);
     let titleStyles = ['dropdown']
-    if (Type == 'range') {
+    if (Type === 'range') {
         titleStyles.push('right')}
   return (
     <div className={titleStyles.join(' ')}>
