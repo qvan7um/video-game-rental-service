@@ -62,7 +62,7 @@ export class Games extends Component {
     return (
       <div className='manage-container'>
         <form className='search-bar'>
-          <button type='submit'><i className='fa fa-search'></i></button>
+          <button type='submit'><i className='fa fa-search bg-game'></i></button>
           <input type='text' placeholder='Tìm kiếm'/>
         </form>
         <Dropdown Type={'filter'} Title={'Lọc'} content={[['Platform' ,'PS5', 'PS4','NintendoS'],

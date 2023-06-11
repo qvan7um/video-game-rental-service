@@ -17,7 +17,11 @@
     background-color: #505050;
     color: #fff;
     font-family: 'Oswald', sans-serif;
-    padding-bottom: 4px;
+    padding-top: 8px;
+}
+
+.bg-game {
+  background: #505050;
 }
 
 .search-bar > input {
