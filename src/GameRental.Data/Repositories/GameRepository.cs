@@ -72,7 +72,7 @@ namespace GameRental.Data.Repositories
             }
             catch (MongoException ex)
             {
-                _logger.LogError(ex, "An error occured when creating a new game");
+                _logger.LogError(ex, "An error occured while creating a new game");
                 // ...
                 throw;
             }
