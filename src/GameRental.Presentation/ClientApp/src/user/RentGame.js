@@ -112,7 +112,7 @@ function RentGame()
           <div className='rent-game'>
               <h4>Game</h4>
               <div className='game-info'>
-                  <img className='game-img' src='https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7'/>
+                  <img className='game-img' alt="Game Image" src='https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7'/>
                   <h5 className='game-title'>God Of War</h5>
                   <h7 className='genre'>Thể loại: Action, Adventure</h7>
               </div>
