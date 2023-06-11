@@ -50,6 +50,7 @@ public class GameController : ControllerBase
             _logger.LogInformation("Received GET request to /game/search endpoint");
 
             var games = await _gameService.Search(sieveModel.searchTerm);
+
             var result = _sieveProcessor.Apply(sieveModel, games.AsQueryable());
 
             _logger.LogInformation("Retrieved {Count} games from database", games.Count);

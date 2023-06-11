@@ -9,6 +9,7 @@ namespace GameRental.Data.Repositories
     public class GameRepository
     {
         private readonly IMongoCollection<Game> _gamesCollection;
+        private readonly IMongoCollection<Contract> _contractsCollection;
         private readonly ILogger<GameRepository> _logger;
 
         public GameRepository(IMongoClient mongoClient, IOptions<GameRentalDatabaseSettings> settings, ILogger<GameRepository> logger)
@@ -16,6 +17,8 @@ namespace GameRental.Data.Repositories
             var mongoDatabase = mongoClient.GetDatabase(settings.Value.DatabaseName);
 
             _gamesCollection = mongoDatabase.GetCollection<Game>(settings.Value.GamesCollectionName);
+
+            _contractsCollection = mongoDatabase.GetCollection<Contract>(settings.Value.ContractsCollectionName);
 
             _logger = logger;
         }
