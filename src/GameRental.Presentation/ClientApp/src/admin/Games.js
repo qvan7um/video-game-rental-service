@@ -3,6 +3,7 @@ import './Games.css'
 import '../App.css'
 import Dropdown from '../components/Dropdown';
 import DropdownSoft from '../components/DropdownSoft';
+import { Link } from 'react-router-dom';
 
 export class Games extends Component {
   static displayName = Games.name;
@@ -37,7 +38,8 @@ export class Games extends Component {
           {games.map(game =>
             <tr key={game.id}>
               <td>{game.title}</td>
-              <td>{game.genre.join(', ')}</td>
+              {/* <td>{game.genre.join(', ')}</td> */}
+              <td>{game.genre ? game.genre.join(', ') : ''}</td>
               <td>{game.platform}</td>
               <td>{game.explore.join(', ')}</td>
               <td>{game.releaseDate}</td>
@@ -60,7 +62,7 @@ export class Games extends Component {
     return (
       <div className='manage-container'>
         <form className='search-bar'>
-          <button type='submit'><i className='fa fa-search'></i></button>
+          <button type='submit'><i className='fa fa-search bg-game'></i></button>
           <input type='text' placeholder='Tìm kiếm'/>
         </form>
         <Dropdown Type={'filter'} Title={'Lọc'} content={[['Platform' ,'PS5', 'PS4','NintendoS'],
@@ -74,17 +76,15 @@ export class Games extends Component {
         /> */}
         {contents}
         <div className='btn-area'>
-          <button className='button btn-add'>Thêm</button>
+          <Link to="/addgame"><button className='button btn-add'>Thêm</button></Link>
           <button className='button btn-delete'>Xóa</button>
           <button className='button btn-edit'>Sửa</button>
           <button className='button btn-detail'>Chi tiết</button>
         </div>
-        
-        
       </div>
     );
-  }
-
+  } 
+  
   async populateGameData() {
     try {
         const response = await fetch('/game');

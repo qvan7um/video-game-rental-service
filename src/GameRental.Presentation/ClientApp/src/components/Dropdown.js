@@ -21,7 +21,7 @@ function Dropdown({Type, Title, content = [][100]}) {
         setButtonText(value);
     };
     let titleStyles = ['dropdown']
-    if (Type == 'range') {
+    if (Type === 'range') {
         titleStyles.push('right')}
   return (
     <div className={titleStyles.join(' ')}>

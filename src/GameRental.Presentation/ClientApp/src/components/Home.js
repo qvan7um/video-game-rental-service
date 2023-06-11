@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import HeroSection from './HeroSection';
+import Footer from './Footer';
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -8,6 +9,7 @@ export class Home extends Component {
     return (
       <div>
         <HeroSection />
+        <Footer />
       </div>
     );
   }
