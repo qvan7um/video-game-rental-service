@@ -2,6 +2,8 @@ import { Counter } from "./components/Counter";
 import { Games } from "./admin/Games";
 import { FetchContracts } from "./admin/FetchContracts";
 import { Home } from "./components/Home";
+import SearchPage from "./user/SearchPage";
+import RentGame from "./user/RentGame";
 
 const AppRoutes = [
   {
@@ -17,8 +19,16 @@ const AppRoutes = [
     element: <Games />
   },
   {
+    path: '/search',
+    element: <SearchPage />
+  },
+  {
     path: '/contracts',
     element: <FetchContracts />
+  },
+  {
+    path: '/rent',
+    element: <RentGame />
   }
 ];
 
