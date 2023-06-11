@@ -20,16 +20,16 @@ public class SieveCustomSortMethods : ISieveCustomSortMethods
     }
 
 
-    public IQueryable<Game> Popularity(IQueryable<Game> source, bool useThenBy, bool desc) // The method is given an indicator of whether to use ThenBy(), and if the query is descending 
+    public IQueryable<Game> Popularity(IQueryable<Game> source, bool useThenBy, bool desc)  
     {
         var result = useThenBy ?
-            ((IOrderedQueryable<Game>)source).ThenBy(p => GetPopularityCount(p)) : // ThenBy only works on IOrderedQueryable<TEntity>
-            source.OrderByDescending(p => GetPopularityCount(p));
+            ((IOrderedQueryable<Game>)source).ThenBy(p => GetContractCountByGame(p)) : 
+            source.OrderByDescending(p => GetContractCountByGame(p));
 
-        return result; // Must return modified IQueryable<TEntity>
+        return result; 
     }
 
-    public int GetPopularityCount(Game game)
+    public int GetContractCountByGame(Game game)
     {
         var res = _contractsCollection.AsQueryable()
             .Where(c => c.GameId == game.Id)
