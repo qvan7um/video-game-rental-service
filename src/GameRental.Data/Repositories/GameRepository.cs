@@ -22,65 +22,119 @@ namespace GameRental.Data.Repositories
 
         public async Task<List<Game>> GetAsync()
         {
-            _logger.LogInformation("Querying games collection in database");
+            try
+            {
+                _logger.LogInformation("Querying games collection in database");
 
-            var games = await _gamesCollection.Find(_ => true).ToListAsync();
+                var games = await _gamesCollection.Find(_ => true).ToListAsync();
 
-            _logger.LogInformation("Retrieved {Count} game(s) from database", games.Count);
+                _logger.LogInformation("Retrieved {Count} game(s) from database", games.Count);
 
-            return games;
+                return games;
+            }
+            catch (MongoException ex)
+            {
+                _logger.LogError(ex, "An error occured while retrieving games from database");
+                // ...
+                throw;
+            }
         }
 
         public async Task<Game?> GetAsync(string id)
         {
-            _logger.LogInformation("Querying games collection in database");
+            try
+            {
+                _logger.LogInformation("Querying games collection in database");
 
-            var game = await _gamesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+                var game = await _gamesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-            _logger.LogInformation("Retrieved game with id: {Id} from database", game.Id);
+                _logger.LogInformation("Retrieved game with id: {Id} from database", game.Id);
 
-            return game;
+                return game;
+            }
+            catch (MongoException ex)
+            {
+                _logger.LogError(ex, "An error occured while retrieving game with id: {Id} from database", id);
+                // ...
+                throw;
+            }
         }
 
         public async Task CreateAsync(Game newGame)
         {
-            _logger.LogInformation("Creating new game document in games collection");
+            try
+            {
+                _logger.LogInformation("Creating new game document in games collection");
 
-            await _gamesCollection.InsertOneAsync(newGame);
+                await _gamesCollection.InsertOneAsync(newGame);
 
-            _logger.LogInformation("Created new game document with id: {Id}", newGame.Id);
+                _logger.LogInformation("Created new game document with id: {Id}", newGame.Id);
+            }
+            catch (MongoException ex)
+            {
+                _logger.LogError(ex, "An error occured when creating a new game");
+                // ...
+                throw;
+            }
         }
 
         public async Task UpdateAsync(string id, Game updatedGame)
         {
-            _logger.LogInformation("Updating game with id: {Id}", id);
+            try
+            {
+                _logger.LogInformation("Updating game with id: {Id}", id);
 
-            await _gamesCollection.ReplaceOneAsync(x => x.Id == id, updatedGame);
+                await _gamesCollection.ReplaceOneAsync(x => x.Id == id, updatedGame);
 
-            _logger.LogInformation("Updated game with id: {Id}", updatedGame.Id);
+                _logger.LogInformation("Updated game with id: {Id}", updatedGame.Id);
+            }
+            catch (MongoException ex)
+            {
+                _logger.LogError(ex, "An error occured while updating game with id: {Id}", id);
+                // ...
+                throw;
+            }
         }
 
         public async Task RemoveAsync(string id)
         {
-            _logger.LogInformation("Removing game with id: {Id}", id);
+            try
+            {
+                _logger.LogInformation("Removing game with id: {Id}", id);
 
-            await _gamesCollection.DeleteOneAsync(x => x.Id == id);
+                await _gamesCollection.DeleteOneAsync(x => x.Id == id);
 
-            _logger.LogInformation("Removed game with id: {Id}", id);
+                _logger.LogInformation("Removed game with id: {Id}", id);
+            }
+            catch (MongoException ex)
+            {
+                _logger.LogError(ex, "An error occured while removing game with id: {Id}", id);
+                // ...
+                throw;
+            }
         }
 
         public async Task<List<Game>> SearchAsync(string? searchTerm)
         {
-            var games = await GetAsync();
-
-            if (searchTerm == null || searchTerm.Trim() == "")
+            try
             {
-                return games;
+                var games = await GetAsync();
+
+                if (searchTerm == null || searchTerm.Trim() == "")
+                {
+                    return games;
+                }
+
+                var results = await _gamesCollection.Find(x => x.Title.ToLower().Contains(searchTerm.Trim().ToLower())).ToListAsync();
+
+                return results;
             }
-
-            var results = await _gamesCollection.Find(x => x.Title.ToLower().Contains(searchTerm.Trim().ToLower())).ToListAsync();
-
-            return results;
+            catch (MongoException ex)
+            {
+                _logger.LogError(ex, "An error while searching for games (searchTerm: {SearchTerm})", searchTerm);
+                // ...
+                throw;
+            }
         }
     }
 }
