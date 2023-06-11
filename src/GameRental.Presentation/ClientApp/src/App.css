@@ -3,3 +3,17 @@
     
 }
 
+@media (min-width: 992px) {
+    .container {
+        max-width: 1920px;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
