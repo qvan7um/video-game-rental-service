@@ -1,7 +1,11 @@
 .card-container {
     max-width: 150px;
-    margin-right: 70px;
+    margin-right: 80px;
     margin-bottom: 32px;
+}
+
+.cards__container {
+    margin-left: 70px;
 }
 
 img {

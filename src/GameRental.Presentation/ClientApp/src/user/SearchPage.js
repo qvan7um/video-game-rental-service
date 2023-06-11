@@ -1,7 +1,7 @@
 import React from 'react'
 import SearchBar from '../components/SearchBar'
 import FilterPanel from '../components/FilterPanel'
-import Cards from '../components/Cards'
+import CardsS from '../components/CardsS'
 import './SearchPage.css';
 import '../App.css'
 import DropdownSoft from '../components/DropdownSoft'
@@ -20,7 +20,7 @@ export default function SearchPage() {
                 <DropdownSoft Type={"range"} Title={"Sắp xếp"} content={['Mới nhất', 'Từ A - Z', 'Từ Z -A']} />
               </div>
               <div className='cards-wrap'>
-                  <Cards /> 
+                  <CardsS /> 
               </div>
             </div>
         </div>
