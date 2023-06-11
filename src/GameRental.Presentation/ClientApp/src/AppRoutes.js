@@ -3,7 +3,7 @@ import { Games } from "./admin/Games";
 import { FetchContracts } from "./admin/FetchContracts";
 import { Home } from "./components/Home";
 import { Explore } from "./user/Explore";
-
+import { AddGame } from "./admin/AddGame";
 const AppRoutes = [
   {
     index: true,
@@ -24,6 +24,10 @@ const AppRoutes = [
   { 
     path: '/contracts',
     element: <FetchContracts />
+  },
+  { 
+    path: '/addgame',
+    element: <AddGame />
   }
 ];
 

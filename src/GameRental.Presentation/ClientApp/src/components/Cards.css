@@ -1,20 +1,22 @@
 .card-container {
     max-width: 150px;
-    margin-right: 32px;
+    margin-right: 70px;
     margin-bottom: 32px;
+}
+
+.cards__container {
+    padding-left: 70px;
 }
 
 img {
     background: none;
     max-width: 150px;
-    max-height: 110px;
+    max-height: 150px;
     position: relative;
     z-index: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 10px;
 }
 .title-btn {
-    background: #fff;
     min-width: 150px;
     text-align: center;
     border-bottom-left-radius: 10px;
@@ -22,20 +24,22 @@ img {
 }
 
 .rent-btn {
+    display: block;
+    justify-content: center;
+    width: 100%;
+    border-radius: 5px;
+    background: #0085ff;
     color: #fff;
-    background: #128000;
-    padding: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    min-width: 150px;
-    text-align: center;
+    outline: none;
+}
 
+.rent-btn:hover {
+    background: #005bb0;
 }
 
 .title {
     
-    color: #000;
-    background: #fff;
+    color: #fff;
     min-width: 150px;
     font-size: 14px;
     
@@ -44,7 +48,3 @@ img {
 .cards__items {
     display: flex;
 }
-
-
-
-

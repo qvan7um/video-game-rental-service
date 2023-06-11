@@ -3,6 +3,7 @@ import './Games.css'
 import '../App.css'
 import Dropdown from '../components/Dropdown';
 import DropdownSoft from '../components/DropdownSoft';
+import { Link } from 'react-router-dom';
 
 export class Games extends Component {
   static displayName = Games.name;
@@ -75,17 +76,15 @@ export class Games extends Component {
         /> */}
         {contents}
         <div className='btn-area'>
-          <button className='button btn-add'>Thêm</button>
+          <Link to="/addgame"><button className='button btn-add'>Thêm</button></Link>
           <button className='button btn-delete'>Xóa</button>
           <button className='button btn-edit'>Sửa</button>
           <button className='button btn-detail'>Chi tiết</button>
         </div>
-        
-        
       </div>
     );
-  }
-
+  } 
+  
   async populateGameData() {
     try {
         const response = await fetch('/game');

@@ -2,7 +2,7 @@ import React from 'react'
 import './Cards.css'
 
 
-function CardItem() {
+function CardItemBtn() {
   return (
     <div className='card-container'>
         
@@ -16,4 +16,4 @@ function CardItem() {
   )
 }
 
-export default CardItem
+export default CardItemBtn;

@@ -1,5 +1,5 @@
 import React from 'react'
-import CardItem from './CardItem'
+import CardItemBtn from './CardItemBtn'
 import './Cards.css'
 
 function Cards(games) {
@@ -8,18 +8,17 @@ function Cards(games) {
         <div className='cards__container'>
             <div className='cards__wrapper'>
                 <ul className='cards__items'>
-                    
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
+                    <CardItemBtn/>
                 </ul>
             </div>
         </div>
