@@ -17,22 +17,14 @@ namespace GameRental.Logic.Services
 
         public async Task<List<Game>> Get()
         {
-            _logger.LogInformation("Retrieving games from database");
-
             var games = await _gameRepository.GetAsync();
-
-            _logger.LogInformation("Retrieved {Count} games from database", games.Count);
 
             return games;
         }
 
         public async Task<Game?> Get(string id)
         {
-            _logger.LogInformation("Retrieving game with id: {Id} from database", id);
-
             var game = await _gameRepository.GetAsync(id);
-
-            _logger.LogInformation("Retrieved game with id: {Id} from database", id);
 
             return game;
         }
@@ -54,11 +46,7 @@ namespace GameRental.Logic.Services
 
         public async Task<List<Game>> Search(string? searchTerm)
         {
-            _logger.LogInformation("Retrieving games from database");
-
             var games = await _gameRepository.SearchAsync(searchTerm);
-
-            _logger.LogInformation("Retrieved {Count} games from database", games.Count);
 
             return games;
         }

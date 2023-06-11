@@ -17,11 +17,7 @@ namespace GameRental.Logic.Services
 
         public async Task<List<Contract>> Get()
         {
-            _logger.LogInformation("Retrieving games from database");
-
             var contracts = await _contractRepository.GetAsync();
-
-            _logger.LogInformation("Retrieved {Count} games from database", contracts.Count);
 
             return contracts;
         }
@@ -50,11 +46,7 @@ namespace GameRental.Logic.Services
 
         public async Task<List<Contract>> Search(string? searchTerm)
         {
-            _logger.LogInformation("Retrieving games from database");
-
             var contracts = await _contractRepository.SearchAsync(searchTerm);
-
-            _logger.LogInformation("Retrieved {Count} games from database", contracts.Count);
 
             return contracts;
         }
