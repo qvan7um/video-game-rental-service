@@ -76,6 +76,7 @@ public class GameController : ControllerBase
             if (game == null)
             {
                 _logger.LogInformation("Game with id: {Id} not found", id);
+
                 return NotFound();
             }
 
@@ -148,10 +149,10 @@ public class GameController : ControllerBase
 
                 return NotFound();
             }
-            else
-            {
-                await _gameService.Delete(id);
-            }
+
+            await _gameService.Delete(id);
+
+            _logger.LogInformation("Deleted game with id: {Id}", id);
 
             return NoContent();
         }
