@@ -54,7 +54,7 @@ export class Explore extends Component {
 
   render() {
     return (
-      <div>
+      <div className='explore-page'> 
         <Slider slides={SliderData}/>;
          <div className='explore-cards'>
           <div className='explore-cards-container'>

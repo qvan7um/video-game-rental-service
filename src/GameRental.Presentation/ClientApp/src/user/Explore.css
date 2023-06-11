@@ -1,3 +1,6 @@
+.explore-page {
+  background-color: #252525;
+}
 .slider-container {
     position: relative;
     display: flex;
@@ -6,6 +9,7 @@
     align-items: center;
     text-align: center;
     object-fit: contain;  
+  
   }
   .image {
     width: 1920px;
@@ -14,6 +18,7 @@
     max-height: 100%;
     border-radius: 10px;
     object-position: top;
+    margin-top: 1%;
   }
 
   .right-arrow {
@@ -51,8 +56,19 @@
     transform: scale(1.08);
   }
 
+.dot-cotainer {
+  display: flex;
+  justify-content: center;
+}
+.dot-styles {
+  margin: '0 3px';
+  cursor: pointer;
+  font-size: 20px;
+}
 .explore-cards-items {
+  overflow: hidden;
   overflow-x: scroll;
+  margin-left: -5%;
 }  
 
 ul::-webkit-scrollbar {
