@@ -3,12 +3,16 @@ using GameRental.Data.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using System.Text.Json;
+using System.Linq;
+using MongoDB.Driver.Linq;
 
 namespace GameRental.Data.Repositories
 {
     public class ContractRepository
     {
         private readonly IMongoCollection<Contract> _contractsCollection;
+        private readonly IMongoCollection<Game> _gamesCollection;
         private readonly ILogger<ContractRepository> _logger;
 
         public ContractRepository(IMongoClient mongoClient, IOptions<GameRentalDatabaseSettings> settings, ILogger<ContractRepository> logger)
@@ -16,6 +20,7 @@ namespace GameRental.Data.Repositories
             var mongoDatabase = mongoClient.GetDatabase(settings.Value.DatabaseName);
 
             _contractsCollection = mongoDatabase.GetCollection<Contract>(settings.Value.ContractsCollectionName);
+            _gamesCollection = mongoDatabase.GetCollection<Game>(settings.Value.GamesCollectionName);
 
             _logger = logger;
         }
@@ -68,5 +73,26 @@ namespace GameRental.Data.Repositories
 
             _logger.LogInformation("Removed contract with id: {Id}", id);
         }
-    }
+
+        public async Task<List<Contract>> SearchAsync(string? searchTerm)
+        {
+            var contracts = await GetAsync();
+            if(searchTerm == null || searchTerm.Trim() == " "){
+                return contracts;
+            }
+
+            var searchedGames = _gamesCollection.AsQueryable<Game>()
+                .Where(x => x.Title.ToLower().Contains(searchTerm.Trim().ToLower()));
+            
+            var games = _gamesCollection.Find(x => x.Title.ToLower().Contains(searchTerm.Trim().ToLower())).ToEnumerable();
+            
+
+            var res = await _contractsCollection.Find(x => 
+                games.Any(a => a.Id == x.GameId) 
+            ).ToListAsync();
+
+            return res;
+        }
+
+     }
 }

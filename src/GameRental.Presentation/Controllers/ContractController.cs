@@ -1,6 +1,8 @@
 using GameRental.Data.Models;
+using GameRental.Data.Repositories;
 using GameRental.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
+using Sieve.Services;
 
 namespace GameRental.Presentation.Controllers;
 
@@ -10,11 +12,16 @@ public class ContractController : ControllerBase
 {
     private readonly ContractService _contractService;
     private readonly ILogger<ContractController> _logger;
+    private readonly ISieveProcessor _sieveProcessor;
+    // private readonly ContractRepository _contractRepository;
 
-    public ContractController(ContractService contractService, ILogger<ContractController> logger)
+    public ContractController(ContractService contractService, ILogger<ContractController> logger, ISieveProcessor sieveProcessor)
+    // ContractRepository contractRepository)
     {
         _contractService = contractService;
         _logger = logger;
+        _sieveProcessor = sieveProcessor;
+        // _contractRepository = contractRepository;
     }
 
     [HttpGet]
@@ -77,4 +84,19 @@ public class ContractController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> Get([FromQuery] ParameterModel sieveModel)
+    {
+        _logger.LogInformation("Received GET request to /game/search endpoint");
+
+        var contracts = await _contractService.Search(sieveModel.searchTerm);
+
+        var result = _sieveProcessor.Apply(sieveModel, contracts.AsQueryable());
+
+        _logger.LogInformation("Retrieved {Count} contracts from database", contracts.Count);
+
+        return Ok(result) ;
+    }
+
 }

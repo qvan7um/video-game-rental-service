@@ -1,5 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Sieve.Attributes;
 
 namespace GameRental.Data.Models
 {
@@ -7,11 +8,13 @@ namespace GameRental.Data.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        [Sieve(CanSort = true)]
         public string? Id { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string? GameId { get; set; }
 
+        [Sieve(CanFilter = true)]
         public string? Status { get; set; }
 
         public Customer? CustomerInfo { get; set; }

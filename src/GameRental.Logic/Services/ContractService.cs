@@ -47,5 +47,16 @@ namespace GameRental.Logic.Services
         {
             await _contractRepository.RemoveAsync(id);
         }
+
+        public async Task<List<Contract>> Search(string? searchTerm)
+        {
+            _logger.LogInformation("Retrieving games from database");
+
+            var contracts = await _contractRepository.SearchAsync(searchTerm);
+
+            _logger.LogInformation("Retrieved {Count} games from database", contracts.Count);
+
+            return contracts;
+        }
     }
 }
