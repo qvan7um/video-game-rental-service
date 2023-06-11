@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<SieveOptions>(builder.Configuration.GetSection("Sieve"));
+builder.Services.AddScoped<ISieveCustomSortMethods, SieveCustomSortMethods>();
 
 builder.Services.Configure<GameRentalDatabaseSettings>(
     builder.Configuration.GetSection("GameRentalDatabase")
@@ -108,9 +109,30 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
     {
         var contractsToInsert = new List<Contract>
         {
+            // God of War
             new Contract
             {
-                GameId = "6478cb73f6679017cbe9f16a",
+                GameId = "64856e4deb00f970d05863ca",
+                Status = "Active",
+                CustomerInfo = new Customer
+                {
+                    Name = "Chung Doe",
+                    PhoneNumber = "555-1234",
+                    Email = "chung@example.com",
+                    Address = "3947 Buckridge Flats, Apt. 675, 48869-1432, Lake Alvera, Louisiana, United States"
+                },
+                StartDate = new DateOnly(2022, 1, 1),
+                EndDate = new DateOnly(2022, 1, 7),
+                PaymentMethod = "Credit Card",
+                ShipmentMethod = "UPS",
+                ShippingFee = 5.99m,
+                LateFee = 0m,
+                TotalCost = 10.99m
+            },
+
+            new Contract
+            {
+                GameId = "64856e4deb00f970d05863ca",
                 Status = "Active",
                 CustomerInfo = new Customer
                 {
@@ -127,9 +149,11 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 LateFee = 0m,
                 TotalCost = 10.99m
             },
+
+            // The Legend of Zelda
             new Contract
             {
-                GameId = "6478cb73f6679017cbe9f16b",
+                GameId = "64856e4deb00f970d05863c9",
                 Status = "Completed",
                 CustomerInfo = new Customer
                 {
