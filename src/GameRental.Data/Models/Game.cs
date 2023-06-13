@@ -9,7 +9,7 @@ namespace GameRental.Data.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
+        public string Id { get; set; } = null!;
 
         public string Title { get; set; } = null!;
 
@@ -19,10 +19,10 @@ namespace GameRental.Data.Models
         [Sieve(CanFilter = true)]
         public string Platform { get; set; } = null!;
 
-        public List<string> Explore { get; set; } = null!;
+        public List<string>? Explore { get; set; }
 
         [Sieve(CanSort = true)]
-        public DateTime ReleaseDate { get; set; }
+        public DateOnly ReleaseDate { get; set; }
 
         [Sieve(CanFilter = true)]
         public List<string> Developer { get; set; } = null!;
@@ -30,9 +30,30 @@ namespace GameRental.Data.Models
         [Sieve(CanFilter = true)]
         public string Publisher { get; set; } = null!;
         
-        public string Description { get; set; } = null!;
+        public string? Description { get; set; }
 
         [Sieve(CanSort = true)]
         public string ESRBRating { get; set; } = null!;
+
+        public List<GameMedia> Media { get; set; } = null!;
+
+        public RentPrice Price { get; set; } = null!;
+    }
+
+    public class GameMedia
+    {
+        public string Type { get; set; } = null!; // "img" or "video", use enum?
+
+        public string URL { get; set; } = null!;
+
+        public string? Caption { get; set; }
+    }
+
+    public class RentPrice
+    {
+        public decimal ThreeDays { get; set; }
+        public decimal SevenDays { get; set; }
+        public decimal FourteenDays { get; set; }
+        public decimal ThirtyDays { get; set; }
     }
 }

@@ -70,11 +70,33 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 Genre = new List<string> { "Action", "Adventure" },
                 Platform = "Nintendo Switch",
                 Explore = new List<string> { "Featured", "New release" },
-                ReleaseDate = new DateTime(2023, 11, 15),
+                ReleaseDate = new DateOnly(2023, 11, 15),
                 Developer = new List<string> { "Nintendo" },
                 Publisher = "Nintendo",
                 Description = "The Legend of Zelda: Tears of the Kingdom is an action-adventure game developed and published by Nintendo for the Nintendo Switch.",
-                ESRBRating = "E10+"
+                ESRBRating = "E10+",
+                Media = new List<GameMedia>
+                {
+                    new GameMedia
+                    {
+                        Type = "img",
+                        URL = "<URL>",
+                        Caption = "Screenshot from The Legend of Zelda: Tears of the Kingdom"
+                    },
+                    new GameMedia
+                    {
+                        Type = "video",
+                        URL = "<URL>",
+                        Caption = "Trailer for The Legend of Zelda: Tears of the Kingdom"
+                    }
+                },
+                Price = new RentPrice
+                {
+                    ThreeDays = 5.99m,
+                    SevenDays = 9.99m,
+                    FourteenDays = 14.99m,
+                    ThirtyDays = 19.99m
+                }
             },
             new Game
             {
@@ -82,11 +104,33 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 Genre = new List<string> { "Action", "Adventure" },
                 Platform = "PlayStation 5",
                 Explore = new List<string> { "Featured", "New release" },
-                ReleaseDate = new DateTime(2022, 6, 30),
+                ReleaseDate = new DateOnly(2022, 6, 30),
                 Developer = new List<string> { "Santa Monica Studio" },
                 Publisher = "Sony Interactive Entertainment",
                 Description = "God of War: Ragnarok is an action-adventure game developed by Santa Monica Studio and published by Sony Interactive Entertainment for the PlayStation 5.",
-                ESRBRating = "M"
+                ESRBRating = "M",
+                Media = new List<GameMedia>
+                {
+                    new GameMedia
+                    {
+                        Type = "img",
+                        URL = "<URL>",
+                        Caption = "Screenshot from God of War: Ragnarok"
+                    },
+                    new GameMedia
+                    {
+                        Type = "video",
+                        URL = "<URL>",
+                        Caption = "Trailer for God of War: Ragnarok"
+                    }
+                },
+                Price = new RentPrice
+                {
+                    ThreeDays = 5.99m,
+                    SevenDays = 9.99m,
+                    FourteenDays = 14.99m,
+                    ThirtyDays = 19.99m
+                }
             },
             new Game
             {
@@ -94,11 +138,33 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 Genre = new List<string> { "Action", "Adventure", "Stealth" },
                 Platform = "Xbox One",
                 Explore = new List<string> { "Featured" },
-                ReleaseDate = new DateTime(2016, 11, 11),
+                ReleaseDate = new DateOnly(2016, 11, 11),
                 Developer = new List<string> { "Arkane Studios" },
                 Publisher = "Bethesda Softworks",
                 Description = "Dishonored 2 is an action-adventure stealth video game developed by Arkane Studios and published by Bethesda Softworks.",
-                ESRBRating = "M"
+                ESRBRating = "M",
+                Media = new List<GameMedia>
+                {
+                    new GameMedia
+                    {
+                        Type = "img",
+                        URL = "<URL>",
+                        Caption = "Screenshot from Dishonored 2"
+                    },
+                    new GameMedia
+                    {
+                        Type = "video",
+                        URL = "<URL>",
+                        Caption = "Trailer for Dishonored 2"
+                    }
+                },
+                Price = new RentPrice
+                {
+                    ThreeDays = 5.99m,
+                    SevenDays = 9.99m,
+                    FourteenDays = 14.99m,
+                    ThirtyDays = 19.99m
+                }
             }
         };
 
@@ -112,7 +178,7 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
             // God of War
             new Contract
             {
-                GameId = "64856e4deb00f970d05863ca",
+                GameId = "6487f2fc8402d171deaa4e91",
                 Status = "Active",
                 CustomerInfo = new Customer
                 {
@@ -129,10 +195,9 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 LateFee = 0m,
                 TotalCost = 10.99m
             },
-
             new Contract
             {
-                GameId = "64856e4deb00f970d05863ca",
+                GameId = "6487f2fc8402d171deaa4e91",
                 Status = "Active",
                 CustomerInfo = new Customer
                 {
@@ -153,7 +218,7 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
             // The Legend of Zelda
             new Contract
             {
-                GameId = "64856e4deb00f970d05863c9",
+                GameId = "6487f2fc8402d171deaa4e90",
                 Status = "Completed",
                 CustomerInfo = new Customer
                 {
