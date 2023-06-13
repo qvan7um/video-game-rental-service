@@ -9,7 +9,7 @@ namespace GameRental.Data.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         [Sieve(CanSort = true)]
-        public string Id { get; set; } = null!;
+        public string? Id { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string GameId { get; set; } = null!;
