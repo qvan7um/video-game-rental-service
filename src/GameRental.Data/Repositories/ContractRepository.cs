@@ -130,9 +130,6 @@ namespace GameRental.Data.Repositories
                     return contracts;
                 }
 
-                // var searchedGamesByTitle = _gamesCollection.AsQueryable<Game>()
-                //     .Where(x => x.Title.ToLower().Contains(searchTerm.Trim().ToLower()));
-
                 var toLowerTrimSearchTerm = searchTerm.Trim().ToLower();
                 
                 var searchedGamesByTitle = _gamesCollection.Find(x => x.Title.ToLower().Contains(toLowerTrimSearchTerm)).ToEnumerable();
@@ -141,8 +138,6 @@ namespace GameRental.Data.Repositories
                     searchedGamesByTitle.Any(a => a.Id == x.GameId) 
                     || x.CustomerInfo.Name.ToLower().Contains(toLowerTrimSearchTerm)
                 ).ToListAsync();
-
-                // Game searching by customer name
 
                 return res;
             }
