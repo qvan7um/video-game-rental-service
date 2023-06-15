@@ -31,7 +31,7 @@ namespace GameRental.Data.Models
 
         public decimal? LateFee { get; set; }
 
-        public decimal TotalCost { get; set; }
+        public decimal? TotalCost { get; set; }
     }
 
     public class Customer
