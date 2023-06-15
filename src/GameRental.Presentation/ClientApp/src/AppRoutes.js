@@ -1,11 +1,12 @@
 import { Counter } from "./components/Counter";
 import { Games } from "./admin/Games";
-import { FetchContracts } from "./admin/FetchContracts";
 import { Home } from "./components/Home";
 import { Explore } from "./user/Explore";
 import SearchPage from "./user/SearchPage";
 import RentGame from "./user/RentGame";
 import { AddGame} from "./admin/AddGame";
+import { Contracts } from "./admin/Contracts";
+import { AddContract } from "./admin/AddContract";
 
 const AppRoutes = [
   {
@@ -19,10 +20,6 @@ const AppRoutes = [
   {
     path: '/games',
     element: <Games />
-  },
-  {
-    path: '/contracts',
-    element: <FetchContracts />
   },
   {
     path: '/explore',
@@ -39,6 +36,14 @@ const AppRoutes = [
   {
     path: '/rent',
     element: <RentGame />
+  },
+  {
+    path: '/contracts',
+    element: <Contracts />
+  },
+  {
+    path: '/addcontract',
+    element: <AddContract />
   }
 ];
 
