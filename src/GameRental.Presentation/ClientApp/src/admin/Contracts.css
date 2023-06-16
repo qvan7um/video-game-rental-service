@@ -118,6 +118,7 @@
   
   .btn-area {
     margin-top: 20px;
+    display: block;
   }
   
   .button:focus {
@@ -127,6 +128,7 @@
   .btn-add {
     background-color: #0085ff;
     color: #fff;
+    float: left;
   }
   
   .btn-add:hover {
