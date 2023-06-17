@@ -27,12 +27,14 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 
 builder.Services.AddSingleton<GameRepository>();
 builder.Services.AddSingleton<ContractRepository>();
+builder.Services.AddSingleton<AccountRepository>();
 
 // Dependency injections (scoped)
 builder.Services.AddScoped<ISieveProcessor, SieveProcessor>();
 
 builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<ContractService>();
+builder.Services.AddScoped<AccountService>();
 
 builder.Services.AddScoped<IMongoCollection<Game>>(sp =>
 {
@@ -50,6 +52,14 @@ builder.Services.AddScoped<IMongoCollection<Contract>>(sp =>
     return database.GetCollection<Contract>(settings.Value.ContractsCollectionName);
 });
 
+builder.Services.AddScoped<IMongoCollection<Account>>(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<GameRentalDatabaseSettings>>();
+    var client = sp.GetRequiredService<IMongoClient>();
+    var database = client.GetDatabase(settings.Value.DatabaseName);
+    return database.GetCollection<Account>(settings.Value.AccountsCollectionName);
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -59,6 +69,7 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
 {
     var gamesCollection = scope.ServiceProvider.GetRequiredService<IMongoCollection<Game>>();
     var contractsCollection = scope.ServiceProvider.GetRequiredService<IMongoCollection<Contract>>();
+    var accountsCollection = scope.ServiceProvider.GetRequiredService<IMongoCollection<Account>>();
 
     if (gamesCollection.CountDocuments(new BsonDocument()) == 0)
     {
@@ -238,6 +249,45 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
         };
 
         contractsCollection.InsertMany(contractsToInsert);
+    }
+
+    if (accountsCollection.CountDocuments(new BsonDocument()) == 0)
+    {
+        var accountsToInsert = new List<Account>
+        {
+            new Account
+            {
+                Role = "Admin",
+                UserName = "admin",
+                Password = "admin1234",
+                Email = "admin@gamerental.com"
+            },
+            new Account
+            {
+                Role = "User",
+                UserName = "user1",
+                Password = "user1111",
+                Email = "user1@example.com",
+                ContractsIds = new List<string>
+                {
+                    "6487f2fc8402d171deaa4e91",
+                    "6487f2fc8402d171deaa4e91"
+                }
+            },
+            new Account
+            {
+                Role = "User",
+                UserName = "user2",
+                Password = "user2222",
+                Email = "user2@example.com",
+                ContractsIds = new List<string>
+                {
+                    "6487f2fc8402d171deaa4e90"
+                }
+            }
+        };
+
+        accountsCollection.InsertMany(accountsToInsert);
     }
 }
 

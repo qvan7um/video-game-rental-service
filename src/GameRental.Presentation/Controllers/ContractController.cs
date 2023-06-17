@@ -118,7 +118,7 @@ public class ContractController : ControllerBase
     {
         try
         {
-            _logger.LogInformation("Received PUT request to /contract endpoint");
+            _logger.LogInformation("Received PUT request to /contract/{Id} endpoint", id);
 
             await _contractService.Update(id, updatedContract);
 
