@@ -126,7 +126,7 @@ function RentGame()
                   <h4 className='total'>Thành tiền: 14$</h4>
               </div>
 
-              <div className='btn-area'>
+              <div className='button-area'>
                   <button className='confirm-btn'>Xác nhận</button>
                   <button className='cancel-btn'>Hủy</button>
               </div>
