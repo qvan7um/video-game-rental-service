@@ -9,5 +9,7 @@ namespace GameRental.Data.Settings
         public string? GamesCollectionName { get; set; }
 
         public string? ContractsCollectionName {get; set; }
+
+        public string? AccountsCollectionName { get; set; }
     }
 }
