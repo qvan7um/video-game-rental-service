@@ -80,6 +80,10 @@ tr:last-child {
   background-color: #505050;
 }
 
+.selected {
+  border: #0085ff 2px solid;
+}
+
 .games-container {
     background-color: #504e4e !important;
 }
@@ -218,3 +222,10 @@ tr:last-child td:last-child { border-bottom-right-radius: 10px; }
   background-color: rgba(0,0,0,0);
   align-items: center;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+
