@@ -75,8 +75,8 @@ export class Contracts extends Component {
         <div className='btn-area'>
           <Link to="/addcontract"><button className='button btn-add'>Thêm</button></Link>
           <button className='button btn-delete'>Xóa</button>
-          <button className='button btn-edit'>Sửa</button>
-          <button className='button btn-detail'>Chi tiết</button>
+          <Link to="/contracts/edit"><button className='button btn-edit'>Sửa</button></Link>
+          <Link to="/contracts/detail"><button className='button btn-detail'>Chi tiết</button></Link>
         </div>
       </div>
     );

@@ -9,112 +9,126 @@ export class AddContract extends Component {
         <div className='addcontracts-form-container'>
             <form>
                 <div className='mb-2'>
-                    <label htmlFor='namect' className='form-label'>
-                        Tên hợp đồng
-                    </label>
-                    <input 
-                    id="namect"
-                    className='form-control'
-                    type="text"
-                    name="namect"
-                    />
-                </div>
-                <div className='mb-2'>
-                    <label htmlFor='gamect' className='form-label'>
+                    <label htmlFor='game-ct' className='form-label'>
                         Game
                     </label>
                     <input 
-                    id="gamect"
+                    id="game-ct"
                     className='form-control'
                     type="text"
-                    name="gamect"
+                    name="game"
                     />
                 </div>
                 <div className='mb-2'>
-                    <label htmlFor='personct' className='form-label'>
-                        Người thuê
+                    <label htmlFor='name-ct' className='form-label'>
+                        Tên người thuê
                     </label>
                     <input 
-                    id="personct"
+                    id="name-ct"
                     className='form-control'
                     type="text"
-                    name="personct"
+                    name="name"
                     />
                 </div>
                 <div className='mb-2'>
-                    <label htmlFor='emailct' className='form-label'>
-                        Email
-                    </label>
-                    <input 
-                    id="emailct"
-                    className='form-control'
-                    type="text"
-                    name="emailct"
-                    />
-                </div>
-                 <div className='mb-2'>
-                    <label htmlFor='phonect' className='form-label'>
+                    <label htmlFor='phonenumber-ct' className='form-label'>
                         Số điện thoại
                     </label>
                     <input 
-                    id="phonect"
+                    id="phonenumber-ct"
                     className='form-control'
                     type="text"
-                    name="phonect"
+                    name="phoneNumber"
                     />
                 </div>
                 <div className='mb-2'>
-                    <label htmlFor='rentdatect' className='form-label'>
+                    <label htmlFor='email-ct' className='form-label'>
+                        Email
+                    </label>
+                    <input 
+                    id="email-ct"
+                    className='form-control'
+                    type="text"
+                    name="email"
+                    />
+                </div>
+                <div className='mb-2'>
+                    <label htmlFor='address-ct' className='form-label'>
+                      Địa chỉ
+                    </label>
+                    <input 
+                    id="address-ct"
+                    className='form-control'
+                    type="text"
+                    name="address"
+                    />
+                </div>   
+                <div className='mb-2'>
+                    <label htmlFor='startdate-ct' className='form-label'>
                         Ngày thuê
                     </label>
                     <input 
-                    id="rentdatect"
+                    id="startdate-ct"
                     className='form-control'
                     type="date"
-                    name='rentdatect'
+                    name='startDate'
                     />
                 </div>
                 <div className='mb-2'>
-                    <label htmlFor='exdatect' className='form-label'>
-                        Ngày hết hạn
-                    </label>
-                    <input 
-                    id="exdatect"
-                    className='form-control'
-                    type="date"
-                    name='exdatect'
-                    />
-                </div>
-                <div className='mb-2'>
-                    <label htmlFor='status' className='form-label'>
-                        Trạng thái
+                    <label htmlFor='duration-ct' className='form-label'>
+                            Kỳ hạn
                     </label>
                     <div className='radio-container'>
-                        <label className='radio' id="hoanthanh">
-                        <input type="radio" value="Hoàn thành" name='status' />Hoàn thành
+                        <label className='radio' id="threedays">
+                        <input type="radio" value="threedays" name='duration' />3 ngày
                         <span></span>
                         </label>
-                        <label className='radio' id="dahuy">
-                        <input type="radio" value="Đã hủy" name='status' />Đã hủy
+                        <label className='radio' id="sevendays">
+                        <input type="radio" value="sevendays" name='duration' />7 ngày
                         <span></span>
                         </label>
-                        <label className='radio' id="cohieuluc">
-                        <input type="radio" value="Có hiệu lực" name='status' />Có hiệu lực
+                        <label className='radio' id="fourteendays">
+                        <input type="radio" value="fourteendays" name='duration' />14 ngày
                         <span></span>
                         </label>
-                        <label className='radio' id ="dangcho">
-                        <input type="radio" value="Đang chờ" name='status' />Đang chờ
-                        <span></span>
-                        </label>
-                        <label className='radio' id="quahan">
-                        <input type="radio" value="Quá hạn" name='status' />Quá hạn 
+                        <label className='radio' id="thirtydays">
+                        <input type="radio" value="thirtydays" name='duration' />30 ngày
                         <span></span>
                         </label>
                     </div>
-                </div>
-                
+                </div> 
+                <div className='mb-2'>
+                    <label htmlFor='paymentmethod' className='form-label'>
+                            Phương thức thanh toán
+                    </label>
+                    <div className='radio-container'>
+                        <label className='radio' id="creditcard">
+                        <input type="radio" value="credit Card" name='paymentMethod' />Credit Card
+                        <span></span>
+                        </label>
+                        <label className='radio' id="paypal">
+                        <input type="radio" value="payPal" name='paymentMethod' />PayPal
+                        <span></span>
+                        </label>
+                    </div>
+                </div>      
+                <div className='mb-2'>
+                    <label htmlFor='shipmentmethod' className='form-label'>
+                            Phương thức nhận game
+                    </label>
+                    <div className='radio-container'>
+                        <label className='radio' id="ups">
+                        <input type="radio" value="ups" name='shipmentMethod' />UPS
+                        <span></span>
+                        </label>
+                        <label className='radio' id="fedex">
+                        <input type="radio" value="fedEx" name='shipmentMethod' />FedEx
+                        <span></span>
+                        </label>
+                    </div>
+                </div>           
             </form>
-            <Link to="/contracts"><button type="submit" className='update-btn'>
+            <Link to="/contracts"><button type="submit" className='submit-btn'>
             Thêm
             </button></Link>
             <Link to="/contracts"><button type='cancel' className='cancel-btn'>

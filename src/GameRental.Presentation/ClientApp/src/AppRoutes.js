@@ -7,6 +7,8 @@ import RentGame from "./user/RentGame";
 import { AddGame} from "./admin/AddGame";
 import { Contracts } from "./admin/Contracts";
 import { AddContract } from "./admin/AddContract";
+import { EditContract } from "./admin/EditContract";
+import { DetailContract } from "./admin/DetailContract";
 
 const AppRoutes = [
   {
@@ -44,7 +46,16 @@ const AppRoutes = [
   {
     path: '/addcontract',
     element: <AddContract />
+  },
+  {
+    path: '/contracts/edit',
+    element: <EditContract />
+  },
+  {
+    path: '/contracts/detail',
+    element: <DetailContract />
   }
+
 ];
 
 export default AppRoutes;
