@@ -36,7 +36,7 @@ const AppRoutes = [
     element: <EditGame />
   },
   {
-    path: '/detail/:gameId',
+    path: 'detail/:gameId',
     element: <GameDetail />
   },
   {

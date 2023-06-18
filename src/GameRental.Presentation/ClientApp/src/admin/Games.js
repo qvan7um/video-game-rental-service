@@ -41,11 +41,9 @@ function Games() {
       }
     });
   }
-
   const handleViewDetails = (gameId) => {
     navigate(`/detail/${gameId}`);
   }
-
 
   function renderGamesTable(games) {
     return (
