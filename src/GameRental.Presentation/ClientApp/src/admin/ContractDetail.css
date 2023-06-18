@@ -6,12 +6,7 @@
     background-color: #252525;
 }
 
-.manage-container {
-    padding: 10px 30px 0px 30px;
-    background: #292929;
-    min-height: 700px;
-  }
-.detail-container{
+.detail-contract-container{
     width: 60%;
     padding: 48px;
     box-shadow: 0px 0px 21px rgb(0 0 0 /20%);

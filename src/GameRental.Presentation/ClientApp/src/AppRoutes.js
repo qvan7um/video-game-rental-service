@@ -8,7 +8,7 @@ import { AddGame} from "./admin/AddGame";
 import Contracts from "./admin/Contracts";
 import { AddContract } from "./admin/AddContract";
 import EditContract from "./admin/EditContract";
-import DetailContract from "./admin/DetailContract";
+import ContractDetail from "./admin/ContractDetail";
 import EditGame from "./admin/EditGame";
 import GameDetail from "./admin/GameDetail";
 
@@ -63,7 +63,7 @@ const AppRoutes = [
   },
   {
     path: '/contracts/detail/:contractId',
-    element: <DetailContract />
+    element: <ContractDetail />
   }
 
 ];
