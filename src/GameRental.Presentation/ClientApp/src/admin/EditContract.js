@@ -1,12 +1,23 @@
-import React, { Component } from 'react';
-import './AddContract.css';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import './EditContract.css';
+import { Link, useParams } from 'react-router-dom';
 
-export class AddContract extends Component {
-  render() {
-    return (
-      <div className='addcontracts-page'>
-        <div className='addcontracts-form-container'>
+function EditContract() {
+  const [contractData, setContractData] = useState(null);
+  const {contractId} = useParams();
+  useEffect(() => {
+    // Fetch game data for the specific game using the gameId prop
+    fetch(`/contract/${contractId}`)
+      .then(response => response.json())
+      .then(data => setContractData(data));
+  }, [contractId]);
+
+  
+  if (!contractData) return <p>Loading...</p>;
+
+  return (
+    <div className='editcontracts-page'>
+        <div className='editcontracts-form-container'>
             <form>
                 <div className='mb-2'>
                     <label htmlFor='game-ct' className='form-label'>
@@ -17,6 +28,7 @@ export class AddContract extends Component {
                     className='form-control'
                     type="text"
                     name="game"
+                    placeholder={contractData.gameId}
                     />
                 </div>
                 <div className='mb-2'>
@@ -28,6 +40,7 @@ export class AddContract extends Component {
                     className='form-control'
                     type="text"
                     name="name"
+                    placeholder={contractData.customerInfo.name}
                     />
                 </div>
                 <div className='mb-2'>
@@ -39,6 +52,7 @@ export class AddContract extends Component {
                     className='form-control'
                     type="text"
                     name="phoneNumber"
+                    placeholder={contractData.customerInfo.phoneNumber}
                     />
                 </div>
                 <div className='mb-2'>
@@ -50,6 +64,7 @@ export class AddContract extends Component {
                     className='form-control'
                     type="text"
                     name="email"
+                    placeholder={contractData.customerInfo.email}
                     />
                 </div>
                 <div className='mb-2'>
@@ -61,6 +76,7 @@ export class AddContract extends Component {
                     className='form-control'
                     type="text"
                     name="address"
+                    placeholder={contractData.customerInfo.address}
                     />
                 </div>   
                 <div className='mb-2'>
@@ -72,6 +88,7 @@ export class AddContract extends Component {
                     className='form-control'
                     type="date"
                     name='startDate'
+                    placeholder={contractData.startDate}
                     />
                 </div>
                 <div className='mb-2'>
@@ -126,18 +143,44 @@ export class AddContract extends Component {
                         <span></span>
                         </label>
                     </div>
-                </div>           
+                </div>    
+                <div className='mb-2'>
+                        <label htmlFor='status' className='form-label'>
+                            Trạng thái
+                    </label>
+                    <div className='radio-container'>
+                        <label className='radio' id="completed">
+                        <input type="radio" value="Completed" name='status' />Hoàn thành
+                        <span></span>
+                        </label>
+                        <label className='radio' id="canceled">
+                        <input type="radio" value="Canceled" name='status' />Đã hủy
+                        <span></span>
+                        </label>
+                        <label className='radio' id="active">
+                        <input type="radio" value="Active" name='status' />Có hiệu lực
+                        <span></span>
+                        </label>
+                        <label className='radio' id ="waiting">
+                        <input type="radio" value="Waitting" name='status' />Đang chờ
+                        <span></span>
+                        </label>
+                        <label className='radio' id="expired">
+                        <input type="radio" value="Expired" name='status' />Quá hạn 
+                        <span></span>
+                        </label>
+                    </div>
+                </div>      
             </form>
-            <Link to="/contracts"><button type="submit" className='submit-btn'>
-            Thêm
+            <Link to="/contracts"><button type="submit" className='submit-edit-btn'>
+            Xác nhận
             </button></Link>
-            <Link to="/contracts"><button type='cancel' className='cancel-btn'>
+            <Link to="/contracts"><button type='cancel' className='cancel-edit-btn'>
             Hủy
             </button></Link>
         </div>
       </div>
-    )
-  }
+  );
 }
 
-export default AddContract;
+export default EditContract;

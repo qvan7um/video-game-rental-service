@@ -5,8 +5,10 @@ import { Explore } from "./user/Explore";
 import SearchPage from "./user/SearchPage";
 import RentGame from "./user/RentGame";
 import { AddGame} from "./admin/AddGame";
-import { Contracts } from "./admin/Contracts";
+import Contracts from "./admin/Contracts";
 import { AddContract } from "./admin/AddContract";
+import EditContract from "./admin/EditContract";
+import ContractDetail from "./admin/ContractDetail";
 import EditGame from "./admin/EditGame";
 import GameDetail from "./admin/GameDetail";
 
@@ -54,7 +56,16 @@ const AppRoutes = [
   {
     path: '/addcontract',
     element: <AddContract />
+  },
+  {
+    path: '/contracts/edit/:contractId',
+    element: <EditContract />
+  },
+  {
+    path: '/contracts/detail/:contractId',
+    element: <ContractDetail />
   }
+
 ];
 
 export default AppRoutes;
