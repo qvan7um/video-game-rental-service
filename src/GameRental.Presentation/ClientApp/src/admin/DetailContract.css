@@ -1,5 +1,5 @@
 .detail-page{
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,12 +22,12 @@
     width: 30%;
     color: #FFFFFF;
     background:none;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .detail-contract-label{
     width: 70%;
-    font-size: 12px;
+    font-size: 14px;
     color: #7D7D7D;
 }
 
