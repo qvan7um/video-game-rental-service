@@ -41,6 +41,9 @@ function Games() {
       }
     });
   }
+  const handleViewDetails = (gameId) => {
+    navigate(`/detail/${gameId}`);
+  }
 
   function renderGamesTable(games) {
     return (
@@ -83,7 +86,7 @@ function Games() {
           {selectedGameId && (
         <>
           <button className='button btn-edit' onClick={() => handleEdit(selectedGameId)}>Sửa</button>
-          <button className='button btn-detail'>Chi tiết</button>
+          <button className='button btn-detail' onClick={() => handleViewDetails(selectedGameId)}>Chi tiết</button>
           <button className='button btn-delete' onClick={() => handleDelete(selectedGameId)}>Xóa</button>
         </>
       )}
