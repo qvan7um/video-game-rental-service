@@ -20,7 +20,6 @@ function EditGame() {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setGameData(prevData => ({ ...prevData, [name]: value,
-        esrbRating: "E10+",
         media: [
             {
                 type: "img",
