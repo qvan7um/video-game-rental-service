@@ -162,7 +162,7 @@ h4 {
     padding: 10px 20px;
 }
 
-.btn-area {
+.button-area {
     margin-top: 0;
     padding-top: 20px;
     background: #252525;
@@ -171,7 +171,7 @@ h4 {
     align-items: center;
 }
 
-.btn-area {
+.button-area {
     display: flex;
     justify-content: center;
 }

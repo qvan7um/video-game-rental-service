@@ -3,9 +3,6 @@ using GameRental.Data.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
-using System.Text.Json;
-using System.Linq;
-using MongoDB.Driver.Linq;
 
 namespace GameRental.Data.Repositories
 {

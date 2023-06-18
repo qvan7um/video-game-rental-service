@@ -21,15 +21,15 @@
 }
 
 .form-control {
-    height: 20px;
+    height: 25px;
     width: 1080px;
-    padding: 6px 12px;
+    padding: 10px 20px;
     background-color: #505050;
+    color: #fff;
     border: none;
-    border-radius: 0;
+    border-radius: 2;
     font-size: small;
 }
-
 
 .mb-2{
     display: flex;
@@ -79,6 +79,8 @@ textarea::-webkit-scrollbar{
     background-color: #0085FF;
     float: right;
     border: none;
+    margin-left: 20px;
+    text-align: center;
 }
 
 .cancel-btn {
@@ -90,4 +92,5 @@ textarea::-webkit-scrollbar{
     background-color: #FF0000;
     float: right;
     border: none;
+    text-align: center;
 }

@@ -1,21 +1,26 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react';
 import './AddGame.css';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 
-const handleSubmit = async (event) => {
-    event.preventDefault();
-    const gameData = {      
-        title: event.target.title.value,
-        genre: event.target.genre.value.split(","),
-        platform: event.target.platform.value,
-        explore: event.target.explore.value.split(","),
-        releaseDate: event.target.releaseDate.value,
-        developer: event.target.developer.value.split(","),
-        publisher: event.target.publisher.value,
-        description: event.target.description.value,
-        esrbRating: event.target.esrbRating.value,
+function EditGame() {
+  const [gameData, setGameData] = useState(null);
+  const {gameId} = useParams();
+  const isAlert = () => {
+    swal("Thành công", "Cập nhật game thành công", "success");
+  }
+  useEffect(() => {
+    // Fetch game data for the specific game using the gameId prop
+    fetch(`/game/${gameId}`)
+      .then(response => response.json())
+      .then(data => setGameData(data));
+  }, [gameId]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setGameData(prevData => ({ ...prevData, [name]: value,
+        esrbRating: "E10+",
         media: [
             {
                 type: "img",
@@ -37,65 +42,25 @@ const handleSubmit = async (event) => {
             sevenDays: 9.99,
             fourteenDays: 14.99,
             thirtyDays: 19.99
-        }
-    };
-    // const gameData = {     
-    //     title: "Elden Ring",
-    //     genre: ["Open World", "RPG"],
-    //     platform: "PS5",
-    //     explore: ["Featured", "New release"],
-    //     releaseDate: "2022-06-25",
-    //     developer: ["From Software"],
-    //     publisher: "From Software",
-    //     description:
-    //     "The Legend of Zelda: Tears of the Kingdom is an action-adventure game developed and published by Nintendo for the Nintendo Switch.",
-    //     esrbRating: "E10+",
-    //     media: [
-    //         {
-    //             type: "img",
-    //             url:
-    //                 "<URL>",
-    //             caption:
-    //                 "Screenshot from The Legend of Zelda: Tears of the Kingdom"
-    //         },
-    //         {
-    //             type: "video",
-    //             url:
-    //                 "<URL>",
-    //             caption:
-    //                 "Trailer for The Legend of Zelda: Tears of the Kingdom"
-    //         }
-    //     ],
-    //     price: {
-    //         threeDays: 5.99,
-    //         sevenDays: 9.99,
-    //         fourteenDays: 14.99,
-    //         thirtyDays: 19.99
-    //     }
+        } }));
+  }
 
-    // };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Update game data in database
+    fetch(`/game/${gameId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(gameData)
+    });
+  }
 
+  if (!gameData) return <p>Loading...</p>;
 
-    const response = await fetch ("/game", {
-        method: "POST",
-        headers : {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(gameData),
-    }
-    );
-    if (response.ok) {
-        swal("Thành công", "Thêm game thành công", "success");
-    }
-    else
-    {
-        swal("Thất bại", "Bạn cần nhập đầy đủ thông tin", "error");
-    }
-};
-export class AddGame extends Component {
-  render() {
-    return (
-      <div className='addgame-page'>
+  return (
+    <div className='addgame-page'>
         <div className='addgame-form-container'>
             <form onSubmit={handleSubmit}>
                 <div className='mb-2'>
@@ -135,6 +100,9 @@ export class AddGame extends Component {
                     className='form-control'
                     type="text"
                     name="title"
+                    value={gameData.title}
+                    onChange={handleInputChange}
+                    placeholder={gameData.title}
                     />
                 </div>
                 <div className='mb-2'>
@@ -146,6 +114,9 @@ export class AddGame extends Component {
                     className='form-control'
                     type="text"
                     name="genre"
+                    value={gameData.genre}
+                    onChange={handleInputChange}
+                    placeholder={gameData.genre}
                     />
                 </div>
                 <div className='mb-2'>
@@ -157,6 +128,9 @@ export class AddGame extends Component {
                     className='form-control'
                     type="text"
                     name="platform"
+                    value={gameData.platform}
+                    onChange={handleInputChange}
+                    placeholder={gameData.platform}
                     />
                 </div>
                 <div className='mb-2'>
@@ -168,6 +142,9 @@ export class AddGame extends Component {
                     className='form-control'
                     type="text"
                     name="developer"
+                    value={gameData.developer}
+                    onChange={handleInputChange}
+                    placeholder={gameData.developer}
                     />
                 </div>
                  <div className='mb-2'>
@@ -179,6 +156,9 @@ export class AddGame extends Component {
                     className='form-control'
                     type="text"
                     name="publisher"
+                    value={gameData.publisher}
+                    onChange={handleInputChange}
+                    placeholder={gameData.publisher}
                     />
                 </div>
                 <div className='mb-2'>
@@ -190,6 +170,9 @@ export class AddGame extends Component {
                     className='form-control'
                     type="date"
                     name='releaseDate'
+                    value={gameData.releaseDate}
+                    onChange={handleInputChange}
+                    placeholder={gameData.releaseDate}
                     />
                 </div>
                 <div className='mb-2'>
@@ -201,6 +184,9 @@ export class AddGame extends Component {
                     className='form-control'
                     type="text"
                     name="explore"
+                    value={gameData.explore}
+                    onChange={handleInputChange}
+                    placeholder={gameData.explore}
                     />
                 </div>
                 <div className='mb-2'>
@@ -212,6 +198,9 @@ export class AddGame extends Component {
                     className='form-control'
                     type="text"
                     name="esrbRating"
+                    value={gameData.esrbRating}
+                    onChange={handleInputChange}
+                    placeholder={gameData.esrbRating}
                     />
                 </div>
                 <div className='mb-2'>
@@ -223,23 +212,23 @@ export class AddGame extends Component {
                     className='form-control'
                     type="text"
                     name="description"
+                    value={gameData.description}
+                    onChange={handleInputChange}
+                    placeholder={gameData.description}
                     required
                     >
                     </textarea>
                 </div>
-                
-                
-                <button type="submit" className='update-btn' value="Create Game" >
-                    Thêm
-                </button>
+                    <button type="submit" className='update-btn' value="Save" onClick={isAlert}>
+                        Cập nhật
+                    </button>
                 <Link to="/games"><button type='cancel' className='cancel-btn'>
                 Hủy
                 </button></Link>
             </form>
         </div>
       </div>
-    )
-  }
+  );
 }
 
-export default AddGame;
+export default EditGame;
