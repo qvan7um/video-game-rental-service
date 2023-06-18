@@ -8,6 +8,7 @@ import { AddGame} from "./admin/AddGame";
 import { Contracts } from "./admin/Contracts";
 import { AddContract } from "./admin/AddContract";
 import EditGame from "./admin/EditGame";
+import GameDetail from "./admin/GameDetail";
 
 const AppRoutes = [
   {
@@ -33,6 +34,10 @@ const AppRoutes = [
   {
     path: '/edit/:gameId',
     element: <EditGame />
+  },
+  {
+    path: '/detail/:gameId',
+    element: <GameDetail />
   },
   {
     path: '/search',
