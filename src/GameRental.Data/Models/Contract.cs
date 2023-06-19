@@ -23,6 +23,8 @@ namespace GameRental.Data.Models
 
         public DateOnly EndDate { get; set; }
 
+        public int RentalDuration { get; set; }
+
         public string PaymentMethod { get; set; } = null!;
 
         public string ShipmentMethod { get; set; } = null!;
