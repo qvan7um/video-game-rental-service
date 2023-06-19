@@ -137,7 +137,7 @@ namespace GameRental.Data.Repositories
 
                 var res = await _contractsCollection.Find(x => 
                     searchedGamesByTitle.Any(a => a.Id == x.GameId) 
-                    || searchedAccountsByUsername.Any(a => (a == null ? false : (a.ContractsIds == null ? false : (x.Id == null ? false : a.ContractsIds.Contains(x.Id.ToString())))))
+                    || searchedAccountsByUsername.Any(a => (a == null ? false : (a.ContractIds == null ? false : (x.Id == null ? false : a.ContractIds.Contains(x.Id.ToString())))))
                     || x.CustomerInfo.Name.ToLower().Contains(toLowerTrimSearchTerm)
                     || x.CustomerInfo.Email.ToLower().Contains(toLowerTrimSearchTerm)
                     || x.CustomerInfo.Address.ToLower().Contains(toLowerTrimSearchTerm)
