@@ -24,7 +24,7 @@ public class SieveCustomSortMethods : ISieveCustomSortMethods
     {
         var result = useThenBy ?
             ((IOrderedQueryable<Game>)source).ThenBy(p => GetContractCountByGame(p)) : 
-            source.OrderByDescending(p => GetContractCountByGame(p));
+            source.OrderBy(p => GetContractCountByGame(p));
 
         return result; 
     }

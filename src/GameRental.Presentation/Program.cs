@@ -273,8 +273,8 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 Email = "user1@example.com",
                 ContractIds = new List<string>
                 {
-                    "648fcff5ef238d6487c69763",
-                    "648fcff5ef238d6487c69764"
+                    "648ebd2f3c104eede821cb1c",
+                    "648ebd2f3c104eede821cb1e"
                 }
             },
             new Account
@@ -285,7 +285,7 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 Email = "user2@example.com",
                 ContractIds = new List<string>
                 {
-                    "648fcff5ef238d6487c69765"
+                    "648ebd2f3c104eede821cb1d"
                 }
             }
         };
