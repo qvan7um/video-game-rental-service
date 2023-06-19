@@ -3,6 +3,7 @@ using GameRental.Data.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using System.Linq;
 
 namespace GameRental.Data.Repositories
 {
@@ -10,6 +11,7 @@ namespace GameRental.Data.Repositories
     {
         private readonly IMongoCollection<Contract> _contractsCollection;
         private readonly IMongoCollection<Game> _gamesCollection;
+        private readonly IMongoCollection<Account> _accountsCollection;
         private readonly ILogger<ContractRepository> _logger;
 
         public ContractRepository(IMongoClient mongoClient, IOptions<GameRentalDatabaseSettings> settings, ILogger<ContractRepository> logger)
@@ -18,6 +20,7 @@ namespace GameRental.Data.Repositories
 
             _contractsCollection = mongoDatabase.GetCollection<Contract>(settings.Value.ContractsCollectionName);
             _gamesCollection = mongoDatabase.GetCollection<Game>(settings.Value.GamesCollectionName);
+            _accountsCollection = mongoDatabase.GetCollection<Account>(settings.Value.AccountsCollectionName);
 
             _logger = logger;
         }
@@ -121,19 +124,24 @@ namespace GameRental.Data.Repositories
             try
             {
                 var contracts = await GetAsync();
-                
+
                 if(searchTerm == null || searchTerm.Trim() == " ")
                 {
                     return contracts;
                 }
 
                 var toLowerTrimSearchTerm = searchTerm.Trim().ToLower();
-                
+
                 var searchedGamesByTitle = _gamesCollection.Find(x => x.Title.ToLower().Contains(toLowerTrimSearchTerm)).ToEnumerable();
-                
+                var searchedAccountsByUsername = _accountsCollection.Find(x => x.UserName.ToLower().Contains(toLowerTrimSearchTerm)).ToList();
+
                 var res = await _contractsCollection.Find(x => 
                     searchedGamesByTitle.Any(a => a.Id == x.GameId) 
+                    || searchedAccountsByUsername.Any(a => (a == null ? false : (a.ContractsIds == null ? false : (x.Id == null ? false : a.ContractsIds.Contains(x.Id.ToString())))))
                     || x.CustomerInfo.Name.ToLower().Contains(toLowerTrimSearchTerm)
+                    || x.CustomerInfo.Email.ToLower().Contains(toLowerTrimSearchTerm)
+                    || x.CustomerInfo.Address.ToLower().Contains(toLowerTrimSearchTerm)
+                    || x.CustomerInfo.PhoneNumber.ToLower().Contains(toLowerTrimSearchTerm)
                 ).ToListAsync();
 
                 return res;
