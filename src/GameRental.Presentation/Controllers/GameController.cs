@@ -7,7 +7,7 @@ using Sieve.Services;
 namespace GameRental.Presentation.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api")]
 public class GameController : ControllerBase
 {
     private readonly GameService _gameService;
@@ -21,28 +21,30 @@ public class GameController : ControllerBase
         _sieveProcessor = sieveProcessor;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Get()
+    [HttpGet("games")]
+    public async Task<IActionResult> Get([FromQuery] SieveModel sieveModel)
     {
         try
         {
-            _logger.LogInformation("Received GET request to /game endpoint");
+            _logger.LogInformation("Received GET request to api/games endpoint");
 
             var games = await _gameService.Get();
 
+            var result = _sieveProcessor.Apply(sieveModel, games.AsQueryable());
+
             _logger.LogInformation("Retrieved {Count} games from database", games.Count);
 
-            return Ok(games);
+            return Ok(result.ToList());
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An unexpected error occured while processing GET request to /game endpoint");
+            _logger.LogError(ex, "An unexpected error occured while processing GET request to api/games endpoint");
             // ...
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
 
-    [HttpGet("search")]
+    [HttpGet("games/search")]
     public async Task<IActionResult> Get([FromQuery] ParameterModel sieveModel)
     {
         try
@@ -65,7 +67,7 @@ public class GameController : ControllerBase
         }
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("game/{id}")]
     public async Task<IActionResult> Get(string id)
     {
         try
@@ -93,7 +95,7 @@ public class GameController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost("game/create")]
     public async Task<IActionResult> Post([FromBody] Game newGame)
     {
         try
@@ -114,7 +116,7 @@ public class GameController : ControllerBase
         }
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("game/update/{id}")]
     public async Task<IActionResult> Put(string id, [FromBody] Game updatedGame)
     {
         try
@@ -135,7 +137,7 @@ public class GameController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("/game/delete/{id}")]
     public async Task<IActionResult> Delete(string id)
     {
         try
