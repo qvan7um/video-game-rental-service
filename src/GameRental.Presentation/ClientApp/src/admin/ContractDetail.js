@@ -84,4 +84,3 @@ function ContractDetail() {
 }
 
 export default ContractDetail;
-

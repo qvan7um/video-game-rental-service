@@ -93,11 +93,12 @@ function Slider({ slides }) {
         <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
         <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
         {SliderData.map((slide, index) => {
+          const game = games.find(game => game.title === slide.gameTitle);
           return (
             <div
               className={index === current ? 'slide active' : 'slide'}
               key={index}
-              onClick={() => handleViewInfo(slide.gameId)}
+              onClick={() => handleViewInfo(game.id)}
             >
               {index === current && (
                 <img src={slide.image} alt='travelimage' className='image' />
@@ -113,6 +114,7 @@ function Slider({ slides }) {
       </section>
     );
   }
+  
   
   
   async function populateGameData() {
@@ -165,4 +167,3 @@ export default Slider;
 //   </section>
 //   );
 // }
-
