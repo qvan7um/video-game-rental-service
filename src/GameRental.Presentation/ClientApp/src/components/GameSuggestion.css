@@ -1,0 +1,27 @@
+.temp {
+    position: relative;
+}
+
+.game-suggestion {
+    z-index: 1;
+    position: absolute;
+    max-width: 450px;
+    transform: translateX(120%);
+    min-width: 450px;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.game-suggestion-item {
+    list-style-type: none;
+}
+
+.game-suggestion-title {
+    margin-bottom: 0;
+    padding-top: 10px;
+}
+
+.game-suggestion-genre, .game-suggestion-platform {
+    margin-bottom: 0;
+    font-size: 14px;
+}

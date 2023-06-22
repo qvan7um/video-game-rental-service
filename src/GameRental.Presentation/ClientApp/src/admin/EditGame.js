@@ -12,7 +12,7 @@ function EditGame() {
   }
   useEffect(() => {
     // Fetch game data for the specific game using the gameId prop
-    fetch(`/game/${gameId}`)
+    fetch(`api/games/?id=${gameId}`)
       .then(response => response.json())
       .then(data => setGameData(data));
   }, [gameId]);
@@ -47,7 +47,7 @@ function EditGame() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Update game data in database
-    fetch(`/game/${gameId}`, {
+    fetch(`api/game/update/${gameId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
