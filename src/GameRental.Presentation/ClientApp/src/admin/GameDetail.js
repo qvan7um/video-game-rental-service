@@ -17,7 +17,7 @@ function GameDetails() {
   }
   useEffect(() => {
     // Fetch game data for the specific game using the gameId prop
-    fetch(`/game/${gameId}`)
+    fetch(`api/games/?id=${gameId}`)
       .then(response => response.json())
       .then(data => setGameData(data));
   }, [gameId]);
@@ -36,7 +36,7 @@ function GameDetails() {
     })
     .then((willDelete) => {
       if (willDelete) {
-        fetch(`/game/${Id}`, { method: 'DELETE' })
+        fetch(`api/game/delete/${Id}`, { method: 'DELETE' })
       .then(response => {
         if (response.ok) {
           // If the DELETE request was successful, navigate back to the game list page

@@ -19,6 +19,10 @@ body {
     display: inline-block;
 }
 
+.dropdown-contents {
+    transform: translateY(-30px);
+}
+
 
 .dropdown .dropdown-btn {
     padding: 10px;
@@ -44,19 +48,17 @@ i{
     position: relative;
 }
 .chip-btn {
-    position: absolute;
     border-radius: 20px;
     border-color: #0085ff;
     background-color: #125592;
     color: #fff;
-    padding: 0px 10px;
+    padding: 0px 7px;
 }
 .chip-btn#chipcontract{
     padding: 0px 5px;
 }
 
 .chip-btn:hover {
-    position: absolute;
     border-radius: 20px;
     border-color: #0085ff;
     background-color: #125592;
@@ -66,20 +68,25 @@ i{
 .chip-btn > i {
     padding-left: 4px;
 }
-.chip {
-    padding: 10px;
+
+.chip-wrapper {
+    display: -webkit-inline-box;
 }
 
-.dropdown .dropdown-contents {
+.chip {
+    padding: 10px 3px 10px 3px;
+}
+
+.dropdown-contents {
     position: absolute;
     top: 110%;
     left: 0;
-   
     background: #303030;
     box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
     font-weight: 500;
     color: #bfbfbf;
     width: 100%;
+    z-index: 1;
 }
 
 .sub-dropdown-contents{
@@ -97,7 +104,3 @@ i{
 .dropdown .dropdown-contents .dropdown-item:hover {
     background: #484848;
 }
-
-
-
-
