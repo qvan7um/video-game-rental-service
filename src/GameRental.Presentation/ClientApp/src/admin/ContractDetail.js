@@ -7,7 +7,7 @@ function ContractDetail() {
   const {contractId} = useParams();
   useEffect(() => {
     // Fetch game data for the specific game using the contractId prop
-    fetch(`/contract/${contractId}`)
+    fetch(`/api/contract/${contractId}`)
       .then(response => response.json())
       .then(data => setContractData(data));
   }, [contractId]);
@@ -84,4 +84,3 @@ function ContractDetail() {
 }
 
 export default ContractDetail;
-

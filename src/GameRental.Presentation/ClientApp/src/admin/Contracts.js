@@ -107,7 +107,7 @@ function Contracts() {
 
   async function populateContractData() {
     try {
-      const response = await fetch('/contract');
+      const response = await fetch('/api/contracts');
       const data = await response.json();
       setContracts(data);
       setLoading(false);
@@ -134,5 +134,4 @@ function Contracts() {
 }
 
 export default Contracts;
-
 
