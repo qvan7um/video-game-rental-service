@@ -61,14 +61,14 @@ function Cards() {
                       <div className='cards__wrapper'>
                         <ul className='cards__items'>
                         {games.map(game =>
-                          <li key={game.id}>
+                          <div key={game.id}>
                           <CardItemBtn
                           src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
                           imgOnClick={() => handleViewInfo(game.id)} 
                           label={game.title}
                           text="Thuê"
                           />
-                          </li>
+                          </div>
                         )}
                         <CardItemBtn
                           src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
@@ -120,7 +120,7 @@ function Cards() {
 
   async function populateGameData() {
     try {
-      const response = await fetch('/game');
+      const response = await fetch('/api/games');
       const data = await response.json();
       setGames(data);
       setLoading(false);

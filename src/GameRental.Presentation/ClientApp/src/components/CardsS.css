@@ -45,6 +45,13 @@ img {
     
 }
 
+.title-btn >h6 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    padding-left: 0;
+}
+
 .cards__items {
     display: flex;
 }

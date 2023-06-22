@@ -6,8 +6,8 @@ function EditContract() {
   const [contractData, setContractData] = useState(null);
   const {contractId} = useParams();
   useEffect(() => {
-    // Fetch game data for the specific game using the contractId prop
-    fetch(`/contract/${contractId}`)
+    // Fetch contract data for the specific game using the contractId prop
+    fetch(`/api/contract/${contractId}`)
       .then(response => response.json())
       .then(data => setContractData(data));
   }, [contractId]);

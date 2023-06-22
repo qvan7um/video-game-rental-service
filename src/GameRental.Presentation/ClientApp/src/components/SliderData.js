@@ -2,7 +2,7 @@ export const SliderData = [
     {
         image:
         'https://media.vandal.net/m/9-2022/202292911251929_1.jpg',
-        gameId: '6492a88151420c28638b1dd4'
+        gameId: '6493cddf590ee3f2f250a0e4'
     },
     {
       image:

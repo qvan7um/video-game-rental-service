@@ -12,7 +12,7 @@ function EditGame() {
   }
   useEffect(() => {
     // Fetch game data for the specific game using the gameId prop
-    fetch(`/game/${gameId}`)
+    fetch(`/api/game/${gameId}`)
       .then(response => response.json())
       .then(data => setGameData(data));
   }, [gameId]);

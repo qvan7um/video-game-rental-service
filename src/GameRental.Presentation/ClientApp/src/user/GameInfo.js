@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './GameInfo.css';
 
 function GameInfo() {
@@ -12,7 +12,7 @@ function GameInfo() {
   }
   useEffect(() => {
     // Fetch game data for the specific game using the gameId prop
-    fetch(`/game/${gameId}`)
+    fetch(`/api/game/${gameId}`)
       .then(response => response.json())
       .then(data => setGameData(data));
   }, [gameId]);

@@ -98,7 +98,7 @@ function Games() {
 
   async function populateGameData() {
     try {
-      const response = await fetch('/game');
+      const response = await fetch('/api/games');
       const data = await response.json();
       setGames(data);
       setLoading(false);
