@@ -137,7 +137,7 @@ public class GameController : ControllerBase
         }
     }
 
-    [HttpDelete("/game/delete/{id}")]
+    [HttpDelete("game/delete/{id}")]
     public async Task<IActionResult> Delete(string id)
     {
         try
