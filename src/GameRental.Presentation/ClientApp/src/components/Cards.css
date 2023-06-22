@@ -40,17 +40,11 @@ img {
 .title {
     
     color: #fff;
-    width: 150px;
-    font-size: 14px;   
+    min-width: 150px;
+    font-size: 14px;
+    
 }
 
-.title-btn >h6 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    padding-left: 0;
-}
 .cards__items {
     display: flex;
-}   
-
+}

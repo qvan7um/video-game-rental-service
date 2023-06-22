@@ -1,8 +1,7 @@
 export const SliderData = [
     {
         image:
-        'https://media.vandal.net/m/9-2022/202292911251929_1.jpg',
-        gameId: '6492a88151420c28638b1dd4'
+        'https://media.vandal.net/m/9-2022/202292911251929_1.jpg'
     },
     {
       image:

@@ -6,7 +6,7 @@ function EditContract() {
   const [contractData, setContractData] = useState(null);
   const {contractId} = useParams();
   useEffect(() => {
-    // Fetch game data for the specific game using the contractId prop
+    // Fetch game data for the specific game using the gameId prop
     fetch(`/contract/${contractId}`)
       .then(response => response.json())
       .then(data => setContractData(data));
@@ -28,7 +28,6 @@ function EditContract() {
                     className='form-control'
                     type="text"
                     name="game"
-                    value={contractData.gameId}
                     placeholder={contractData.gameId}
                     />
                 </div>
@@ -41,7 +40,6 @@ function EditContract() {
                     className='form-control'
                     type="text"
                     name="name"
-                    value={contractData.customerInfo.name}
                     placeholder={contractData.customerInfo.name}
                     />
                 </div>
@@ -54,7 +52,6 @@ function EditContract() {
                     className='form-control'
                     type="text"
                     name="phoneNumber"
-                    value={contractData.customerInfo.phoneNumber}
                     placeholder={contractData.customerInfo.phoneNumber}
                     />
                 </div>
@@ -67,7 +64,6 @@ function EditContract() {
                     className='form-control'
                     type="text"
                     name="email"
-                    value={contractData.customerInfo.email}
                     placeholder={contractData.customerInfo.email}
                     />
                 </div>
@@ -80,7 +76,6 @@ function EditContract() {
                     className='form-control'
                     type="text"
                     name="address"
-                    value={contractData.customerInfo.address}
                     placeholder={contractData.customerInfo.address}
                     />
                 </div>   
@@ -93,7 +88,6 @@ function EditContract() {
                     className='form-control'
                     type="date"
                     name='startDate'
-                    value={contractData.startDate}
                     placeholder={contractData.startDate}
                     />
                 </div>

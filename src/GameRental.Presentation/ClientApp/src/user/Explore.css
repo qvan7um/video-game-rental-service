@@ -56,34 +56,15 @@
     transform: scale(1.08);
   }
 
-.dots-container {
+.dot-cotainer {
   display: flex;
   justify-content: center;
-  background:none ;
-  position: absolute;
-  top: 85%;
-  left: 45%;
-  color: #00A3FF;
-  cursor: pointer;
 }
 .dot-styles {
-  margin: 0 3px;
+  margin: '0 3px';
   cursor: pointer;
-  font-size: 60px;
-  color: #757575;
-  opacity: 80%;
-  background:none;
-  
+  font-size: 20px;
 }
-.selected {
-  color: #00A3FF;
-  background:none;
-  border: none;
-  opacity: 100%;
-}
-
-
-
 .explore-cards-items {
   overflow: hidden;
   overflow-x: scroll;
