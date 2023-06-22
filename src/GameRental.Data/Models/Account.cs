@@ -17,7 +17,7 @@ namespace GameRental.Data.Models
 
         public string Email { get; set; } = null!;
 
-        public List<string>? ContractsIds { get; set; }
+        public List<string>? ContractIds { get; set; }
 
         public float? Points { get; set; }
 

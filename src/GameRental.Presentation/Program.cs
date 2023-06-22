@@ -200,6 +200,7 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 },
                 StartDate = new DateOnly(2022, 1, 1),
                 EndDate = new DateOnly(2022, 1, 7),
+                RentalDuration = 7,
                 PaymentMethod = "Credit Card",
                 ShipmentMethod = "UPS",
                 ShippingFee = 5.99m,
@@ -219,6 +220,7 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 },
                 StartDate = new DateOnly(2022, 1, 1),
                 EndDate = new DateOnly(2022, 1, 7),
+                RentalDuration = 7,
                 PaymentMethod = "Credit Card",
                 ShipmentMethod = "UPS",
                 ShippingFee = 5.99m,
@@ -240,6 +242,7 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 },
                 StartDate = new DateOnly(2022, 2, 1),
                 EndDate = new DateOnly(2022, 2, 7),
+                RentalDuration = 7,
                 PaymentMethod = "PayPal",
                 ShipmentMethod = "FedEx",
                 ShippingFee = 4.99m,
@@ -268,10 +271,10 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 UserName = "user1",
                 Password = "user1111",
                 Email = "user1@example.com",
-                ContractsIds = new List<string>
+                ContractIds = new List<string>
                 {
-                    "6487f2fc8402d171deaa4e91",
-                    "6487f2fc8402d171deaa4e91"
+                    "648fcff5ef238d6487c69763",
+                    "648fcff5ef238d6487c69764"
                 }
             },
             new Account
@@ -280,9 +283,9 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
                 UserName = "user2",
                 Password = "user2222",
                 Email = "user2@example.com",
-                ContractsIds = new List<string>
+                ContractIds = new List<string>
                 {
-                    "6487f2fc8402d171deaa4e90"
+                    "648fcff5ef238d6487c69765"
                 }
             }
         };

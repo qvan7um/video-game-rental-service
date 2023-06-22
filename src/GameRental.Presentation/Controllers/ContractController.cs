@@ -2,11 +2,12 @@ using GameRental.Data.Models;
 using GameRental.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Sieve.Services;
+using Sieve.Models;
 
 namespace GameRental.Presentation.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api")]
 public class ContractController : ControllerBase
 {
     private readonly ContractService _contractService;
@@ -20,8 +21,8 @@ public class ContractController : ControllerBase
         _sieveProcessor = sieveProcessor;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Get()
+    [HttpGet("contracts")]
+    public async Task<IActionResult> Get([FromQuery] SieveModel sieveModel)
     {
         try
         {
@@ -29,9 +30,11 @@ public class ContractController : ControllerBase
 
             var contracts = await _contractService.Get();
 
+            var result = _sieveProcessor.Apply(sieveModel, contracts.AsQueryable());
+
             _logger.LogInformation("Retrieved {Count} contracts from database", contracts.Count);
 
-            return Ok(contracts);
+            return Ok(result);
         }
         catch (Exception ex)
         {
@@ -41,7 +44,7 @@ public class ContractController : ControllerBase
         }
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("contract/{id}")]
     public async Task<IActionResult> Get(string id)
     {
         try
@@ -69,7 +72,7 @@ public class ContractController : ControllerBase
         }
     }
 
-    [HttpGet("search")]
+    [HttpGet("contracts/search")]
     public async Task<IActionResult> Get([FromQuery] ParameterModel sieveModel)
     {
         try
@@ -92,7 +95,7 @@ public class ContractController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost("contract/create")]
     public async Task<IActionResult> Post([FromBody] Contract newContract)
     {
         try
@@ -113,7 +116,7 @@ public class ContractController : ControllerBase
         }
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("contract/update/{id}")]
     public async Task<IActionResult> Put(string id, [FromBody] Contract updatedContract)
     {
         try
@@ -134,7 +137,7 @@ public class ContractController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("contract/delete/{id}")]
     public async Task<IActionResult> Delete(string id)
     {
         try

@@ -40,20 +40,15 @@ namespace GameRental.Logic.Services
 
             if (newContract.Id != null)
             {
-                await CalculateLateFee(newContract.Id);
-                await CalculateTotalCost(newContract.Id);
+                await AutoUpdate(newContract);
+                await _contractRepository.UpdateAsync(newContract.Id, newContract);
             }
         }
 
         public async Task Update(string id, Contract updatedContract)
         {
+            await AutoUpdate(updatedContract);
             await _contractRepository.UpdateAsync(id, updatedContract);
-
-            if (updatedContract.Id != null)
-            {
-                await CalculateLateFee(updatedContract.Id);
-                await CalculateTotalCost(updatedContract.Id);
-            }
         }
 
         public async Task Delete(string id)
@@ -68,46 +63,37 @@ namespace GameRental.Logic.Services
             return contracts;
         }
 
-        public async Task CalculateLateFee(string id)
+        private async Task AutoUpdate(Contract contract)
         {
-            try
+            CalculateEndDate(contract);
+            CalculateLateFee(contract);
+            await CalculateTotalCost(contract);
+        }
+
+        private void CalculateEndDate(Contract contract)
+        {
+            DateOnly endDate = contract.StartDate.AddDays(contract.RentalDuration);
+
+            contract.EndDate = endDate;
+        }
+
+        private void CalculateLateFee(Contract contract)
+        {
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Today);
+            int daysLate = currentDate.DayNumber - contract.EndDate.DayNumber;
+
+            if (daysLate > 0)
             {
-                var contract = await _contractRepository.GetAsync(id);
-                
-                if (contract == null)
-                {
-                    throw new ArgumentException($"Contract with id: {id} not found");
-                }
+                decimal lateFee = daysLate * LATE_FEE_PER_DAY;
 
-                DateOnly currentDate = DateOnly.FromDateTime(DateTime.Today);
-                int daysLate = currentDate.DayNumber - contract.EndDate.DayNumber;
-
-                if (daysLate > 0)
-                {
-                    decimal lateFee = daysLate * LATE_FEE_PER_DAY;
-
-                    contract.LateFee = lateFee;
-                    await _contractRepository.UpdateAsync(id, contract);
-                }
-            }
-            catch (ArgumentException ex)
-            {
-                _logger.LogError(ex, "An error occured due to invalid arguments");
-                throw;
+                contract.LateFee = lateFee;
             }
         }
 
-        public async Task CalculateTotalCost(string id)
+        private async Task CalculateTotalCost(Contract contract)
         {
             try
             {
-                var contract = await _contractRepository.GetAsync(id);
-
-                if (contract == null)
-                {
-                    throw new ArgumentException($"Contract with id: {id} not found");
-                }
-
                 var game = await _gameRepository.GetAsync(contract.GameId);
 
                 if (game == null)
@@ -115,24 +101,17 @@ namespace GameRental.Logic.Services
                     throw new ArgumentException($"Game with id: {contract.GameId}");
                 }
 
-                int rentalDuration = contract.EndDate.DayNumber - contract.StartDate.DayNumber;
-
-                if (rentalDuration < 0)
-                {
-                    throw new ArgumentException("EndDate must not be less than StartDate");
-                }
-
                 decimal rentalCost;
 
-                if (rentalDuration <= 3)
+                if (contract.RentalDuration <= 3)
                 {
                     rentalCost = game.Price.ThreeDays;
                 }
-                else if (rentalDuration <= 7)
+                else if (contract.RentalDuration <= 7)
                 {
                     rentalCost = game.Price.SevenDays;
                 }
-                else if (rentalDuration <= 14)
+                else if (contract.RentalDuration <= 14)
                 {
                     rentalCost = game.Price.FourteenDays;
                 }
@@ -144,7 +123,6 @@ namespace GameRental.Logic.Services
                 decimal totalCost = rentalCost + (contract.ShippingFee ?? 0);
 
                 contract.TotalCost = totalCost;
-                await _contractRepository.UpdateAsync(id, contract);
             }
             catch (ArgumentException ex)
             {
