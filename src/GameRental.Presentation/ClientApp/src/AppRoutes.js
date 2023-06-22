@@ -11,7 +11,6 @@ import EditContract from "./admin/EditContract";
 import ContractDetail from "./admin/ContractDetail";
 import EditGame from "./admin/EditGame";
 import GameDetail from "./admin/GameDetail";
-import GameInfo from "./user/GameInfo";
 
 const AppRoutes = [
   {
@@ -65,10 +64,6 @@ const AppRoutes = [
   {
     path: '/contracts/detail/:contractId',
     element: <ContractDetail />
-  },
-  {
-    path: 'info/:gameId',
-    element: <GameInfo />
   }
 
 ];
