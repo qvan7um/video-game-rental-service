@@ -12,6 +12,9 @@ function Games() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [selectedGameId, setSelectedGameId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const suggestedGames = games.filter(game => game.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
   useEffect(() => {
     populateGameData();
@@ -31,7 +34,7 @@ function Games() {
     })
     .then((willDelete) => {
       if (willDelete) {
-        fetch(`/game/${gameId}`, { method: 'DELETE' })
+        fetch(`api/game/delete/${gameId}`, { method: 'DELETE' })
           .then(() => {
             // Remove deleted game from games state
             setGames(games => games.filter(game => game.id !== gameId));
@@ -63,7 +66,7 @@ function Games() {
               </tr>
             </thead>
 
-              {games.map(game =>
+              {suggestedGames.map(game =>
             <tbody className={selectedGameId === game.id ? 'selected tb-body' : 'tb-body'}>
                 <tr key={game.id} onClick={() => setSelectedGameId(game.id)}>
                   <td>{game.title}</td>
@@ -98,7 +101,7 @@ function Games() {
 
   async function populateGameData() {
     try {
-      const response = await fetch('/api/games');
+      const response = await fetch('api/games');
       const data = await response.json();
       setGames(data);
       setLoading(false);
@@ -115,26 +118,13 @@ function Games() {
     <div className='manage-container'>
       <form className='search-bar'>
         <button type='submit'><i className='fa fa-search bg-game'></i></button>
-        <input type='text' placeholder='Tìm kiếm' />
+        <input type='text' placeholder='Tìm kiếm' onChange={e => setSearchQuery(e.target.value)}/>
       </form>
       <Dropdown Type={'filter'} Title={'Lọc'} content={[['Platform', 'PS5', 'PS4', 'NintendoS'],
       ['Genre', 'Action', 'RGP', 'Adventure'],
       ['Publisher', 'CapCom', 'Ubisort', 'Nintendo']]} />
       <DropdownSoft Type={'range'} Title={'Sắp xếp'} content={['Mới nhất', 'Từ A - Z', 'Từ Z -A']} />
-      {/* <Chip
-          label="Clickable Deletable"
-          onClick={handleClick}
-          onDelete={handleDelete}
-        /> */}
       {contents}
-      {/* <div className='btn-area'>
-          <Link to="/addgame"><button className='button btn-add'>Thêm</button></Link>
-          <div className='hide-btn'>
-            <button className='button btn-delete'>Xóa</button>
-            <button className='button btn-edit'>Sửa</button>
-            <button className='button btn-detail'>Chi tiết</button>
-          </div>
-        </div> */}
     </div>
   );
 }

@@ -227,4 +227,15 @@ tr:last-child td:last-child { border-bottom-right-radius: 10px; }
   display: none;
 }
 
+/* List os game suggestion*/
+.game-suggestion-wrapper {
+  z-index: 1;
+  position: absolute;
+  list-style-type: none;
+}
+.game-suggestion {
+  color: #fff;
+  background: #505050;
+}
+
 

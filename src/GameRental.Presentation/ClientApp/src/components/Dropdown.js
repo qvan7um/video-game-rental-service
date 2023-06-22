@@ -7,10 +7,13 @@ function Dropdown({Type, Title, content = [][100]}) {
     const [isActiveSubP, setIsAtiveSubP] = useState(false);
     const [isActiveSubPF, setIsAtiveSubPF] = useState(false);
     const [isActiveChip, setIsAtiveChip] = useState(false);
-    const [buttonText, setButtonText] = useState("");
+    const [buttonTexts, setButtonTexts] = useState([]);
 
     
     var value='';
+    const removeChip = (index) => {
+        setButtonTexts(buttonTexts.filter((_, i) => i !== index));
+    };
     
     const showChip = (value) => {
         setIsAtiveSubGenre(false);
@@ -18,7 +21,9 @@ function Dropdown({Type, Title, content = [][100]}) {
         setIsAtiveSubPF(false);
         setIsAtive(false);
         setIsAtiveChip(true);
-        setButtonText(value);
+        if (!buttonTexts.includes(value)) {
+            setButtonTexts([...buttonTexts, value]);
+        }
     };
     let titleStyles = ['dropdown']
     if (Type === 'range') {
@@ -77,10 +82,14 @@ function Dropdown({Type, Title, content = [][100]}) {
                     </div>
                 </div>}
         </div>}
-        {isActiveChip &&
-        <div className='chip' onClick={e => setIsAtiveChip(!isActiveChip)}>
-            <button className='chip-btn'>{buttonText}<i className='fa fa-times'/></button>
-        </div>}
+        <div className='chip-wrapper'>
+            {isActiveChip &&
+            buttonTexts.map((text, index) => (
+                <div key={text} className='chip' onClick={e => removeChip(index)}>
+                <button className='chip-btn'>{text}<i className='fa fa-times'/></button>
+            </div>
+            ))}
+        </div>
     </div>
   )
 }

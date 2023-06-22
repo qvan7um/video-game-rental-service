@@ -76,7 +76,7 @@ const handleSubmit = async (event) => {
     // };
 
 
-    const response = await fetch ("/game", {
+    const response = await fetch ("api/game/create", {
         method: "POST",
         headers : {
             "Content-Type": "application/json",
