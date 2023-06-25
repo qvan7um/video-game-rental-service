@@ -10,7 +10,7 @@ function CardItemBtn(props) {
         </figure>
         <div className='title-btn'>
             <h6 className='title'>{props.label}</h6>
-            <button className='rent-btn'>Thuê</button>
+            <button className='rent-btn' onClick={props.btnOnClick}>Thuê</button>
         </div> 
         
     </div>
