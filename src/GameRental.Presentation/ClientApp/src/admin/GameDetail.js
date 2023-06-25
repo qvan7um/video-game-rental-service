@@ -17,7 +17,7 @@ function GameDetails() {
   }
   useEffect(() => {
     // Fetch game data for the specific game using the gameId prop
-    fetch(`api/games/?id=${gameId}`)
+    fetch(`api/game/${gameId}`)
       .then(response => response.json())
       .then(data => setGameData(data));
   }, [gameId]);
@@ -52,18 +52,26 @@ function GameDetails() {
   return (
     <div className='detail-container'>
       <div className='image-detail'>
-        <img className='thumbnail-img' alt='thumbnail' src='https://assets.nintendo.com/image/upload/v1681238674/Microsites/zelda-tears-of-the-kingdom/videos/posters/totk_microsite_officialtrailer3_1304xj47am'/>
-        <ul className='detail-img-wrapper'>
-          <img onClick={handleImgClick} className='detail-img' alt='thumbnail' src='https://media.wired.com/photos/645d15509a01d944fee35de1/master/w_2560%2Cc_limit/Zelda-Tears-Of-The-Kingdom-Culture-TotK_3rd_54.jpg'/>
-          <img onClick={handleImgClick} className='detail-img' alt='thumbnail' src='https://assets.nintendo.com/image/upload/v1681238674/Microsites/zelda-tears-of-the-kingdom/videos/posters/totk_microsite_officialtrailer3_1304xj47am'/>
-          <img onClick={handleImgClick} className='detail-img' alt='thumbnail' src='https://assets.nintendo.com/image/upload/v1681238674/Microsites/zelda-tears-of-the-kingdom/videos/posters/totk_microsite_officialtrailer3_1304xj47am'/>
-          <img onClick={handleImgClick} className='detail-img' alt='thumbnail' src='https://assets.nintendo.com/image/upload/v1681238674/Microsites/zelda-tears-of-the-kingdom/videos/posters/totk_microsite_officialtrailer3_1304xj47am'/>
-          <img onClick={handleImgClick} className='detail-img' alt='thumbnail' src='https://assets.nintendo.com/image/upload/v1681238674/Microsites/zelda-tears-of-the-kingdom/videos/posters/totk_microsite_officialtrailer3_1304xj47am'/>
-          <img onClick={handleImgClick} className='detail-img' alt='thumbnail' src='https://assets.nintendo.com/image/upload/v1681238674/Microsites/zelda-tears-of-the-kingdom/videos/posters/totk_microsite_officialtrailer3_1304xj47am'/>
-          <img onClick={handleImgClick} className='detail-img' alt='thumbnail' src='https://assets.nintendo.com/image/upload/v1681238674/Microsites/zelda-tears-of-the-kingdom/videos/posters/totk_microsite_officialtrailer3_1304xj47am'/>
-          <img onClick={handleImgClick} className='detail-img' alt='thumbnail' src='https://assets.nintendo.com/image/upload/v1681238674/Microsites/zelda-tears-of-the-kingdom/videos/posters/totk_microsite_officialtrailer3_1304xj47am'/>
-        </ul>
+        {gameData.media.length > 0 && (
+          <img
+            className='thumbnail-img'
+            alt={gameData.media[0].caption}
+            src={gameData.media[0].url}
+          />
+        )}
 
+        {/* Display media items */}
+        <ul className='detail-img-wrapper'>
+          {gameData.media.map((mediaItem, index) => (
+            <img
+              key={index}
+              onClick={handleImgClick}
+              className='detail-img'
+              alt={mediaItem.caption}
+              src={mediaItem.url}
+            />
+          ))}
+        </ul>
       </div>
       <div className='info-detail'>
         <h2 className='p10 info game-title-detail'>{gameData.title}</h2>

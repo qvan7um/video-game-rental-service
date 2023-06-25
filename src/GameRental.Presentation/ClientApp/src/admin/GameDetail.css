@@ -24,22 +24,22 @@
 
 .info-detail {
     min-width: 500px;
-    max-width: 500px;
+    width: 100%;
     background: #252525;
 }
 
 .thumbnail-img {
-    max-width: 100%;
+    width: 800px;
     object-fit: cover;
-    max-height: 60%;
+    height: 500px;
     background: #252525;
     border-radius: 0px;
     padding: 20px;
 }
 
 .detail-img {
-    max-width: 200px;
-    max-height: 120px;
+    width: 200px;
+    height: 120px;
     padding: 5px;
 }
 

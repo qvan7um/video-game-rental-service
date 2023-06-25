@@ -31,6 +31,52 @@
     font-size: small;
 }
 
+.media-form {
+    display: block;
+    background: #252525;
+    position: fixed;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 20px #000;
+    z-index: 1;
+}
+
+.media-title {
+    color: #fff;
+}
+
+.media-content {
+    display: flex;
+    max-width: 500px;
+    overflow-x: scroll;
+    max-height: 300px;
+}
+
+.media-content::-webkit-scrollbar {
+    display: none;
+}
+
+.media-item-wrapper {
+    position: relative;
+    margin-right: 20px;
+}
+
+.media-item {
+    margin-left: 20px;
+    height: 80px;
+    width: 120px;
+}
+
+.delete-media-btn {
+    position: absolute;
+    border-radius: 100%;
+    max-height: 20px;
+    max-width: 20px;
+    font-size: 10px;
+    align-items: center;
+
+}
+
 .mb-2{
     display: flex;
     flex-direction: row;
