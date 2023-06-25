@@ -47,7 +47,7 @@ const AppRoutes = [
     element: <SearchPage />
   },
   {
-    path: '/rent',
+    path: 'rent/:gameId',
     element: <RentGame />
   },
   {
