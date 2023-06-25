@@ -36,7 +36,7 @@ function Contracts() {
     })
     .then((willDelete) => {
       if (willDelete) {
-        fetch(`/contract/${contractId}`, { method: 'DELETE' })
+        fetch(`/api/contract/delete/${contractId}`, { method: 'DELETE' })
           .then(() => {
             // Remove deleted game from games state
             setContracts(contracts => contracts.filter(contract => contract.id !== contractId));
