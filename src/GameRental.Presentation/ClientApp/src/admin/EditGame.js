@@ -7,12 +7,46 @@ import swal from 'sweetalert';
 function EditGame() {
   const [gameData, setGameData] = useState(null);
   const {gameId} = useParams();
+  const [showMediaForm, setShowMediaForm] = useState(false);
+
+  function handleDeleteMedia(index) {
+    // Remove media item from media array
+    setGameData(prevData => ({
+        ...prevData,
+        media: prevData.media.filter((_, i) => i !== index)
+      }));
+  }
+
+  function handleMediaSubmit(event) {
+    // Prevent default form submission behavior
+    event.preventDefault();
+
+    // Create media data object
+    const mediaData = {
+      type: event.target.type.value,
+      url: event.target.url.value,
+      caption: event.target.caption.value
+    };
+
+    // Validate media data
+    if (!mediaData.type || !mediaData.url || !mediaData.caption) {
+      // Display error message
+      alert("Please fill in all media fields");
+    } else {
+      // Add media data to gameData.media array
+      setGameData(prevData => ({
+        ...prevData,
+        media: [...prevData.media, mediaData]
+      }));
+      setShowMediaForm(false);
+    }
+  }
   const isAlert = () => {
     swal("Thành công", "Cập nhật game thành công", "success");
   }
   useEffect(() => {
     // Fetch game data for the specific game using the gameId prop
-    fetch(`api/games/?id=${gameId}`)
+    fetch(`api/game/${gameId}`)
       .then(response => response.json())
       .then(data => setGameData(data));
   }, [gameId]);
@@ -20,22 +54,6 @@ function EditGame() {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setGameData(prevData => ({ ...prevData, [name]: value,
-        media: [
-            {
-                type: "img",
-                url:
-                    "<URL>",
-                caption:
-                    "Screenshot from The Legend of Zelda: Tears of the Kingdom"
-            },
-            {
-                type: "video",
-                url:
-                    "<URL>",
-                caption:
-                    "Trailer for The Legend of Zelda: Tears of the Kingdom"
-            }
-        ],
         price: {
             threeDays: 5.99,
             sevenDays: 9.99,
@@ -45,7 +63,6 @@ function EditGame() {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     // Update game data in database
     fetch(`api/game/update/${gameId}`, {
       method: 'PUT',
@@ -61,18 +78,79 @@ function EditGame() {
   return (
     <div className='addgame-page'>
         <div className='addgame-form-container'>
-            <form onSubmit={handleSubmit}>
+                <form onSubmit={handleMediaSubmit}>
+
+        {showMediaForm && (
+            <div className='media-form'>
+                        <h5 className='media-title'>Thêm Media</h5>
+                        
+                        
+                            <div className='media-type'>
+                            <label>Type:</label>
+                            <select
+                                name='type'>
+                                <option value="img">Image</option>
+                                <option value="video">Video</option>
+                            </select>
+                            </div>
+                            <div className='media-url'>
+                            <label>URL:</label>
+                            <input
+                                type="text"
+                                name='url'
+                            />
+                            </div>
+                            <div className='media-caption'>
+                            <label>Caption:</label>
+                            <input
+                                type="text"
+                                name='caption'
+                                />
+                            </div>
+                        
+                        
+                        <button type="button" className='cancel-btn' onClick={() => setShowMediaForm(false)}>
+                            Hủy
+                        </button>
+                        <button type="submit" className='update-btn'>
+                            Thêm
+                        </button>
+                        </div>
+                    )}
+            </form>
+            {/* <form onSubmit={handleSubmit}> */}
                 <div className='mb-2'>
                     <label htmlFor='thumbnail' className='form-label'>
                         Thumbnail:
                     </label>
                     <label htmlFor='thumbnail-btn' className='form-label-btn'>
-                        <BsFillPlusCircleFill className='thumbnail-class'/> 
+                    <BsFillPlusCircleFill className="thumbnail-class" onClick={() => setShowMediaForm(!showMediaForm)}>
+                        {showMediaForm ? "Hide Media Form" : "Show Media Form"}
+                    </BsFillPlusCircleFill>
                     </label>
+                    <div className='media-content'>
+
+                        {gameData.media.map((mediaItem, index) => (
+                            <div key={index}>
+
+                        {mediaItem.type === "img" ? (
+                            <div className='media-item-wrapper'>
+                            <img className="media-item" src={mediaItem.url} alt={mediaItem.caption} />
+                            <button className='delete-media-btn' onClick={() => handleDeleteMedia(index)}>x</button>
+                            </div>
+                        ) : (
+                            <div className='media-item-wrapper'>
+                            <video className='media-item' src={mediaItem.url} controls />
+                            <button className='delete-media-btn' onClick={() => handleDeleteMedia(index)}>x</button>
+                            </div>
+                        )}
+                            </div>
+                        ))}   
+                    </div>
                     <input 
                     id="thumbnail-btn"
                     className='form-control' 
-                    type="file"
+                    type="button"
                     name="thumbnail"
                     />
                 </div>
@@ -218,13 +296,15 @@ function EditGame() {
                     >
                     </textarea>
                 </div>
-                    <button type="submit" className='update-btn' value="Save" onClick={isAlert}>
+                    <button type="submit" className='update-btn' value="Save" onClick={() => 
+                        {isAlert();
+                        handleSubmit();}}>
                         Cập nhật
                     </button>
                 <Link to="/games"><button type='cancel' className='cancel-btn'>
                 Hủy
                 </button></Link>
-            </form>
+            {/* </form> */}
         </div>
       </div>
   );

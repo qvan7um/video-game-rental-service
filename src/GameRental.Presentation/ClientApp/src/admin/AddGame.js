@@ -1,8 +1,42 @@
 import React, { Component } from 'react'
+import { useState } from 'react';
 import './AddGame.css';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
+
+function AddGame () {
+  const [media, setMedia] = useState([]);
+  const [showMediaForm, setShowMediaForm] = useState(false);
+
+
+  function handleDeleteMedia(index) {
+    // Remove media item from media array
+    const newMedia = [...media];
+    newMedia.splice(index, 1);
+    setMedia(newMedia);
+  }
+
+  function handleMediaSubmit(event) {
+    // Validate media data
+    event.preventDefault();
+    const mediaData = {
+        type: event.target.type.value,
+        url: event.target.url.value,
+        caption: event.target.caption.value
+    };
+
+    if (!mediaData.type || !mediaData.url || !mediaData.caption) {
+        // Display error message
+        alert("Please fill in all media fields");
+      } else {
+        // Add media data to media array
+        setMedia([...media, mediaData]);
+        setShowMediaForm(false)
+      }
+        
+
+  }
 
 const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,22 +50,7 @@ const handleSubmit = async (event) => {
         publisher: event.target.publisher.value,
         description: event.target.description.value,
         esrbRating: event.target.esrbRating.value,
-        media: [
-            {
-                type: "img",
-                url:
-                    "<URL>",
-                caption:
-                    "Screenshot from The Legend of Zelda: Tears of the Kingdom"
-            },
-            {
-                type: "video",
-                url:
-                    "<URL>",
-                caption:
-                    "Trailer for The Legend of Zelda: Tears of the Kingdom"
-            }
-        ],
+        media: media,
         price: {
             threeDays: 5.99,
             sevenDays: 9.99,
@@ -39,43 +58,6 @@ const handleSubmit = async (event) => {
             thirtyDays: 19.99
         }
     };
-    // const gameData = {     
-    //     title: "Elden Ring",
-    //     genre: ["Open World", "RPG"],
-    //     platform: "PS5",
-    //     explore: ["Featured", "New release"],
-    //     releaseDate: "2022-06-25",
-    //     developer: ["From Software"],
-    //     publisher: "From Software",
-    //     description:
-    //     "The Legend of Zelda: Tears of the Kingdom is an action-adventure game developed and published by Nintendo for the Nintendo Switch.",
-    //     esrbRating: "E10+",
-    //     media: [
-    //         {
-    //             type: "img",
-    //             url:
-    //                 "<URL>",
-    //             caption:
-    //                 "Screenshot from The Legend of Zelda: Tears of the Kingdom"
-    //         },
-    //         {
-    //             type: "video",
-    //             url:
-    //                 "<URL>",
-    //             caption:
-    //                 "Trailer for The Legend of Zelda: Tears of the Kingdom"
-    //         }
-    //     ],
-    //     price: {
-    //         threeDays: 5.99,
-    //         sevenDays: 9.99,
-    //         fourteenDays: 14.99,
-    //         thirtyDays: 19.99
-    //     }
-
-    // };
-
-
     const response = await fetch ("api/game/create", {
         method: "POST",
         headers : {
@@ -92,25 +74,79 @@ const handleSubmit = async (event) => {
         swal("Thất bại", "Bạn cần nhập đầy đủ thông tin", "error");
     }
 };
-export class AddGame extends Component {
-  render() {
+
     return (
       <div className='addgame-page'>
         <div className='addgame-form-container'>
+        <form onSubmit={handleMediaSubmit}>
+
+        {showMediaForm && (
+            <div className='media-form'>
+                        <h5 className='media-title'>Thêm Media</h5>
+                        
+                        
+                            <div className='media-type'>
+                            <label>Type:</label>
+                            <select
+                                name='type'>
+                                <option value="img">Image</option>
+                                <option value="video">Video</option>
+                            </select>
+                            </div>
+                            <div className='media-url'>
+                            <label>URL:</label>
+                            <input
+                                type="text"
+                                name='url'
+                            />
+                            </div>
+                            <div className='media-caption'>
+                            <label>Caption:</label>
+                            <input
+                                type="text"
+                                name='caption'
+                                />
+                            </div>
+                        
+                        
+                        <button type="button" className='cancel-btn' onClick={() => setShowMediaForm(false)}>
+                            Hủy
+                        </button>
+                        <button type="submit" className='update-btn'>
+                            Thêm
+                        </button>
+                        </div>
+                    )}
+            </form>
             <form onSubmit={handleSubmit}>
-                <div className='mb-2'>
-                    <label htmlFor='thumbnail' className='form-label'>
-                        Thumbnail:
-                    </label>
-                    <label htmlFor='thumbnail-btn' className='form-label-btn'>
-                        <BsFillPlusCircleFill className='thumbnail-class'/> 
-                    </label>
-                    <input 
-                    id="thumbnail-btn"
-                    className='form-control' 
-                    type="file"
-                    name="thumbnail"
-                    />
+            <div className="mb-2">
+                <label htmlFor="thumbnail" className="form-label">
+                    Thumbnail:
+                </label>
+                <label htmlFor="thumbnail-btn" className="form-label-btn">
+                    <BsFillPlusCircleFill className="thumbnail-class" onClick={() => setShowMediaForm(!showMediaForm)}>
+                        {showMediaForm ? "Hide Media Form" : "Show Media Form"}
+                    </BsFillPlusCircleFill>
+                </label>
+                <div className='media-content'>
+
+                {media.map((mediaItem, index) => (
+                    <div key={index}>
+
+                {mediaItem.type === "img" ? (
+                    <>
+                    <img className="media-item" src={mediaItem.url} alt={mediaItem.caption} />
+                    <button className='delete-media-btn' onClick={() => handleDeleteMedia()}>x</button>
+                    </>
+                ) : (
+                    <>
+                    <video className='media-item' src={mediaItem.url} controls />
+                    <button className='delete-media-btn' onClick={() => handleDeleteMedia()}>x</button>
+                    </>
+                )}
+                    </div>
+                ))}   
+                </div>
                 </div>
                 <div className='mb-2'>
                     <label htmlFor='media' className='form-label'>
@@ -239,7 +275,6 @@ export class AddGame extends Component {
         </div>
       </div>
     )
-  }
 }
 
 export default AddGame;
