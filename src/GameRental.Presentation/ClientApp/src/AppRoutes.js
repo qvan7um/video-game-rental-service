@@ -4,7 +4,7 @@ import { Home } from "./components/Home";
 import { Explore } from "./user/Explore";
 import SearchPage from "./user/SearchPage";
 import RentGame from "./user/RentGame";
-import { AddGame} from "./admin/AddGame";
+import AddGame from "./admin/AddGame";
 import Contracts from "./admin/Contracts";
 import AddContract from "./admin/AddContract";
 import EditContract from "./admin/EditContract";
