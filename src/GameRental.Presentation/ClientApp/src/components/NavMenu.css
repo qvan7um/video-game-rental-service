@@ -44,3 +44,16 @@ html {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+.switch-btn {
+  float: right;
+  margin: 10px 5px;
+  color: #fff;
+  background-color: #FFC700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.navmenu-container {
+  background-color: #000;
+}

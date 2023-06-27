@@ -56,14 +56,21 @@ function Cards() {
     navigate(`/rent/${gameId}`);
   }
 
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth() + 1;
+const currentYear = currentDate.getFullYear();
+
+const newReleaseGames = games.filter(game => game.ReleaseDate && game.ReleaseDate.Month === currentMonth && game.ReleaseDate.Year === currentYear);
+const featuredGames = games.filter(game => game.explore && game.explore.includes("Featured"));
+
   function renderGamesInfo(games) {
     return (
       <div className='card-wrapper'>
                   <div className='cards'>
                     <div className='cards__container'>
-                      <div className='cards__wrapper'>
-                        <ul className='cards__items'>
-                        {games.map(game =>
+                        <h2>Nổi bật</h2>
+                        <ul className='card__items'>
+                        {featuredGames.map(game =>
                           <div key={game.id}>
                           <CardItemBtn
                           src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
@@ -103,6 +110,41 @@ function Cards() {
                           label="Demo"
                           text="Thuê"
                           />
+                        </ul>
+                    </div>
+                    <div className='cards__container'>
+                        <h2>Mới</h2>
+                        <ul className='card__items'>
+                        {newReleaseGames.map(game =>
+                          <div key={game.id}>
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          imgOnClick={() => handleViewInfo(game.id)} 
+                          label={game.title}
+                          btnOnClick={() => handleRentGame(game.id)}
+                          />
+                          </div>
+                        )}
+                        <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
                           <CardItemBtn
                           src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
                           label="Demo"
@@ -114,10 +156,54 @@ function Cards() {
                           text="Thuê"
                           />
                         </ul>
-            </div>
+                    </div>
+                    <div className='cards__container'>
+                        <h2>Sắp ra mắt</h2>
+                        <ul className='card__items'>
+                        {newReleaseGames.map(game =>
+                          <div key={game.id}>
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          imgOnClick={() => handleViewInfo(game.id)} 
+                          label={game.title}
+                          btnOnClick={() => handleRentGame(game.id)}
+                          />
+                          </div>
+                        )}
+                        <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
+                          <CardItemBtn
+                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          label="Demo"
+                          text="Thuê"
+                          />
+                        </ul>
+                    </div>
         </div>
     </div>
-      </div>
     );
   }
 
