@@ -35,6 +35,8 @@ namespace GameRental.Data.Models
         [Sieve(CanSort = true)]
         public string ESRBRating { get; set; } = null!;
 
+        public string BoxArt { get; set; } = null!;
+
         public List<GameMedia> Media { get; set; } = null!;
 
         public RentPrice Price { get; set; } = null!;
@@ -42,7 +44,7 @@ namespace GameRental.Data.Models
 
     public class GameMedia
     {
-        public string Type { get; set; } = null!; // "img" or "video", use enum?
+        public string Type { get; set; } = null!; // "Image" or "Video"
 
         public string URL { get; set; } = null!;
 
