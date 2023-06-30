@@ -82,9 +82,10 @@ img {
 .link-btn {
     margin-top: 250px;
     background: #303030;
-
 }
-
+.link-btn > a{
+    background: none;
+}
 .link-btn-item {
     padding: 10px 15px;
     margin: 20px 50px;
