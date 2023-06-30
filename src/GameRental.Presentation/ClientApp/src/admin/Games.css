@@ -80,12 +80,17 @@ tr:last-child {
   background-color: #505050;
 }
 
-.selected {
+.selected-game {
   border: #0085ff 2px solid;
 }
 
 .games-container {
     background-color: #504e4e !important;
+}
+
+.img-games-page {
+  width: 100px;
+  height: 100px;
 }
 
 tr:first-child td:first-child { border-top-left-radius: 10px; }

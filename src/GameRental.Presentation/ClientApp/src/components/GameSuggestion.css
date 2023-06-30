@@ -2,7 +2,7 @@
     position: relative;
 }
 
-.game-suggestion {
+.game-suggestion-list {
     z-index: 1;
     position: absolute;
     max-width: 450px;
@@ -10,6 +10,8 @@
     min-width: 450px;
     max-height: 400px;
     overflow-y: scroll;
+    background: #505050;
+    color: #fff;
 }
 
 .game-suggestion-item {

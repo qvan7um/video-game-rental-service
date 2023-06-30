@@ -9,6 +9,7 @@
     align-items: center;
     text-align: center;
     object-fit: contain;  
+    overflow: hidden;
   
   }
   .image {
@@ -18,7 +19,7 @@
     max-height: 100%;
     border-radius: 10px;
     object-position: top;
-    margin-top: 1%;
+    object-fit: cover;
   }
 
   .right-arrow {
@@ -48,24 +49,27 @@
   .slide {
     opacity: 0;
     transition-duration: 1s ease;
+    width: 100%;
   }
   
   .slide.active {
     opacity: 1;
     transition-duration: 1s;
     transform: scale(1.08);
+    width: 100%;
   }
 
-.dots-container {
-  display: flex;
-  justify-content: center;
-  background:none ;
-  position: absolute;
-  top: 85%;
-  left: 45%;
-  color: #00A3FF;
-  cursor: pointer;
-}
+
+  .dots-container {
+    display: flex;
+    justify-content: center;
+    background:none ;
+    position: absolute;
+    top: 80%;
+    left: 45%;
+    color: #00A3FF;
+    cursor: pointer;
+  }
 .dot-styles {
   margin: 0 3px;
   cursor: pointer;

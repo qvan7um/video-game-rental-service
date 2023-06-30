@@ -39,6 +39,15 @@
     font-size: 14px;
 }
 
+.game-suggestion {
+    transform: translate(39%, 22px);
+    min-width: 565px;
+}
+
+.game-suggestion-item {
+    cursor: pointer;
+}
+
 form{
     background: none;
 }

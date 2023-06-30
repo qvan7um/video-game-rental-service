@@ -78,7 +78,7 @@ function Cards() {
                         {games.map(game =>
                           <div key={game.id}>
                           <CardItemS
-                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
+                          src={game.boxArt} 
                           imgOnClick={() => handleViewInfo(game.id)} 
                           label={game.title}
 

@@ -9,7 +9,7 @@
     "img img img info"
     "more more more more"
     "more more more more";
-    background: #505050;
+    background: #252525;
 }
 
 .p10 {
@@ -51,7 +51,7 @@
     padding-left: 0;
     margin-left: 20px;
     margin-right: 20px;
-    max-width: 100%;
+    max-width: 760px;
     max-height: 200px;
     overflow-x: scroll;
     display: flex;

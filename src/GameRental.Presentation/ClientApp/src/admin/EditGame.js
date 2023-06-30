@@ -8,6 +8,7 @@ function EditGame() {
   const [gameData, setGameData] = useState(null);
   const {gameId} = useParams();
   const [showMediaForm, setShowMediaForm] = useState(false);
+  const [showBoxArtForm, setShowBoxArtForm] = useState(false);
 
   function handleDeleteMedia(index) {
     // Remove media item from media array
@@ -16,7 +17,7 @@ function EditGame() {
         media: prevData.media.filter((_, i) => i !== index)
       }));
   }
-
+  const [boxArt, setBoxArt] = useState("")
   function handleMediaSubmit(event) {
     // Prevent default form submission behavior
     event.preventDefault();
@@ -41,6 +42,25 @@ function EditGame() {
       setShowMediaForm(false);
     }
   }
+  function handleBoxArtSubmit(event) {
+    // Prevent default form submission behavior
+    event.preventDefault();
+    
+    // Get boxart URL from form input
+    const boxartUrl = event.target.boxArt.value;
+    
+    // Validate boxart URL
+    if (!boxartUrl) {
+        // Display error message
+        alert("Please enter a boxart URL");
+    } else {
+        setBoxArt(prevData => ({
+        ...prevData,
+        boxArt: boxartUrl
+        }));
+        setShowBoxArtForm(false);
+    }
+}
   const isAlert = () => {
     swal("Thành công", "Cập nhật game thành công", "success");
   }
@@ -118,55 +138,72 @@ function EditGame() {
                         </div>
                     )}
             </form>
+            <form onSubmit={handleBoxArtSubmit}>
+            {showBoxArtForm && (
+            <div className='media-form'>
+                        <h5 className='media-title'>Thêm BoxArt</h5>     
+                            <div className='media-url'>
+                            <label>URL:</label>
+                            <input
+                                type="text"
+                                name='boxArt'
+                            />
+                            </div>
+                        <button type="button" className='cancel-btn' onClick={() => setShowBoxArtForm(false)}>
+                            Hủy
+                        </button>
+                        <button type="submit" className='update-btn'>
+                            Thêm
+                        </button>
+                        </div>
+                    )}
+            </form>
             {/* <form onSubmit={handleSubmit}> */}
-                <div className='mb-2'>
-                    <label htmlFor='thumbnail' className='form-label'>
-                        Thumbnail:
-                    </label>
-                    <label htmlFor='thumbnail-btn' className='form-label-btn'>
-                    <BsFillPlusCircleFill className="thumbnail-class" onClick={() => setShowMediaForm(!showMediaForm)}>
-                        {showMediaForm ? "Hide Media Form" : "Show Media Form"}
-                    </BsFillPlusCircleFill>
-                    </label>
-                    <div className='media-content'>
-
-                        {gameData.media.map((mediaItem, index) => (
-                            <div key={index}>
-
-                        {mediaItem.type === "img" ? (
-                            <div className='media-item-wrapper'>
-                            <img className="media-item" src={mediaItem.url} alt={mediaItem.caption} />
-                            <button className='delete-media-btn' onClick={() => handleDeleteMedia(index)}>x</button>
-                            </div>
-                        ) : (
-                            <div className='media-item-wrapper'>
-                            <video className='media-item' src={mediaItem.url} controls />
-                            <button className='delete-media-btn' onClick={() => handleDeleteMedia(index)}>x</button>
-                            </div>
-                        )}
-                            </div>
-                        ))}   
-                    </div>
-                    <input 
-                    id="thumbnail-btn"
-                    className='form-control' 
-                    type="button"
-                    name="thumbnail"
-                    />
-                </div>
-                <div className='mb-2'>
+            <div className='mb-2'>
                     <label htmlFor='media' className='form-label'>
                         Ảnh/Video:
                     </label>
                     <label htmlFor='media-btn' className='form-label-btn'>
-                        <BsFillPlusCircleFill className='media-class'/> 
+                        <BsFillPlusCircleFill className='media-class' onClick={() => setShowBoxArtForm(!showBoxArtForm)}>
+                        </BsFillPlusCircleFill> 
                     </label>
-                    <input 
-                    id="media-btn"
-                    className='form-control' 
-                    type="file"
-                    name="media"
-                    />
+                    {gameData.boxArt && (
+                <div className='media-content'>
+                    <div>
+                        <img className="media-item" src={gameData.boxArt}/>
+                        <button className='delete-media-btn' onClick={() => setBoxArt("")}>x</button>
+                    </div>
+                </div>
+                    )}
+            </div>
+            <div className="mb-2">
+                <label htmlFor="thumbnail" className="form-label">
+                    Thumbnail:
+                </label>
+                <label htmlFor="thumbnail-btn" className="form-label-btn">
+                    <BsFillPlusCircleFill className="thumbnail-class" onClick={() => setShowMediaForm(!showMediaForm)}>
+                        {showMediaForm ? "Hide Media Form" : "Show Media Form"}
+                    </BsFillPlusCircleFill>
+                </label>
+                <div className='media-content'>
+
+                {gameData.media.map((mediaItem, index) => (
+                    <div key={index} className='media-content-item'>
+
+                {mediaItem.type === "Image" ? (
+                    <>
+                    <img className="media-item" src={mediaItem.url} alt={mediaItem.caption} />
+                    <button className='delete-media-btn' onClick={() => handleDeleteMedia()}>x</button>
+                    </>
+                ) : (
+                    <>
+                    <video className='media-item' src={mediaItem.url} controls />
+                    <button className='delete-media-btn' onClick={() => handleDeleteMedia()}>x</button>
+                    </>
+                )}
+                    </div>
+                ))}   
+                </div>
                 </div>
                 <div className='mb-2'>
                     <label htmlFor='tieu-de' className='form-label'>

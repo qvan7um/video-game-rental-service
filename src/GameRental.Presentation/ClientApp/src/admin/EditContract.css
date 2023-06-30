@@ -147,3 +147,23 @@ label#expired{
     border: none;
     float: right;
 }
+
+.game-suggestion {
+    z-index: 1;
+    position: absolute;
+    max-width: 450px;
+    transform: translate(40%, 22px);
+    min-width: 585px;
+    max-height: 400px;
+    overflow-y: scroll;
+    background: #505050;
+    color: #fff;
+}
+.game-suggestion-item {
+    display: flex;
+    padding: 10px;
+}
+
+.update-btn {
+    background: #FF9900;
+}
