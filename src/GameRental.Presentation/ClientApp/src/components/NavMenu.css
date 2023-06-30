@@ -24,11 +24,17 @@ Navbar, a {
 .navbar-logo {
   color: #fff;
   background: #000;
-  margin: 0px;
+  margin: 0px 10px ;
 }
 
 .navbar-logo:hover {
   color: #fff;
+  background: #000;
+}
+.navbar-logo:focus {
+  color: #fff;
+  background: #000;
+  outline: none;
 }
 
 html {
