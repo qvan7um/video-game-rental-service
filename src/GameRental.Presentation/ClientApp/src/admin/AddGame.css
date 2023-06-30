@@ -62,9 +62,13 @@
 }
 
 .media-item {
-    margin-left: 20px;
     height: 80px;
     width: 120px;
+}
+
+.media-content-item {
+    position: relative;
+    margin-right: 20px;
 }
 
 .delete-media-btn {

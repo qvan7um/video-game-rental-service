@@ -7,7 +7,9 @@ import swal from 'sweetalert';
 
 function AddGame () {
   const [media, setMedia] = useState([]);
+  const [boxArt, setBoxArt] = useState("");
   const [showMediaForm, setShowMediaForm] = useState(false);
+  const [showBoxArtForm, setShowBoxArtForm] = useState (false);
 
 
   function handleDeleteMedia(index) {
@@ -37,6 +39,23 @@ function AddGame () {
         
 
   }
+  function handleBoxArtSubmit(event) {
+    // Prevent default form submission behavior
+    event.preventDefault();
+    
+    // Get boxart URL from form input
+    const boxartUrl = event.target.boxArt.value;
+    
+    // Validate boxart URL
+    if (!boxartUrl) {
+        // Display error message
+        alert("Please enter a boxart URL");
+    } else {
+        setBoxArt(boxartUrl);
+        setShowBoxArtForm(false);
+    }
+}
+  
 
 const handleSubmit = async (event) => {
     event.preventDefault();
@@ -118,7 +137,44 @@ const handleSubmit = async (event) => {
                         </div>
                     )}
             </form>
+            <form onSubmit={handleBoxArtSubmit}>
+            {showBoxArtForm && (
+            <div className='media-form'>
+                        <h5 className='media-title'>Thêm BoxArt</h5>     
+                            <div className='media-url'>
+                            <label>URL:</label>
+                            <input
+                                type="text"
+                                name='boxArt'
+                            />
+                            </div>
+                        <button type="button" className='cancel-btn' onClick={() => setShowBoxArtForm(false)}>
+                            Hủy
+                        </button>
+                        <button type="submit" className='update-btn'>
+                            Thêm
+                        </button>
+                        </div>
+                    )}
+            </form>
             <form onSubmit={handleSubmit}>
+            <div className='mb-2'>
+                    <label htmlFor='media' className='form-label'>
+                        Ảnh/Video:
+                    </label>
+                    <label htmlFor='media-btn' className='form-label-btn'>
+                        <BsFillPlusCircleFill className='media-class' onClick={() => setShowBoxArtForm(!showBoxArtForm)}>
+                        </BsFillPlusCircleFill> 
+                    </label>
+                    {boxArt && (
+                <div className='media-content'>
+                    <div>
+                        <img className="media-item" src={boxArt}/>
+                        <button className='delete-media-btn' onClick={() => setBoxArt("")}>x</button>
+                    </div>
+                </div>
+                    )}
+            </div>
             <div className="mb-2">
                 <label htmlFor="thumbnail" className="form-label">
                     Thumbnail:
@@ -131,7 +187,7 @@ const handleSubmit = async (event) => {
                 <div className='media-content'>
 
                 {media.map((mediaItem, index) => (
-                    <div key={index}>
+                    <div key={index} className='media-content-item'>
 
                 {mediaItem.type === "img" ? (
                     <>
@@ -148,20 +204,7 @@ const handleSubmit = async (event) => {
                 ))}   
                 </div>
                 </div>
-                <div className='mb-2'>
-                    <label htmlFor='media' className='form-label'>
-                        Ảnh/Video:
-                    </label>
-                    <label htmlFor='media-btn' className='form-label-btn'>
-                        <BsFillPlusCircleFill className='media-class'/> 
-                    </label>
-                    <input 
-                    id="media-btn"
-                    className='form-control' 
-                    type="file"
-                    name="media"
-                    />
-                </div>
+                
                 <div className='mb-2'>
                     <label htmlFor='tieu-de' className='form-label'>
                         Tiêu đề:
@@ -259,7 +302,6 @@ const handleSubmit = async (event) => {
                     className='form-control'
                     type="text"
                     name="description"
-                    required
                     >
                     </textarea>
                 </div>

@@ -55,6 +55,7 @@ function Games() {
           <table className="tb" aria-labelledby="tableLabel">
             <thead className='tb-head'>
               <tr>
+                <th></th>
                 <th>Title</th>
                 <th>Genre</th>
                 <th>Platform</th>
@@ -67,8 +68,9 @@ function Games() {
             </thead>
 
               {suggestedGames.map(game =>
-            <tbody className={selectedGameId === game.id ? 'selected tb-body' : 'tb-body'}>
+            <tbody className={selectedGameId === game.id ? 'selected-game tb-body' : 'tb-body'}>
                 <tr key={game.id} onClick={() => setSelectedGameId(game.id)}>
+                  <td><img className='img-games-page' src={game.boxArt}></img></td>
                   <td>{game.title}</td>
                   {/* <td>{game.genre.join(', ')}</td> */}
                   <td>{game.genre ? game.genre.join(', ') : ''}</td>

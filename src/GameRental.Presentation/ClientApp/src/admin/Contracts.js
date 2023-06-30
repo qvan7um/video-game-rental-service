@@ -70,7 +70,7 @@ function Contracts() {
             const formattedStartDate = startDate.toLocaleDateString('en-US',  { year: 'numeric', month: 'long', day: 'numeric' });
             const formattedEndDate = endDate.toLocaleDateString('en-US',  { year: 'numeric', month: 'long', day: 'numeric' });
             return (
-              <tbody className={selectedContractId === contract.id ? 'selected tb-body' : 'tb-body'}>
+              <tbody className={selectedContractId === contract.id ? 'selected-game tb-body' : 'tb-body'}>
               <tr key={contract.id} onClick={() => setSelectedContractId(contract.id)}>
                 <td>{contract.id}</td>
                 <td>{formattedStartDate}</td>
