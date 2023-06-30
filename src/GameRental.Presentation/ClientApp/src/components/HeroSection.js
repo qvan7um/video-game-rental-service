@@ -1,24 +1,24 @@
 import React from 'react'
 import '../App.css';
 import './HeroSection.css'
-
+import { Link } from 'react-router-dom';
 const HeroSection = () => {
   return (
     <body className='hero-container'>
         <img src="../../img/gamebackground.jpg" alt=""/>
         <p>Thuê Hàng Nghìn Game Trên Tất Cả Các Nền Tảng.</p>
         <div className='hero-btns'>
-            <button className=" btn--primary btn--large btn-mobile">Bắt đầu thuê</button>
+            <Link to="/explore"><button className=" btn--primary btn--large btn-mobile">Bắt đầu thuê</button></Link>
         </div>
         <div className='link-btn'>
-            <button className="link-btn-item">PlayStation 5</button>
-            <button className="link-btn-item">PlayStation 4</button>
-            <button className="link-btn-item">Xbox Series X</button>
-            <button className="link-btn-item">Xbox One</button>
-            <button className="link-btn-item">Nintendo Switch</button>
-            <button className="link-btn-item">Most Popular</button>
-            <button className="link-btn-item">New Release</button>
-            <button className="link-btn-item">Upcoming</button>
+            <Link to="/search?filters=platform:PlayStation5"><button className="link-btn-item">PlayStation 5</button></Link>
+            <Link to="/search?filters=platform:PlayStation4"><button className="link-btn-item">PlayStation 4</button></Link>
+            <Link to="/search?filters=platform:XboxSeriesX"><button className="link-btn-item">Xbox Series X</button></Link>
+            <Link to="/search?filters=platform:XboxOne"><button className="link-btn-item">Xbox One</button></Link>
+            <Link to="/search?filters=platform:NintendoSwitch"><button className="link-btn-item">Nintendo Switch</button></Link>
+            <Link to="/search?sorts=popularity"><button className="link-btn-item">Most Popular</button></Link>
+            <Link to="/search?filters=platform:PlayStation5"><button className="link-btn-item">New Release</button></Link>
+            <Link to="/search?searchTerm=Zelda"><button className="link-btn-item">Upcoming</button></Link>
         </div>
         <div className='intro'>
             <h3>Dịch vụ cho thuê game | GameRental</h3>

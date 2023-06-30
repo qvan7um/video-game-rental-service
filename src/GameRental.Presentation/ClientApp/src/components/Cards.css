@@ -50,6 +50,29 @@ img {
     text-overflow:ellipsis;
     padding-left: 0;
 }
-.cards__items {
+.card__items {
     display: flex;
+    overflow: hidden;
+    overflow-x: scroll;
+    margin-left: -5%;
 }   
+
+ul::-webkit-scrollbar {
+    height: 8px;
+}
+ul::-webkit-scrollbar-thumb {
+    background-color: #757575;
+    border-radius: 100rem;
+}
+ul::-webkit-scrollbar-track {
+    background-color: #404040;
+}
+
+.cards__container > h2{
+    margin-left: -3%;
+    color: #fff;
+    background: none;
+    min-width: 150px;
+    font-size: 16px;
+    
+  }
