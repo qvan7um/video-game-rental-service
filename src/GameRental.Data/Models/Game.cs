@@ -13,7 +13,6 @@ namespace GameRental.Data.Models
 
         public string Title { get; set; } = null!;
 
-        [Sieve(CanFilter = true)]
         public List<string> Genre { get; set; } = null!;
 
         [Sieve(CanFilter = true)]
@@ -24,7 +23,6 @@ namespace GameRental.Data.Models
         [Sieve(CanSort = true)]
         public DateOnly ReleaseDate { get; set; }
 
-        [Sieve(CanFilter = true)]
         public List<string> Developer { get; set; } = null!;
 
         [Sieve(CanFilter = true)]

@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.Configure<SieveOptions>(builder.Configuration.GetSection("Sieve"));
 builder.Services.AddScoped<ISieveCustomSortMethods, SieveCustomSortMethods>();
+builder.Services.AddScoped<ISieveCustomFilterMethods, SieveCustomFilterMethods>();
 
 builder.Services.Configure<GameRentalDatabaseSettings>(
     builder.Configuration.GetSection("GameRentalDatabase")
