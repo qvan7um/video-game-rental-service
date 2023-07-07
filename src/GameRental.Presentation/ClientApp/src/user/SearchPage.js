@@ -13,18 +13,19 @@ export default function SearchPage() {
   const [searchResults, setSearchResults] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const gameSuggestionRef = useRef(null);
-
+  const [page, setPage] =useState(1);
   const navigate = useNavigate();
   const handleViewInfo = (gameId) => {
     navigate(`/info/${gameId}`);
   }
   useEffect(() => {
     if (searchQuery) {
-      fetchSearchResults(searchQuery);
+      fetchSearchResults(searchQuery, page);
     } else {
-      fetchGameData();
+      fetchGameData(page);
     }
-  }, [searchQuery]);
+  }, [searchQuery, page]);
+  
 
   useEffect(() => {
     setShowSuggestions(!!searchQuery);
@@ -52,15 +53,16 @@ export default function SearchPage() {
     }
   }
 
-  async function fetchGameData() {
+  async function fetchGameData(page = 1) {
     try {
-      const response = await fetch('/api/games');
+      const response = await fetch(`/api/games?page=${page}&pageSize=25`);
       const data = await response.json();
       setSearchResults(data);
     } catch (error) {
       console.error('An error occurred while fetching game data:', error);
     }
   }
+  
 
   return (
     <div className='search-page-container'>
@@ -86,6 +88,11 @@ export default function SearchPage() {
                 <CardItemS src={game.boxArt} label={game.title} />
               </div>
             ))}
+          </div>
+          <div className='page-btn'>
+              <button className='next-page-btn' onClick={() => setPage(prevPage => prevPage > 1 ? prevPage - 1 : prevPage)}><i className='fa fa-angle-left'></i></button>
+              <button className='previous-page-btn' onClick={() => setPage(page + 1)}><i className='fa fa-angle-right'></i></button>
+              <p className='page-number'>Page{page}</p>
           </div>
         </div>
       </div>

@@ -25,7 +25,6 @@ function Contracts() {
     navigate(`/contracts/detail/${contractId}`);
   }
 
-
   const handleDelete = (contractId) => {
     swal({
       title: "Bạn có chắc muốn xóa hợp đồng này?",
@@ -34,77 +33,78 @@ function Contracts() {
       buttons: true,
       dangerMode: true,
     })
-    .then((willDelete) => {
-      if (willDelete) {
-        fetch(`/api/contract/delete/${contractId}`, { method: 'DELETE' })
-          .then(() => {
-            // Remove deleted game from games state
-            setContracts(contracts => contracts.filter(contract => contract.id !== contractId));
-            // Reset selected game ID
-            setSelectedContractId(null);
-          });
-      }
-    });
+      .then((willDelete) => {
+        if (willDelete) {
+          fetch(`/api/contract/delete/${contractId}`, { method: 'DELETE' })
+            .then(() => {
+              // Remove deleted game from games state
+              setContracts(contracts => contracts.filter(contract => contract.id !== contractId));
+              // Reset selected game ID
+              setSelectedContractId(null);
+            });
+        }
+      });
+  }
+
+  function filterContractsByStatus(status) {
+    // Call API to get contracts filtered by status
+    fetch(`/api/contracts?filters=status@=${status}`)
+      .then(response => response.json())
+      .then(data => setContracts(data));
   }
 
   function renderContractsTable(contracts) {
     return (
       <div className='wrapper'>
-      <div className='tb-wrapper'>
-       <table className="tb" aria-labelledby="tableLabel">
-         <thead className='tb-head'>
-           <tr>
-             <th>ID</th>
-             <th>Ngày bắt đầu</th>
-             <th>Ngày kết thúc</th>
-             <th>Người thuê</th>
-             <th>Số điện thoại</th>
-             <th>Tình trạng</th>
-             <th>Thành tiền</th>
-           </tr>
-         </thead>
-    
-           {contracts.map(contract => {
-            const startDate = new Date(contract.startDate);
-            const endDate = new Date(contract.endDate);
-            const formattedStartDate = startDate.toLocaleDateString('en-US',  { year: 'numeric', month: 'long', day: 'numeric' });
-            const formattedEndDate = endDate.toLocaleDateString('en-US',  { year: 'numeric', month: 'long', day: 'numeric' });
-            return (
-              <tbody className={selectedContractId === contract.id ? 'selected-game tb-body' : 'tb-body'}>
-              <tr key={contract.id} onClick={() => setSelectedContractId(contract.id)}>
-                <td>{contract.id}</td>
-                <td>{formattedStartDate}</td>
-                <td>{formattedEndDate}</td>
-                <td>{contract.customerInfo.name}</td>
-                <td>{contract.customerInfo.phoneNumber}</td>
-                <td>{contract.status}</td>
-                <td>{contract.totalCost}</td>
-            </tr>
-            </tbody>
-            );
-          })}
-      </table>
+        <div className='tb-wrapper'>
+          <table className="tb" aria-labelledby="tableLabel">
+            <thead className='tb-head'>
+              <tr>
+                <th>ID</th>
+                <th>Ngày bắt đầu</th>
+                <th>Ngày kết thúc</th>
+                <th>Người thuê</th>
+                <th>Số điện thoại</th>
+                <th>Tình trạng</th>
+                <th>Thành tiền</th>
+              </tr>
+            </thead>
+            {contracts.map(contract => {
+              const startDate = new Date(contract.startDate);
+              const endDate = new Date(contract.endDate);
+              const formattedStartDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+              const formattedEndDate = endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+              return (
+                <tbody className={selectedContractId === contract.id ? 'selected-game tb-body' : 'tb-body'}>
+                  <tr key={contract.id} onClick={() => setSelectedContractId(contract.id)}>
+                    <td>{contract.id}</td>
+                    <td>{formattedStartDate}</td>
+                    <td>{formattedEndDate}</td>
+                    <td>{contract.customerInfo.name}</td>
+                    <td>{contract.customerInfo.phoneNumber}</td>
+                    <td>{contract.status}</td>
+                    <td>{contract.totalCost}</td>
+                  </tr>
+                </tbody>
+              );
+            })}
+          </table>
+        </div>
+        <div className='btn-area'>
+          <Link to="/addcontract"><button className='button btn-add'>Thêm</button></Link>
+          <div className='hide-btn'>
+            {selectedContractId && (
+              <>
+                <button className='button btn-edit' onClick={() => handleEdit(selectedContractId)}>Sửa</button>
+                <button className='button btn-detail' onClick={() => handleDetail(selectedContractId)}>Chi tiết</button>
+                <button className='button btn-delete' onClick={() => handleDelete(selectedContractId)}>Xóa</button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
-      <div className='btn-area'>
-           <Link to="/addcontract"><button className='button btn-add'>Thêm</button></Link>
-           <div className='hide-btn'>
-           {selectedContractId && (
-         <>
-           <button className='button btn-edit' onClick={() => handleEdit(selectedContractId)}>Sửa</button>
-           <button className='button btn-detail' onClick={() => handleDetail(selectedContractId)}>Chi tiết</button>
-           <button className='button btn-delete' onClick={() => handleDelete(selectedContractId)}>Xóa</button>
-         </>
-       )}
-           </div>
-      </div>
-      </div>
-      
     );
   }
-
-
-
-
   async function populateContractData() {
     try {
       const response = await fetch('/api/contracts');
@@ -122,16 +122,21 @@ function Contracts() {
 
   return (
     <div className='manage-contracts-container'>
-        <form className='search-bar'>
-          <button type='submit'><i className='fa fa-search bg-contract'></i></button>
-          <input type='text' placeholder='Tìm kiếm'/>
-        </form>
-        <DropdownCtr Type={'filter'} Title={'Lọc'} content={['Hoành thành', 'Đã hủy', 'Có hiệu lực', 'Đang chờ', 'Quá hạn']}/>
-        <DropdownSoft Type={'range'} Title={'Sắp xếp'} content={['Mới nhất', 'Từ A - Z', 'Từ Z -A']}/>
+      <form className='search-bar'>
+        <button type='submit'><i className='fa fa-search bg-contract'></i></button>
+        <input type='text' placeholder='Tìm kiếm' />
+      </form>
+      <DropdownCtr
+        Type={'filter'}
+        Title={'Lọc'}
+        content={['Completed', 'Cancled', 'Active', 'Pending', 'Expired']}
+        onChange={filterContractsByStatus}
+        onReset={populateContractData}
+      />
+      <DropdownSoft Type={'range'} Title={'Sắp xếp'} content={['Mới nhất', 'Từ A - Z', 'Từ Z -A']} onChange={filterContractsByStatus} />
       {contents}
     </div>
   );
 }
 
 export default Contracts;
-

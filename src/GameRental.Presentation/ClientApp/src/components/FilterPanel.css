@@ -27,6 +27,10 @@ h6 {
     color: #fff;
 }
 
+.filter-item::-webkit-scrollbar {
+    display: none;
+}
+
 .filter-platform {
     margin-top: 50px;
     

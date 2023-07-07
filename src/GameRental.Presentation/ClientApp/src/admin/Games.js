@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Games.css'
 import '../App.css'
-import Dropdown from '../components/Dropdown';
 import DropdownSoft from '../components/DropdownSoft';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -13,12 +12,21 @@ function Games() {
   const navigate = useNavigate();
   const [selectedGameId, setSelectedGameId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedFilter, setSelectedFilter] = useState([])
+  const [isActive, setIsAtive] = useState(false);
+  const [isActiveSubGenre, setIsAtiveSubGenre] = useState(false);
+  const [isActiveSubP, setIsAtiveSubP] = useState(false);
+  const [isActiveSubPF, setIsAtiveSubPF] = useState(false);
+  const [isActiveChip, setIsAtiveChip] = useState(false);
+  const [buttonTexts, setButtonTexts] = useState([]);
   const suggestedGames = games.filter(game => game.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
   useEffect(() => {
-    populateGameData();
-  }, []);
+    populateGameData(selectedFilter.join(''));
+  }, [currentPage]);
+  
+  
 
   const handleEdit = (gameId) => {
     navigate(`/edit/${gameId}`);
@@ -47,6 +55,112 @@ function Games() {
   const handleViewDetails = (gameId) => {
     navigate(`/detail/${gameId}`);
   }
+
+  function Dropdown({Type, Title, content = [][100]}) {
+    var value='';
+    const showChip = (type, value) => {
+      setIsAtiveSubGenre(false);
+      setIsAtiveSubP(false);
+      setIsAtiveSubPF(false);
+      setIsAtive(false);
+      setIsAtiveChip(true);
+    
+      if (!buttonTexts.includes(value)) {
+        setButtonTexts([...buttonTexts, value]);
+        const newFilter = selectedFilter.length === 0 ? `${type}@=${value}` : `,${type}@=${value}`;
+        const newSelectedFilter = [...selectedFilter, newFilter];
+        setSelectedFilter(newSelectedFilter);
+        populateGameData(newSelectedFilter.join(''));
+      }
+    };
+    
+    const removeChip = (index) => {
+      const newButtonTexts = buttonTexts.filter((_, i) => i !== index);
+      setButtonTexts(newButtonTexts);
+      const newSelectedFilter = selectedFilter.filter((_, i) => i !== index);
+      if (index === 0 && newSelectedFilter.length > 0) {
+        newSelectedFilter[0] = newSelectedFilter[0].replace(',', '');
+      }
+      setSelectedFilter(newSelectedFilter);
+      populateGameData(newSelectedFilter.join(''));
+    };
+    
+    
+
+    let titleStyles = ['dropdown']
+    if (Type === 'range') {
+        titleStyles.push('right')}
+  return (
+    <div className={titleStyles.join(' ')}>
+        <div className='dropdown-btn' onClick={e => setIsAtive(!isActive)}>{Title} <i className='fas fa-sort-down'/></div>
+        {isActive && 
+        <div className='dropdown-contents'>
+            <div className='dropdown-item' onClick={e => setIsAtiveSubPF(!isActiveSubPF)}>
+                {content[0][0]}
+            </div>
+            {isActiveSubPF &&
+                <div className='sub-dropdown-contents'>
+                    <div className='dropdown-item' onClick={e => showChip(content[0][1],content[0][2])}>
+                        {content[0][2]}
+                    </div>
+                    <div className='dropdown-item' onClick={e => showChip(content[0][1],content[0][3])}>
+                        {content[0][3]}
+                
+                    </div>
+                    <div className='dropdown-item' onClick={e => showChip(content[0][1],content[0][4])}>
+                        {content[0][4]}
+                    </div>
+                </div>}
+            <div className='dropdown-item' onClick={e => setIsAtiveSubGenre(!isActiveSubGenre)}>
+                {content[1][0]}
+                
+            </div>{isActiveSubGenre &&
+                <div className='sub-dropdown-contents'>
+                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][2])}>
+                        {content[1][2]}
+                    </div>
+                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][3])}>
+                        {content[1][3]}
+                
+                    </div>
+                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][4])}>
+                        {content[1][4]}
+                    </div>
+                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][5])}>
+                        {content[1][5]}
+                    </div>
+                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][6])}>
+                        {content[1][6]}
+                    </div>
+                </div>}
+            <div className='dropdown-item'  onClick={e => {setIsAtiveSubP(!isActiveSubP) && (value=content[0][1])}}>
+                {content[2][0]}
+            </div>
+                {isActiveSubP &&
+                <div className='sub-dropdown-contents'>
+                    <div className='dropdown-item' onClick={e => showChip(content[2][1],content[2][2])}>
+                        {content[2][2]}
+                    </div>
+                    <div className='dropdown-item' onClick={e => showChip(content[2][1],content[2][3])}>
+                        {content[2][3]}
+                
+                    </div>
+                    <div className='dropdown-item' onClick={e => showChip(content[2][1],content[2][4])}>
+                        {content[2][4]}
+                    </div>
+                </div>}
+        </div>}
+        <div className='chip-wrapper'>
+            {isActiveChip &&
+            buttonTexts.map((text, index) => (
+                <div key={index} className='chip' onClick={e => removeChip(index)}>
+                <button className='chip-btn'>{text}<i className='fa fa-times'/></button>
+            </div>
+            ))}
+        </div>
+    </div>
+  )
+}
 
   function renderGamesTable(games) {
     return (
@@ -85,6 +199,11 @@ function Games() {
               )}
           </table>
         </div>
+        <div className='page-btn'>
+            <button className='next-page-btn' onClick={() => setCurrentPage(prevPage => prevPage > 1 ? prevPage - 1 : prevPage)}><i className='fa fa-angle-left'></i></button>
+            <button className='previous-page-btn' onClick={() => setCurrentPage(currentPage + 1)}><i className='fa fa-angle-right'></i></button>
+            <p className='page-number'>Page {currentPage}</p>
+        </div>
         <div className='btn-area'>
           <Link to="/addgame"><button className='button btn-add'>Thêm</button></Link>
           <div className='hide-btn'>
@@ -101,9 +220,9 @@ function Games() {
     );
   }
 
-  async function populateGameData() {
+  async function populateGameData(selectedFilterString) {
     try {
-      const response = await fetch('api/games');
+      const response = await fetch(`api/games?page=${currentPage}&pageSize=10&filters=${selectedFilterString}`);
       const data = await response.json();
       setGames(data);
       setLoading(false);
@@ -111,9 +230,11 @@ function Games() {
       console.error('An error occurred while fetching data:', error);
     }
   }
+  
+  
 
   let contents = loading
-    ? <p><em>Loading...</em></p>
+    ? <p><em className='loading'>Loading...</em></p>
     : renderGamesTable(games);
 
   return (
@@ -122,9 +243,10 @@ function Games() {
         <button type='submit'><i className='fa fa-search bg-game'></i></button>
         <input type='text' placeholder='Tìm kiếm' onChange={e => setSearchQuery(e.target.value)}/>
       </form>
-      <Dropdown Type={'filter'} Title={'Lọc'} content={[['Platform', 'PS5', 'PS4', 'NintendoS'],
-      ['Genre', 'Action', 'RGP', 'Adventure'],
-      ['Publisher', 'CapCom', 'Ubisort', 'Nintendo']]} />
+      <Dropdown Type={'filter'} Title={'Lọc'} 
+      content={[['Platform','platform', 'PlayStation 5', 'PlayStation 4', 'Nintendo Switch'],
+                ['Genre', 'genre', 'Action', 'RPG', 'Adventure', 'Racing', 'Fighting'],
+                ['Publisher', 'publisher', 'CapCom', 'Ubisort', 'Nintendo']]} />
       <DropdownSoft Type={'range'} Title={'Sắp xếp'} content={['Mới nhất', 'Từ A - Z', 'Từ Z -A']} />
       {contents}
     </div>
