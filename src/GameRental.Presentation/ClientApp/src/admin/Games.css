@@ -243,4 +243,10 @@ tr:last-child td:last-child { border-bottom-right-radius: 10px; }
   background: #505050;
 }
 
+.page-number {
+  color: #fff;
+}
 
+.loading {
+  color: #fff;
+}

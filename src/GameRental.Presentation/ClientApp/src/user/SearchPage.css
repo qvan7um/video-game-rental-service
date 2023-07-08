@@ -55,3 +55,27 @@
     justify-content: space-between;
     height: 50px;
 }
+
+.page-btn {
+    justify-content: center;
+    display: flex;
+}
+
+.next-page-btn, .previous-page-btn {
+    background: none !important;
+    color: #FFF;
+    font-size: 20px;
+    border: none;
+    padding: 10px;
+}
+
+.fa {
+    background: none;
+    color: #FFF;
+}
+
+.page-number {
+    position: absolute;
+    right: 0;
+    margin: 20px;
+}
