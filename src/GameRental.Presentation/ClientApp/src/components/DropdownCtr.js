@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Dropdown.css';
 
-function DropdownCtr({Type, Title, content = [][100]}) {
+function DropdownCtr({Type, Title, content = [][100], onChange, onReset}) {
     const [isActive, setIsAtive] = useState(false);
     const [isActiveChip, setIsAtiveChip] = useState(false);
     const [buttonText, setButtonText] = useState("");
@@ -10,6 +10,7 @@ function DropdownCtr({Type, Title, content = [][100]}) {
         setIsAtive(false);
         setIsAtiveChip(true);
         setButtonText(value);
+        onChange(value);
     };
     let titleStyles = ['dropdown']
     if (Type === 'range') {
@@ -36,7 +37,7 @@ function DropdownCtr({Type, Title, content = [][100]}) {
             </div> 
         </div>}
         {isActiveChip &&
-        <div className='chip' onClick={e => setIsAtiveChip(!isActiveChip)}>
+        <div className='chip' onClick={e => {setIsAtiveChip(!isActiveChip); onReset();}}>
             <button className='chip-btn' id="chipcontract">{buttonText}<i className='fa fa-times'/></button>
         </div>}
     </div>

@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './SearchBar.css';
 
 const SearchBar = ({value, changeInput}) => {
   return (
     <div className='searchbar-wrap'>
       <div className='back'>
+        <Link to='/explore'>
         <i className='func fa fa-arrow-left'/>
+        </Link>
       </div>
       <div className='search-wrap'>
         <i className='func fa fa-search' />
