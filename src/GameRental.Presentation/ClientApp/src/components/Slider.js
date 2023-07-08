@@ -117,11 +117,34 @@ function Slider({ slides }) {
   
   
   
+  // async function populateGameData() {
+  //   try {
+  //     const response = await fetch('/api/games');
+  //     const data = await response.json();
+  //     setGames(data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error('An error occurred while fetching data:', error);
+  //   }
+  // }
   async function populateGameData() {
     try {
-      const response = await fetch('/api/games');
-      const data = await response.json();
-      setGames(data);
+      let allGames = [];
+      let page = 1;
+      let hasMoreData = true;
+  
+      while (hasMoreData) {
+        const response = await fetch(`/api/games?page=${page}`);
+        const data = await response.json();
+        allGames = [...allGames, ...data];
+        if (data.length === 0) {
+          hasMoreData = false;
+        } else {
+          page++;
+        }
+      }
+  
+      setGames(allGames);
       setLoading(false);
     } catch (error) {
       console.error('An error occurred while fetching data:', error);

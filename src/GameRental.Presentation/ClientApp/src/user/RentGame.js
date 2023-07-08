@@ -142,12 +142,13 @@ import React, { useState, useEffect } from 'react';
 import './RentGame.css';
 import { Link, useParams } from 'react-router-dom';
 import swal from 'sweetalert';
-
+import { useNavigate } from 'react-router-dom';
 
 function RentGame() {
   const [gameData, setGameData] = useState(null);
   const {gameId} = useParams();
   const [selectedOption, setSelectedOption] = useState('');
+  const navigate = useNavigate();
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   }
@@ -202,7 +203,10 @@ function RentGame() {
     );
     console.log('Response:', response);
     if (response.ok) {
-        swal("Thành công", "Chúc mừng bạn thuê game thành công", "success");
+        swal("Thành công", "Chúc mừng bạn thuê game thành công", "success")
+        .then(() => {
+          navigate('/explore');
+      });
     }
     else
     {
@@ -327,7 +331,7 @@ function RentGame() {
           <div className='rent-game'>
               <h4>Game</h4>
               <div className='game-info'>
-                  <img className='game-img' alt="Game" src='https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7'/>
+                  <img className='game-img' alt="Game" src={gameData.boxArt}/>
                   <h5 className='game-title'>{gameData.title}</h5>
                   <h5 className='genre'>Thể loại: {gameData.genre ? gameData.genre.join(', ') : ''}</h5>
               </div>
