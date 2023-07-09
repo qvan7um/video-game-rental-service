@@ -19,7 +19,6 @@ public class SieveCustomSortMethods : ISieveCustomSortMethods
         _contractsCollection = mongoDatabase.GetCollection<Contract>(settings.Value.ContractsCollectionName);
     }
 
-
     public IQueryable<Game> Popularity(IQueryable<Game> source, bool useThenBy, bool desc)  
     {
         var result = useThenBy ?
@@ -37,6 +36,4 @@ public class SieveCustomSortMethods : ISieveCustomSortMethods
 
         return res;
     }
-
-
 }

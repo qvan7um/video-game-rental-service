@@ -40,8 +40,7 @@ namespace GameRental.Logic.Services
 
             if (newContract.Id != null)
             {
-                await AutoUpdate(newContract);
-                await _contractRepository.UpdateAsync(newContract.Id, newContract);
+                await Update(newContract.Id, newContract);
             }
         }
 
@@ -65,6 +64,7 @@ namespace GameRental.Logic.Services
 
         private async Task AutoUpdate(Contract contract)
         {
+            UpdateStatus(contract);
             CalculateEndDate(contract);
             CalculateLateFee(contract);
             await CalculateTotalCost(contract);
@@ -128,6 +128,32 @@ namespace GameRental.Logic.Services
             {
                 _logger.LogError(ex, "An error occured due to invalid arguments");
                 throw;
+            }
+        }
+
+        private void UpdateStatus(Contract contract)
+        {
+            if (contract.Status == "Completed" || contract.Status == "Canceled")
+            {
+                return;
+            }
+
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Today);
+
+            int startDateDiff = currentDate.CompareTo(contract.StartDate);
+            int endDateDiff = currentDate.CompareTo(contract.EndDate);
+
+            if (startDateDiff < 0)
+            {
+                contract.Status = "Pending";
+            }
+            else if (startDateDiff >= 0 && endDateDiff <= 0)
+            {
+                contract.Status = "Active";
+            }
+            else if (endDateDiff > 0)
+            {
+                contract.Status = "Overdue";
             }
         }
     }

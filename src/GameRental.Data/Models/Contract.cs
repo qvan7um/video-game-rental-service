@@ -34,6 +34,11 @@ namespace GameRental.Data.Models
         public decimal? LateFee { get; set; }
 
         public decimal? TotalCost { get; set; }
+
+        public Contract()
+        {
+            Status = "Pending";
+        }
     }
 
     public class Customer
