@@ -32,7 +32,16 @@ public class ContractController : ControllerBase
 
             var result = _sieveProcessor.Apply(sieveModel, contracts.AsQueryable());
 
-            _logger.LogInformation("Retrieved {Count} contracts from database", contracts.Count);
+            _logger.LogInformation("Retrieved {Count} contracts from database", result.Count());
+
+            // auto update contracts depending on the # of contracts in that page
+            foreach (var contract in result)
+            {
+                if (contract.Id != null)
+                {
+                    await _contractService.Update(contract.Id, contract);
+                }
+            }
 
             return Ok(result);
         }
@@ -58,6 +67,10 @@ public class ContractController : ControllerBase
                 _logger.LogInformation("Contract with id: {Id} not found", id);
 
                 return NotFound();
+            }
+            else if (contract.Id != null) // auto update this contract
+            {
+                await _contractService.Update(contract.Id, contract);
             }
 
             _logger.LogInformation("Retrieved contract with id: {Id} from database", contract.Id);
