@@ -156,5 +156,15 @@ namespace GameRental.Logic.Services
                 contract.Status = "Overdue";
             }
         }
+
+        public async Task Complete(string id)
+        {
+            await _contractRepository.CompleteAsync(id);
+        }
+
+        public async Task Cancel(string id)
+        {
+            await _contractRepository.CancelAsync(id);
+        }
     }
 }
