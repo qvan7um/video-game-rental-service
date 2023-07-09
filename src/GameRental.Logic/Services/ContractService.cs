@@ -40,8 +40,7 @@ namespace GameRental.Logic.Services
 
             if (newContract.Id != null)
             {
-                await AutoUpdate(newContract);
-                await _contractRepository.UpdateAsync(newContract.Id, newContract);
+                await Update(newContract.Id, newContract);
             }
         }
 
