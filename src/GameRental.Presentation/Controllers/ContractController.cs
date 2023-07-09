@@ -181,7 +181,7 @@ public class ContractController : ControllerBase
     }
 
     [HttpGet("contract/complete/{id}")]
-    public async Task<IActionResult> UpdateContractToCompleted(string id)
+    public async Task<IActionResult> Complete(string id)
     {
         try
         {
