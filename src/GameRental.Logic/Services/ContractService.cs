@@ -157,10 +157,9 @@ namespace GameRental.Logic.Services
             }
         }
 
-        public async Task MarkStatus(string id, string statusType)
+        public async Task Complete(string id)
         {
-            if(statusType.Equals("Completed"))
-                await _contractRepository.ModifyStatusToCompleted(id);
+            await _contractRepository.CompleteAsync(id);
         }
     }
 }

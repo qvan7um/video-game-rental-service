@@ -200,7 +200,7 @@ public class ContractController : ControllerBase
             if (contractToMark.Status == "Completed" || contractToMark.Status == "Canceled")
                 return NoContent();
 
-            await _contractService.MarkStatus(id, "Completed");
+            await _contractService.Complete(id);
 
             return NoContent();
         }

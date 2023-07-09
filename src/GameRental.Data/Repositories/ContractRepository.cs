@@ -154,7 +154,7 @@ namespace GameRental.Data.Repositories
             }
         }
 
-        public async Task ModifyStatusToCompleted(string id)
+        public async Task CompleteAsync(string id)
         {
             try
             {
