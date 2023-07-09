@@ -305,8 +305,9 @@ const handleShipmentMethodChange = (event) => {
                         <span></span>
                         </label>
                     </div>
-                </div>      
-                <div className='mb-2'>
+                </div>     
+      
+                <div className='mb-2 status-display'>
                         <label htmlFor='status' className='form-label'>
                             Trạng thái
                     </label>
@@ -332,7 +333,7 @@ const handleShipmentMethodChange = (event) => {
                         <span></span>
                         </label>
                     </div>
-                </div>           
+                </div>        
                 <button type="submit" className='update-btn'>
                 Cập nhật
                 </button>
