@@ -154,5 +154,26 @@ namespace GameRental.Data.Repositories
             }
         }
 
+        public async Task ModifyStatusToCompleted(string id)
+        {
+            try
+            {
+                _logger.LogInformation("Updating contract with id: {Id}", id);
+
+                var filter = Builders<Contract>.Filter.Eq(contract => contract.Id, id);
+                var update = Builders<Contract>.Update.Set(contract => contract.Status, "Completed");
+
+                await _contractsCollection.UpdateOneAsync(filter, update);
+
+                _logger.LogInformation("Updated contract with id: {Id}", id);
+            }
+            catch (MongoException ex)
+            {
+                _logger.LogError(ex, "An error occured while updating contract with id: {Id}", id);
+                // ...
+                throw;
+            }
+        }
+
      }
 }
