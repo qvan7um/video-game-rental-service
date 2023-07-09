@@ -179,4 +179,33 @@ public class ContractController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
+
+    [HttpGet("contract/complete/{id}")]
+    public async Task<IActionResult> UpdateContractToCompleted(string id)
+    {
+        try
+        {
+            _logger.LogInformation("Received GET request to /contract/complete/{Id} endpoint", id);
+            
+            // Get contract to mark as completed
+            var contractToMark = await _contractService.Get(id);
+
+            if (contractToMark == null)
+            {
+                _logger.LogInformation("Contract with id: {Id} not found", id);
+
+                return NotFound();
+            }
+
+            await _contractService.MarkStatus(id, "Completed");
+
+            return NoContent();
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occured while processing GET request to /contract/complete/{Id} endpoint", id);
+            // ...
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
 }
