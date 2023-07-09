@@ -167,3 +167,7 @@ label#expired{
 .update-btn {
     background: #FF9900;
 }
+
+.status-display {
+    display: none;
+}
