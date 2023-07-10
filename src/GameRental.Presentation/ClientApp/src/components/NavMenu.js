@@ -57,6 +57,7 @@
 import React, { Component } from 'react';
 import { NavbarUser } from './NavbarUser';
 import { NavbarAdmin } from './NavbarAdmin';
+import { Link } from 'react-router-dom';
 
 export class NavMenu extends Component {
   constructor(props) {
@@ -76,9 +77,10 @@ export class NavMenu extends Component {
     const { isAdmin } = this.state;
     return (
       <header className='navmenu-container'>
-        <button className='switch-btn' onClick={this.toggleRole}>
+        <Link to="/"><button className='switch-btn' onClick={this.toggleRole}>
           {isAdmin ? 'Switch to User' : 'Switch to Admin'}
         </button>
+        </Link>
         <div className="nav navbar-expand-sm navbar-toggleable-sm ng-white box-shadow">
         {isAdmin ? <NavbarAdmin /> : <NavbarUser />}
         </div>

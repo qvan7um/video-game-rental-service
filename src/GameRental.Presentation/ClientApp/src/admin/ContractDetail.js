@@ -54,14 +54,14 @@ function ContractDetail() {
                     <label className='detail-label'>Phương thức thanh toán</label>
                     <label className='detail-contract-label'>{contractData.paymentMethod}</label>
                 </div>
-                <div className='detail-line'>
+                {/* <div className='detail-line'>
                     <label className='detail-label'>Phương thức nhận game</label>
                     <label className='detail-contract-label'>{contractData.shipmentMethod}</label>
                 </div>
                 <div className='detail-line'>
                     <label className='detail-label'>Phí vận chuyển</label>
                     <label className='detail-contract-label'>{contractData.shippingFee}</label>
-                </div>
+                </div> */}
                 <div className='detail-line'>
                     <label className='detail-label'>Phí trễ</label>
                     <label className='detail-contract-label'>{contractData.lateFee}</label>
