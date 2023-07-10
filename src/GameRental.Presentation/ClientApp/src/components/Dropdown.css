@@ -78,7 +78,7 @@ i{
     white-space: nowrap;
 }
 
-.dropdown-contents {
+.dropdown-contents , .dropdown-contents-ctr{
     position: absolute;
     top: 110%;
     left: 0;
@@ -96,12 +96,22 @@ i{
 }
 
 
-.dropdown .dropdown-contents .dropdown-item{
+.dropdown .dropdown-contents .dropdown-item .dropdown-contents-ctr{
     padding: 10px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
-.dropdown .dropdown-contents .dropdown-item:hover {
+.dropdown-item-ctr , .dropdown-item-game{
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dropdown .dropdown-contents .dropdown-contents-ctr .dropdown-item:hover {
+    background: #484848;
+}
+
+.dropdown-item-ctr:hover, .dropdown-item-game:hover {
     background: #484848;
 }

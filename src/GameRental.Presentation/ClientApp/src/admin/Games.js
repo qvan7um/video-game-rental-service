@@ -20,10 +20,12 @@ function Games() {
   const [isActiveSubPF, setIsAtiveSubPF] = useState(false);
   const [isActiveChip, setIsAtiveChip] = useState(false);
   const [buttonTexts, setButtonTexts] = useState([]);
+  const [isActiveS, setIsAtiveS] = useState(false);
+  const [soft, setSoft] = useState('')
   const suggestedGames = games.filter(game => game.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
   useEffect(() => {
-    populateGameData(selectedFilter.join(''));
+    populateGameData(selectedFilter.join(''), soft);
   }, [currentPage]);
   
   
@@ -70,7 +72,7 @@ function Games() {
         const newFilter = selectedFilter.length === 0 ? `${type}@=${value}` : `,${type}@=${value}`;
         const newSelectedFilter = [...selectedFilter, newFilter];
         setSelectedFilter(newSelectedFilter);
-        populateGameData(newSelectedFilter.join(''));
+        populateGameData(newSelectedFilter.join(''), soft);
       }
     };
     
@@ -82,10 +84,8 @@ function Games() {
         newSelectedFilter[0] = newSelectedFilter[0].replace(',', '');
       }
       setSelectedFilter(newSelectedFilter);
-      populateGameData(newSelectedFilter.join(''));
+      populateGameData(newSelectedFilter.join(''), soft);
     };
-    
-    
 
     let titleStyles = ['dropdown']
     if (Type === 'range') {
@@ -95,57 +95,57 @@ function Games() {
         <div className='dropdown-btn' onClick={e => setIsAtive(!isActive)}>{Title} <i className='fas fa-sort-down'/></div>
         {isActive && 
         <div className='dropdown-contents'>
-            <div className='dropdown-item' onClick={e => setIsAtiveSubPF(!isActiveSubPF)}>
+            <div className='dropdown-item-game' onClick={e => setIsAtiveSubPF(!isActiveSubPF)}>
                 {content[0][0]}
             </div>
             {isActiveSubPF &&
                 <div className='sub-dropdown-contents'>
-                    <div className='dropdown-item' onClick={e => showChip(content[0][1],content[0][2])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[0][1],content[0][2])}>
                         {content[0][2]}
                     </div>
-                    <div className='dropdown-item' onClick={e => showChip(content[0][1],content[0][3])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[0][1],content[0][3])}>
                         {content[0][3]}
                 
                     </div>
-                    <div className='dropdown-item' onClick={e => showChip(content[0][1],content[0][4])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[0][1],content[0][4])}>
                         {content[0][4]}
                     </div>
                 </div>}
-            <div className='dropdown-item' onClick={e => setIsAtiveSubGenre(!isActiveSubGenre)}>
+            <div className='dropdown-item-game' onClick={e => setIsAtiveSubGenre(!isActiveSubGenre)}>
                 {content[1][0]}
                 
             </div>{isActiveSubGenre &&
                 <div className='sub-dropdown-contents'>
-                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][2])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[1][1],content[1][2])}>
                         {content[1][2]}
                     </div>
-                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][3])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[1][1],content[1][3])}>
                         {content[1][3]}
                 
                     </div>
-                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][4])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[1][1],content[1][4])}>
                         {content[1][4]}
                     </div>
-                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][5])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[1][1],content[1][5])}>
                         {content[1][5]}
                     </div>
-                    <div className='dropdown-item' onClick={e => showChip(content[1][1],content[1][6])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[1][1],content[1][6])}>
                         {content[1][6]}
                     </div>
                 </div>}
-            <div className='dropdown-item'  onClick={e => {setIsAtiveSubP(!isActiveSubP) && (value=content[0][1])}}>
+            <div className='dropdown-item-game'  onClick={e => {setIsAtiveSubP(!isActiveSubP) && (value=content[0][1])}}>
                 {content[2][0]}
             </div>
                 {isActiveSubP &&
                 <div className='sub-dropdown-contents'>
-                    <div className='dropdown-item' onClick={e => showChip(content[2][1],content[2][2])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[2][1],content[2][2])}>
                         {content[2][2]}
                     </div>
-                    <div className='dropdown-item' onClick={e => showChip(content[2][1],content[2][3])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[2][1],content[2][3])}>
                         {content[2][3]}
                 
                     </div>
-                    <div className='dropdown-item' onClick={e => showChip(content[2][1],content[2][4])}>
+                    <div className='dropdown-item-game' onClick={e => showChip(content[2][1],content[2][4])}>
                         {content[2][4]}
                     </div>
                 </div>}
@@ -160,6 +160,36 @@ function Games() {
         </div>
     </div>
   )
+}
+
+const sortHandle = (value) => {
+  setSoft(value);
+  populateGameData(selectedFilter.join(''), value);
+}
+
+function DropdownSoft({Type, Title, content = []}) {
+  
+  let titleStyles = ['dropdown']
+  if (Type === 'range') {
+      titleStyles.push('right')}
+return (
+  <div className={titleStyles.join(' ')}>
+      <div className='dropdown-btn' onClick={e => setIsAtiveS(!isActiveS)}>{Title} <i className='fas fa-sort-down'/></div>
+      {isActiveS && 
+      <div className='dropdown-contents-soft'>
+          <div className='dropdown-item'onClick={e => {setIsAtiveS(!isActiveS); sortHandle("popularity")}}>
+              {content[0]}
+          </div>
+          <div className='dropdown-item' onClick={e => {setIsAtiveS(!isActiveS); sortHandle("releaseDate")}}>
+              {content[1]}
+              
+          </div>
+          <div className='dropdown-item'onClick={e => setIsAtiveS(!isActiveS)}>
+              {content[2]}
+          </div>
+      </div>}
+  </div>
+)
 }
 
   function renderGamesTable(games) {
@@ -220,9 +250,9 @@ function Games() {
     );
   }
 
-  async function populateGameData(selectedFilterString) {
+  async function populateGameData(selectedFilterString, soft) {
     try {
-      const response = await fetch(`api/games?page=${currentPage}&pageSize=10&filters=${selectedFilterString}`);
+      const response = await fetch(`api/games?sorts=${soft}&page=${currentPage}&pageSize=10&filters=${selectedFilterString}`);
       const data = await response.json();
       setGames(data);
       setLoading(false);
@@ -247,7 +277,7 @@ function Games() {
       content={[['Platform','platform', 'PlayStation 5', 'PlayStation 4', 'Nintendo Switch'],
                 ['Genre', 'genre', 'Action', 'RPG', 'Adventure', 'Racing', 'Fighting'],
                 ['Publisher', 'publisher', 'CapCom', 'Ubisort', 'Nintendo']]} />
-      <DropdownSoft Type={'range'} Title={'Sắp xếp'} content={['Mới nhất', 'Từ A - Z', 'Từ Z -A']} />
+      <DropdownSoft Type={'range'} Title={'Sắp xếp'} content={['Phổ biến', 'Ngày ra mắt', 'Từ Z -A']} />
       {contents}
     </div>
   );

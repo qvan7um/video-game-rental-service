@@ -32,7 +32,16 @@ public class ContractController : ControllerBase
 
             var result = _sieveProcessor.Apply(sieveModel, contracts.AsQueryable());
 
-            _logger.LogInformation("Retrieved {Count} contracts from database", contracts.Count);
+            _logger.LogInformation("Retrieved {Count} contracts from database", result.Count());
+
+            // auto update contracts depending on the # of contracts in that page
+            foreach (var contract in result)
+            {
+                if (contract.Id != null)
+                {
+                    await _contractService.Update(contract.Id, contract);
+                }
+            }
 
             return Ok(result);
         }
@@ -58,6 +67,10 @@ public class ContractController : ControllerBase
                 _logger.LogInformation("Contract with id: {Id} not found", id);
 
                 return NotFound();
+            }
+            else if (contract.Id != null) // auto update this contract
+            {
+                await _contractService.Update(contract.Id, contract);
             }
 
             _logger.LogInformation("Retrieved contract with id: {Id} from database", contract.Id);
@@ -162,6 +175,69 @@ public class ContractController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "An unexpected error occured while processing DELETE request to /contract/{Id} endpoint", id);
+            // ...
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
+
+    [HttpGet("contract/complete/{id}")]
+    public async Task<IActionResult> Complete(string id)
+    {
+        try
+        {
+            _logger.LogInformation("Received GET request to /contract/complete/{Id} endpoint", id);
+            
+            // Get contract to mark as completed
+            var contractToMark = await _contractService.Get(id);
+
+            if (contractToMark == null)
+            {
+                _logger.LogInformation("Contract with id: {Id} not found", id);
+
+                return NotFound();
+            }
+
+            if (contractToMark.Status == "Completed" || contractToMark.Status == "Canceled")
+                return NoContent();
+
+            await _contractService.Complete(id);
+
+            return NoContent();
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occured while processing GET request to /contract/complete/{Id} endpoint", id);
+            // ...
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
+
+    [HttpGet("contract/cancel/{id}")]
+    public async Task<IActionResult> Cancel(string id)
+    {
+        try
+        {
+            _logger.LogInformation("Received GET request to /contract/complete/{Id} endpoint", id);
+            
+            // Get contract to mark as Canceled 
+            var contractToMark = await _contractService.Get(id);
+
+            if (contractToMark == null)
+            {
+                _logger.LogInformation("Contract with id: {Id} not found", id);
+
+                return NotFound();
+            }
+            if (contractToMark.Status == "Completed" || contractToMark.Status == "Canceled")
+                return NoContent();
+
+            await _contractService.Cancel(id);
+
+            return NoContent();
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occured while processing GET request to /contract/cancel/{Id} endpoint", id);
             // ...
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }

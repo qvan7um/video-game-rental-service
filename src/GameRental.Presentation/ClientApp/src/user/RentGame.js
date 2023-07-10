@@ -159,8 +159,10 @@ function RentGame() {
               <h4>Game</h4>
               <div className='game-info'>
                   <img className='game-img' alt="Game" src={gameData.boxArt}/>
-                  <h5 className='game-title'>{gameData.title}</h5>
-                  <h5 className='genre'>Thể loại: {gameData.genre ? gameData.genre.join(', ') : ''}</h5>
+                  <div className='game-text'>
+                    <h5 className='game-title'>{gameData.title}</h5>
+                    <h5 className='genre'>Thể loại: {gameData.genre ? gameData.genre.join(', ') : ''}</h5>
+                  </div>
               </div>
               <div className='total'>
                   <h4 className='total'>Thành tiền: {rentalPrices[selectedPeriod]}$</h4>

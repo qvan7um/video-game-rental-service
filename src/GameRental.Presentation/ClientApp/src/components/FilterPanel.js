@@ -2,22 +2,24 @@ import { useState } from 'react';
 import React from 'react'
 import './FilterPanel.css'
 
-  
-
 function FilterPanel() {
-  const [isActiveChip, setIsAtiveChip] = useState(false);
-  const [buttonText, setButtonText] = useState("");
+  const [activeChips, setActiveChips] = useState([]);
   const showChip = (value) => {
-    setIsAtiveChip(true);
-    setButtonText(value);
-};
+    setActiveChips([...activeChips, value]);
+  };
+  const removeChip = (index) => {
+    setActiveChips(activeChips.filter((_, i) => i !== index));
+  };
   return (
     <div className='filter-container'>
       <h6 className='filter'>Lọc</h6>
-      {isActiveChip &&
-        <div className='chip' onClick={e => setIsAtiveChip(!isActiveChip)}>
-            <button className='chip-btn'>{buttonText}<i className='fa fa-times'/></button>
-        </div>}
+      <div className='chip-container'>
+        {activeChips.map((chip, index) => (
+          <div className='chip' onClick={() => removeChip(index)}>
+            <button className='chip-btn'>{chip}<i className='fa fa-times'/></button>
+          </div>
+        ))}
+      </div>
       <div className='filter-platform'>
         <h6>Nền tảng</h6>
         <input id='ch-pf' type='checkbox'/>

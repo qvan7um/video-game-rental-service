@@ -43,7 +43,7 @@ i{
     border-radius: 5px;
 }
 
-.dropdown .dropdown-contents {
+.dropdown .dropdown-contents-soft {
     position: absolute;
     top: 110%;
     left: 0;
@@ -55,17 +55,21 @@ i{
     width: 100%;
 }
 
-.dropdown .dropdown-contents .dropdown-item {
+.search-sort {
+    transform: translateY(10px);
+}
+
+.dropdown .dropdown-contents-soft .dropdown-item {
     padding: 10px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
-.dropdown .dropdown-contents .dropdown-item:hover {
+.dropdown .dropdown-contents-soft .dropdown-item:hover {
     background: #484848;
 }
 
-.dropdown-contents {
+.dropdown-contents-soft {
     z-index: 1;
 }
 

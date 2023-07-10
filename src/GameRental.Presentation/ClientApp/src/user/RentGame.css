@@ -150,7 +150,7 @@ h4 {
     background: #505050;
     border-bottom: 2px solid #747474;
     min-height: 200px;
-    padding-bottom: 10%;
+    padding-bottom: 100px;
 }
 
 .cost-info {
@@ -163,6 +163,10 @@ h4 {
 .cost {
     padding: 10px 20px;
 }
+
+.game-text {
+    display: inline-block;
+  }
 
 .button-area {
     margin-top: 0;
