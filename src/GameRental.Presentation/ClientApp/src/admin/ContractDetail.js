@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 function ContractDetail() {
   const [contractData, setContractData] = useState(null);
   const {contractId} = useParams();
+  const [gameTitles, setGameTitles] = useState({})
   useEffect(() => {
     // Fetch game data for the specific game using the contractId prop
     fetch(`/api/contract/${contractId}`)
@@ -12,6 +13,23 @@ function ContractDetail() {
       .then(data => setContractData(data));
   }, [contractId]);
 
+  useEffect(() => {
+    fetchGameTitles();
+  }, [contractData]);
+
+  async function getGameTitle(gameId) {
+    const response = await fetch(`/api/game/${gameId}`);
+    const game = await response.json();
+    return game.title;
+  }
+  async function fetchGameTitles() {
+    const newGameTitles = {};
+    
+      const gameTitle = await getGameTitle(contractData.gameId);
+      newGameTitles[contractData.gameId] = gameTitle;
+  
+    setGameTitles(newGameTitles);
+  }
   
   if (!contractData) return <p>Loading...</p>;
 
@@ -24,7 +42,7 @@ function ContractDetail() {
                 </div>
                 <div className='detail-line'>
                     <label className='detail-label'>Game</label>
-                    <label className='detail-contract-label'>{contractData.gameId}</label>
+                    <label className='detail-contract-label'>{gameTitles[contractData.gameId]}</label>
                 </div>
                 <div className='detail-line'>
                     <label className='detail-label'>Tên người thuê</label>

@@ -27,6 +27,7 @@ const EditContract = ({ match }) => {
   const [gameId, setGameId] = useState('');
   const [matchingGames, setMatchingGames] = useState([]);
   const { contractId} = useParams();
+  const [gameTitles, setGameTitles] = useState({});
 
   useEffect(() => {
     // fetch contract data from database based on contract ID
@@ -39,6 +40,23 @@ const EditContract = ({ match }) => {
     fetchContractData();
   }, [contractId]);
 
+  useEffect(() => {
+    fetchGameTitles();
+  }, [contractData]);
+
+  async function getGameTitle(gameId) {
+    const response = await fetch(`/api/game/${gameId}`);
+    const game = await response.json();
+    return game.title;
+  }
+  async function fetchGameTitles() {
+    const newGameTitles = {};
+    
+      const gameTitle = await getGameTitle(contractData.gameId);
+      newGameTitles[contractData.gameId] = gameTitle;
+  
+    setGameTitles(newGameTitles);
+  }
   const handleGameTitleChange = async (event) => {
     const gameTitle = event.target.value;
     if (!gameTitle) {
@@ -168,7 +186,7 @@ const handleShipmentMethodChange = (event) => {
                     className='form-control'
                     type="text"
                     name="game"
-                    defaultValue={contractData.gameId}
+                    defaultValue={gameTitles[contractData.gameId]}
                     onChange={handleGameTitleChange}
                     />
                 
