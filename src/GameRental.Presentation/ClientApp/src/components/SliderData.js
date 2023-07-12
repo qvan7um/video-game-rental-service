@@ -6,18 +6,22 @@ export const SliderData = [
   },
   {
     image:
-      'https://cms2.gameflycdn.com/merchandising/live/Design/default/1920w/5038976.png'
+      'https://cms2.gameflycdn.com/merchandising/live/Design/default/1920w/5038976.png',
+      gameTitle: "Diablo IV"
   },
   {
     image:
-      'https://cms2.gameflycdn.com/merchandising/live/Design/default/1920w/5039729.jpg'
+      'https://cms2.gameflycdn.com/merchandising/live/Design/default/1920w/5039729.jpg',
+      gameTitle: "LEGO 2K Drive"
   },
   {
     image:
-      'https://cms2.gameflycdn.com/merchandising/live/Design/default/1920w/5038968.jpg'
+      'https://cms2.gameflycdn.com/merchandising/live/Design/default/1920w/5038968.jpg',
+      gameTitle: "Street Fighter 6"
   },
   {
     image:
-     'https://cms2.gameflycdn.com/merchandising/live/Design/default/1920w/5032788.jpg'
+     'https://cms2.gameflycdn.com/merchandising/live/Design/default/1920w/5032788.jpg',
+     gameTitle: "Forspoken"
   }    
 ];

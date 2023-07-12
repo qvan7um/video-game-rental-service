@@ -55,7 +55,7 @@ function Cards() {
   const handleRentGame = (gameId) => {
     navigate(`/rent/${gameId}`);
   }
-
+console.log(games);
 const featuredGames = games.filter(game => game.explore && game.explore.includes("Featured"));
 const currentDate = new Date();
 const oneMonthAgo = new Date(new Date().setMonth(currentDate.getMonth() - 1));
@@ -123,26 +123,6 @@ const comingSoonGames = games.filter(game => {
                           />
                           </div>
                         )}
-                        <CardItemBtn
-                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
-                          label="Demo"
-                          text="Thuê"
-                          />
-                          <CardItemBtn
-                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
-                          label="Demo"
-                          text="Thuê"
-                          />
-                          <CardItemBtn
-                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
-                          label="Demo"
-                          text="Thuê"
-                          />
-                          <CardItemBtn
-                          src="https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" 
-                          label="Demo"
-                          text="Thuê"
-                          />
                         </ul>
                     </div>
         </div>
@@ -150,11 +130,35 @@ const comingSoonGames = games.filter(game => {
     );
   }
 
+  // async function populateGameData() {
+  //   try {
+  //     const response = await fetch('/api/games');
+  //     const data = await response.json();
+  //     setGames(data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error('An error occurred while fetching data:', error);
+  //   }
+  // }
+
   async function populateGameData() {
     try {
-      const response = await fetch('/api/games');
-      const data = await response.json();
-      setGames(data);
+      let allGames = [];
+      let page = 1;
+      let hasMoreData = true;
+  
+      while (hasMoreData) {
+        const response = await fetch(`/api/games?page=${page}`);
+        const data = await response.json();
+        allGames = [...allGames, ...data];
+        if (data.length === 0) {
+          hasMoreData = false;
+        } else {
+          page++;
+        }
+      }
+  
+      setGames(allGames);
       setLoading(false);
     } catch (error) {
       console.error('An error occurred while fetching data:', error);

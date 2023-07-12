@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './GameInfo.css';
+import { useNavigate } from 'react-router-dom';
 
 function GameInfo() {
   const [gameData, setGameData] = useState(null);
   const { gameId } = useParams();
+  const navigate = useNavigate();
   
   const handleImgClick = (event) => {
     const thumbnailImg = document.querySelector('.thumbnail-img');
     thumbnailImg.src = event.target.src;
+  }
+  const handleRentGame = (gameId) => {
+    navigate(`/rent/${gameId}`);
   }
   useEffect(() => {
     // Fetch game data for the specific game using the gameId prop
@@ -53,7 +58,7 @@ function GameInfo() {
         <h5 className='p10 info game-releasedate-detail'>Ngày phát hành: {gameData.releaseDate}</h5>
         <h5 className='p10 info game-developer-detail'>Nhà phát triển: {gameData.developer}</h5>
         <h5 className='p10 info game-publisher-detail'>Nhà phát hành: {gameData.publisher}</h5>
-        <button className='info-rent-btn'>Thuê</button>
+        <button className='info-rent-btn' onClick={() => handleRentGame(gameId)}>Thuê</button>
       </div>
       <div className='more-detail'>
         <h3 className='description'>Mô tả</h3>

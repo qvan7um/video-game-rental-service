@@ -11,14 +11,14 @@ const HeroSection = () => {
             <Link to="/explore"><button className=" btn--primary btn--large btn-mobile">Bắt đầu thuê</button></Link>
         </div>
         <div className='link-btn'>
-            <Link to="/search?filters=platform:PlayStation5"><button className="link-btn-item">PlayStation 5</button></Link>
-            <Link to="/search?filters=platform:PlayStation4"><button className="link-btn-item">PlayStation 4</button></Link>
-            <Link to="/search?filters=platform:XboxSeriesX"><button className="link-btn-item">Xbox Series X</button></Link>
-            <Link to="/search?filters=platform:XboxOne"><button className="link-btn-item">Xbox One</button></Link>
-            <Link to="/search?filters=platform:NintendoSwitch"><button className="link-btn-item">Nintendo Switch</button></Link>
-            <Link to="/search?sorts=popularity"><button className="link-btn-item">Most Popular</button></Link>
-            <Link to="/search?filters=platform:PlayStation5"><button className="link-btn-item">New Release</button></Link>
-            <Link to="/search?searchTerm=Zelda"><button className="link-btn-item">Upcoming</button></Link>
+            <Link to="/search?platform=PlayStation 5"><button className="link-btn-item">PlayStation 5</button></Link>
+            <Link to="/search?platform=PlayStation 4"><button className="link-btn-item">PlayStation 4</button></Link>
+            <Link to="/search?platform=Xbox Series X"><button className="link-btn-item">Xbox Series X</button></Link>
+            <Link to="/search?platform=Xbox One"><button className="link-btn-item">Xbox One</button></Link>
+            <Link to="/search?platform=Nintendo Switch"><button className="link-btn-item">Nintendo Switch</button></Link>
+            <Link to="/search?sort=popularity"><button className="link-btn-item">Most Popular</button></Link>
+            <Link to="/search?sort=releaseDate"><button className="link-btn-item">New Release</button></Link>
+            <Link to="/search?sort=-ESRBRating"><button className="link-btn-item">ESRBRating</button></Link>
         </div>
         <div className='intro'>
             <h3>Dịch vụ cho thuê game | GameRental</h3>
