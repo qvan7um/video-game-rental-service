@@ -20,20 +20,27 @@ function Contracts() {
   const [buttonText, setButtonText] = useState("");
   const [gameTitles, setGameTitles] = useState({});
   const [gameBoxArt, setGameBoxArt] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    populateContractData(statusValue, soft);
-    fetchGameTitles();
-    fetchGameBoxArt()
-  }, []);
-
+    if (searchQuery) {
+      fetchSearchResults(searchQuery, soft);
+    } else {
+      populateContractData(statusValue, soft);
+      fetchGameTitles();
+      fetchGameBoxArt()
+    }
+  }, [searchQuery, currentPage]);
+  
   useEffect(() => {
     fetchGameTitles();
-  }, [contracts]);
+  }, [searchResults]);
 
   useEffect(() => {
     fetchGameBoxArt();
-  }, [contracts]);
+  }, [searchResults]);
 
   const handleEdit = (contractId) => {
     navigate(`/contracts/edit/${contractId}`);
@@ -64,9 +71,19 @@ function Contracts() {
       });
   }
 
+  async function fetchSearchResults(query, soft) {
+    try {
+      const response = await fetch(`/api/contracts/search?searchTerm=${query}&sorts=${soft}&page=${currentPage}&pageSize=10`);
+      const data = await response.json();
+      setSearchResults(data);
+    } catch (error) {
+      console.error('An error occurred while fetching search results:', error);
+    }
+  }
+
   function filterContractsByStatus(status, soft) {
     // Call API to get contracts filtered by status
-    fetch(`/api/contracts?filters=status@=${status}&sorts=${soft}`)
+    fetch(`/api/contracts?filters=status@=${status}&sorts=${soft}&page=${currentPage}&pageSize=10`)
       .then(response => response.json())
       .then(data => setContracts(data));
   }
@@ -92,7 +109,7 @@ function Contracts() {
   }
   async function fetchGameBoxArt() {
     const newGameBoxArt = {};
-    for (const contract of contracts) {
+    for (const contract of searchResults) {
       const gameBoxArt = await getGameBoxArt(contract.gameId);
       newGameBoxArt[contract.gameId] = gameBoxArt;
     }
@@ -106,17 +123,15 @@ function Contracts() {
           <table className="tb" aria-labelledby="tableLabel">
             <thead className='tb-head'>
               <tr>
-                <th></th>
+                <th>Người thuê</th>
                 <th>Game</th>
                 <th>Ngày bắt đầu</th>
                 <th>Ngày kết thúc</th>
-                <th>Người thuê</th>
-                <th>Số điện thoại</th>
                 <th>Tình trạng</th>
                 <th>Thành tiền</th>
               </tr>
             </thead>
-            {contracts.map(contract => {
+            {searchResults.map(contract => {
               const startDate = new Date(contract.startDate);
               const endDate = new Date(contract.endDate);
               const formattedStartDate = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -124,12 +139,10 @@ function Contracts() {
               return (
                 <tbody className={selectedContractId === contract.id ? 'selected-game tb-body' : 'tb-body'}>
                   <tr key={contract.id} onClick={() => setSelectedContractId(contract.id)}>
-                    <td><img className="img-games-page" src={gameBoxArt[contract.gameId]}></img></td>
-                    <td className='game-title'>{gameTitles[contract.gameId]}</td>
+                    <td>{contract.customerInfo.name}</td>
+                    <td className='game-title'><img className="img-games-page" src={gameBoxArt[contract.gameId]}></img></td>
                     <td>{formattedStartDate}</td>
                     <td>{formattedEndDate}</td>
-                    <td>{contract.customerInfo.name}</td>
-                    <td>{contract.customerInfo.phoneNumber}</td>
                     <td>{contract.status}</td>
                     <td>{contract.totalCost}</td>
                   </tr>
@@ -137,6 +150,11 @@ function Contracts() {
               );
             })}
           </table>
+        </div>
+        <div className='page-btn'>
+            <button className='next-page-btn' onClick={() => setCurrentPage(prevPage => prevPage > 1 ? prevPage - 1 : prevPage)}><i className='fa fa-angle-left'></i></button>
+            <button className='previous-page-btn' onClick={() => setCurrentPage(currentPage + 1)}><i className='fa fa-angle-right'></i></button>
+            <p className='page-number'>Page {currentPage}</p>
         </div>
         <div className='btn-area'>
           <Link to="/addcontract"><button className='button btn-add'>Thêm</button></Link>
@@ -224,9 +242,9 @@ function Contracts() {
 
   async function populateContractData(statusValue, soft) {
     try {
-      const response = await fetch(`/api/contracts?filters=status@=${statusValue}&sorts=${soft}`);
+      const response = await fetch(`/api/contracts?filters=status@=${statusValue}&sorts=${soft}&page=${currentPage}&pageSize=10`);
       const data = await response.json();
-      setContracts(data);
+      setSearchResults(data);
       setLoading(false);
     } catch (error) {
       console.error('An error occurred while fetching data:', error);
@@ -241,7 +259,7 @@ function Contracts() {
     <div className='manage-contracts-container'>
       <form className='search-bar'>
         <button type='submit'><i className='fa fa-search bg-contract'></i></button>
-        <input type='text' placeholder='Tìm kiếm' />
+        <input type='text' placeholder='Tìm kiếm' value={searchQuery} onChange={e => setSearchQuery(e.target.value)}/>
       </form>
       <DropdownCtr
         Type={'filter'}
